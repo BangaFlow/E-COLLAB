@@ -7,9 +7,9 @@ import mongoose from 'mongoose'
 
 import typeDefs from './typeDefs'
 import resolvers from './resolvers'
+import schemaDirectives from './directives'
 
 import { APP_PORT, IN_PROD, DB_NAME, DB_PORT, SESS_NAME, SESS_LIFETIME, SESS_SECRET, REDIS_HOST, REDIS_PASSWORD, REDIS_PORT } from './config'
-
 
 mongoose.connect(`mongodb://localhost:${DB_PORT}/${DB_NAME}`, {useNewUrlParser: true}, ()=>{
     console.log('Connected to mongoDB!')
@@ -40,10 +40,11 @@ app.use(session({
     store,
     name: SESS_NAME,
     secret: SESS_SECRET,
-    resave: false,
+    resave: true,
+    rolling: true,
     saveUninitialized: false,
     cookie: {
-        maxAge: SESS_LIFETIME,
+        maxAge: parseInt(SESS_LIFETIME),
         sameSite: true,
         secure: IN_PROD
     }
@@ -52,11 +53,12 @@ app.use(session({
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    schemaDirectives,
     playground: !IN_PROD,
     context: ({ req, res }) => ({ req, res })
 })
 
-server.applyMiddleware({ app })
+server.applyMiddleware({ app, cors: false })
 
 app.listen({ port: APP_PORT }, () => 
     console.log(`Server ready at http://localhost:${APP_PORT}${server.graphqlPath}`)
