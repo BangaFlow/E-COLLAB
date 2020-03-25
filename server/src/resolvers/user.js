@@ -52,4 +52,3 @@ export default {
             return signOut(req, res)
         }
     }
-}
