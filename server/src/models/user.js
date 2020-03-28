@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose , { Schema } from 'mongoose'
 import { hash, compare } from 'bcryptjs'
 import user from '../resolvers/user'
 
@@ -18,7 +18,11 @@ const userSchema = new mongoose.Schema({
         }
     },
     name: String,
-    password: String
+    password: String,
+    roles: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Role'
+    }]
 }, {
     timestamps: true
 })

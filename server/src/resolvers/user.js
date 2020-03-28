@@ -51,5 +51,10 @@ export default {
 
             return signOut(req, res)
         }
+    },
+    User: {
+        roles: async (user, arg, context, info) => {
+            return (await user.populate('roles').execPopulate()).roles
+        }
     }
 }
