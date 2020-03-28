@@ -2,7 +2,7 @@ import Joi from 'joi'
 import mongoose from 'mongoose'
 import { UserInputError } from 'apollo-server-express'
 import { signUp, signIn } from '../schemas'
-import { User } from '../models'
+import { User, Role } from '../models'
 import { attemptSignIn, signOut} from '../auth'
 
 export default {
@@ -43,7 +43,10 @@ export default {
 
             const user = await attemptSignIn(arg.email, arg.password)
 
+            const roles = await Role.findById(user.roles[0])
+
             req.session.userId = user.id
+            req.session.roles = roles
 
             return user
         },

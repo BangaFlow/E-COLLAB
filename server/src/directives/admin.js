@@ -1,4 +1,4 @@
-import { SchemaDirectiveVisitor } from 'apollo-server-express'
+import { SchemaDirectiveVisitor, AuthenticationError } from 'apollo-server-express'
 import { defaultFieldResolver } from 'graphql'
 
 class AdminDirective extends SchemaDirectiveVisitor {
@@ -7,10 +7,12 @@ class AdminDirective extends SchemaDirectiveVisitor {
 
         field.resolve = function(...args) {
             const [ , , context ] = args
+            const roles =  context.req.session.roles
 
-            // Logic
+            if (roles.name !== 'Admin') throw new AuthenticationError('Not admin!')
 
             return resolve.apply(this, args)
+            
         }
     }
 }
