@@ -18,5 +18,6 @@ export default gql`
         email: String!
         username: String!
         name: String!
+        roles: [Role!]!
         createdAt: String!
     }`

@@ -1,6 +1,6 @@
 import {UserInputError} from "apollo-server-errors";
 
-const _ = require('lodash');
+//const _ = require('lodash');
 
 const Profile = require("../models/profile");
 
