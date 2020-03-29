@@ -6,14 +6,34 @@ export default gql`
     }
 
     extend type Mutation {
-        createProfile(phone: String, skills: [String], bio: String, github_username: String): Profile @auth,
-        updateMyProfile(phone: String, skills: [String], bio: String, github_username: String, profile_id: String): Profile @auth
+        createProfile(
+            image: String, 
+            title: String, 
+            location: String,
+            phone: String, 
+            about: String, 
+            github_username: String
+        ): Profile @auth,
+        
+        updateMyProfile(
+            image: String, 
+            title: String, 
+            location: String,
+            phone: String, 
+            about: String, 
+            github_username: String,
+            profile_id: String
+        ): Profile @auth
     }
 
     type Profile {
         id: ID!
+        user : User!
+        image: String
+        title: String
+        location: String
         phone: String
-        skills: [String]
-        bio: String
-        github_username: String
+        about: String
+        skills: [Skill]
+        github_username: String   
     }`

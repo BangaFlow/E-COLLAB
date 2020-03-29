@@ -3,7 +3,16 @@ const mongoose = require("mongoose");
 const ProfileSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'User'
+    },
+    image: {
+        type: String
+    },
+    title : {
+        type: String
+    },
+    location: {
+        type: String
     },
     phone: {
         type: String,
@@ -14,11 +23,14 @@ const ProfileSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid phone number! it must be on the format 00216 22555444 `
         }
     },
-    skills: {
-        type: [String]
-    },
-    bio: {
+    about: {
         type: String
+    },
+    skills: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'skill'
+        }]
     },
     github_username: {
         type: String

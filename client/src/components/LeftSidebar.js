@@ -35,17 +35,13 @@ const UserProfile = () => {
                     <FeatherIcon.ChevronDown />
                 </DropdownToggle>
                 <DropdownMenu right className="topbar-dropdown-menu profile-dropdown-items">
-                    <Link to="/" className="dropdown-item notify-item">
+                    <Link to="/profile/me" className="dropdown-item notify-item">
                         <FeatherIcon.User className="icon-dual icon-xs mr-2" />
-                        <span>My Account</span>
+                        <span>My Profile</span>
                     </Link>
                     <Link to="/" className="dropdown-item notify-item">
                         <FeatherIcon.Settings className="icon-dual icon-xs mr-2" />
                         <span>Settings</span>
-                    </Link>
-                    <Link to="/" className="dropdown-item notify-item">
-                        <FeatherIcon.HelpCircle className="icon-dual icon-xs mr-2" />
-                        <span>Support</span>
                     </Link>
                     <Link to="/" className="dropdown-item notify-item">
                         <FeatherIcon.Lock className="icon-dual icon-xs mr-2" />

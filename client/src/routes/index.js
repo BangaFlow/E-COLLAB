@@ -14,6 +14,12 @@ const Confirm = React.lazy(() => import('../pages/auth/Confirm'));
 // dashboard
 const Dashboard = React.lazy(() => import('../pages/dashboard'));
 
+//profile
+const Profile = React.lazy(() => import('../components/Profile'));
+
+//skill
+const Skill = React.lazy(()=> import('../components/Skill/skill'));
+
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -57,7 +63,26 @@ const dashboardRoutes = {
     route: PrivateRoute
 };
 
+// Profile 
+const profileRoutes = {
+    path: '/profile',
+    name: 'Profile',
+    children: [
+        {
+            path: '/profile/me',
+            name: 'My Profile',
+            component: Profile,
+            route: Route,
+        },
+    ]};
 
+    const skillRoutes = {
+        path: '/skills',
+        name: 'Skills',
+        icon: FeatherIcon.Briefcase,
+        component: Skill,
+        route: PrivateRoute
+    };
 
 // auth
 const authRoutes = {
@@ -116,9 +141,11 @@ const flattenRoutes = routes => {
 const allRoutes = [
     rootRoute,
     dashboardRoutes,
-    authRoutes
+    authRoutes,
+    profileRoutes,
+    skillRoutes
 ];
 
-const authProtectedRoutes = [dashboardRoutes];
+const authProtectedRoutes = [dashboardRoutes, skillRoutes];
 const allFlattenRoutes = flattenRoutes(allRoutes);
 export { allRoutes, authProtectedRoutes, allFlattenRoutes };
