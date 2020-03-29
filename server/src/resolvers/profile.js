@@ -9,6 +9,9 @@ export default {
     Query: {
         getMyProfile: (root, arg, {req}, info) => {
             return Profile.findOne({user: req.session.userId});
+        },
+        getProfile: (root, {id}, {req}, info) => {
+            return Profile.findOne({user: id});
         }
     },
     Mutation: {

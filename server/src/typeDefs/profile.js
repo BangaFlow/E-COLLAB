@@ -2,7 +2,8 @@ import { gql } from 'apollo-server-express'
 
 export default gql`
     extend type Query{
-        getMyProfile: Profile @auth
+        getMyProfile: Profile,
+        getProfile(id: String): Profile
     }
 
     extend type Mutation {
@@ -13,7 +14,7 @@ export default gql`
             phone: String, 
             about: String, 
             github_username: String
-        ): Profile @auth,
+        ): Profile,
         
         updateMyProfile(
             image: String, 
@@ -23,7 +24,7 @@ export default gql`
             about: String, 
             github_username: String,
             profile_id: String
-        ): Profile @auth
+        ): Profile
     }
 
     type Profile {

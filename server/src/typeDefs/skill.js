@@ -14,11 +14,11 @@ export default gql
             label: String, 
             description : String,
             type : String
-        ) : Skill @auth
+        ) : Skill 
     }
 
     extend type Query {
-        getSkills: [Skill] @auth
+        getSkills: [Skill] 
     }
 
 `
