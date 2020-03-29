@@ -1,5 +1,5 @@
 export function configureFakeBackend() {
-    let users = [{ id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User', role: 'Admin' }];
+    let users = [{ id: "5e7b9b046ccaa01ffccb5ca0", username: 'test', password: 'test', name: 'User', role: 'Admin' }];
     let realFetch = window.fetch;
     window.fetch = function(url, opts) {
         return new Promise((resolve, reject) => {
@@ -21,8 +21,7 @@ export function configureFakeBackend() {
                         let responseJson = {
                             id: user.id,
                             username: user.username,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
+                            name: user.name,
                             role: 'Admin',
                             token:
                                 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDb2RlcnRoZW1lIiwiaWF0IjoxNTU1NjgyNTc1LCJleHAiOjE1ODcyMTg1NzUsImF1ZCI6ImNvZGVydGhlbWVzLmNvbSIsInN1YiI6InRlc3QiLCJmaXJzdG5hbWUiOiJIeXBlciIsImxhc3RuYW1lIjoiVGVzdCIsIkVtYWlsIjoidGVzdEBoeXBlci5jb2RlcnRoZW1lcy5jb20iLCJSb2xlIjoiQWRtaW4ifQ.8qHJDbs5nw4FBTr3F8Xc1NJYOMSJmGnRma7pji0YwB4',
@@ -46,8 +45,7 @@ export function configureFakeBackend() {
                         id: users.length + 1,
                         username: firstName,
                         password: params.password,
-                        firstName: firstName,
-                        lastName: lastName,
+                        name: params.name,
                         role: 'Admin',
                     };
                     users.push({ newUser });
@@ -55,8 +53,7 @@ export function configureFakeBackend() {
                     let responseJson = {
                         id: newUser.id,
                         username: newUser.username,
-                        firstName: newUser.firstName,
-                        lastName: newUser.lastName,
+                        name: newUser.name,
                         role: newUser.role,
                         token:
                             'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDb2RlcnRoZW1lIiwiaWF0IjoxNTU1NjgyNTc1LCJleHAiOjE1ODcyMTg1NzUsImF1ZCI6ImNvZGVydGhlbWVzLmNvbSIsInN1YiI6InRlc3QiLCJmaXJzdG5hbWUiOiJIeXBlciIsImxhc3RuYW1lIjoiVGVzdCIsIkVtYWlsIjoidGVzdEBoeXBlci5jb2RlcnRoZW1lcy5jb20iLCJSb2xlIjoiQWRtaW4ifQ.8qHJDbs5nw4FBTr3F8Xc1NJYOMSJmGnRma7pji0YwB4',

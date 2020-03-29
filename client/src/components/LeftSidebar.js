@@ -12,6 +12,8 @@ import * as FeatherIcon from 'react-feather';
 import AppMenu from './AppMenu';
 import profilePic from '../assets/images/users/avatar-7.jpg';
 
+import { getLoggedInUser } from '../helpers/authUtils';
+
 
 /**
  * User Widget
@@ -23,7 +25,7 @@ const UserProfile = () => {
             <img src={profilePic} className="avatar-xs rounded-circle mr-2" alt="Shreyu" />
 
             <div className="media-body">
-                <h6 className="pro-user-name mt-0 mb-0">test</h6>
+                <h6 className="pro-user-name mt-0 mb-0">{getLoggedInUser().name}</h6>
                 <span className="pro-user-desc">test</span>
             </div>
 
