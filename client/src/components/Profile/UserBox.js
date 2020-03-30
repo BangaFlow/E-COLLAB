@@ -52,14 +52,6 @@ const UserBox = () => {
                                 </table>
                             </div>
                         </div>
-                        <div className="mt-3 pt-2 border-top">
-                            <h4 className="mb-3 font-size-15">Skills</h4>
-                            <label className="badge badge-soft-primary mr-1">UI design</label>
-                            <label className="badge badge-soft-primary mr-1">UX</label>
-                            <label className="badge badge-soft-primary mr-1">Sketch</label>
-                            <label className="badge badge-soft-primary mr-1">Photoshop</label>
-                            <label className="badge badge-soft-primary mr-1">Frontend</label>
-                        </div>
                     </Col>
                 </Row>
             </CardBody>
