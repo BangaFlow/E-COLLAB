@@ -1,6 +1,8 @@
 import React, { Component, useState } from 'react';
 import { Row, Col, Card, CardBody, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import classNames from 'classnames';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
 import UserBox from './UserBox';
 import Activities from './Activities';
@@ -8,11 +10,39 @@ import Messages from './Messages';
 import Projects from './Projects';
 import Tasks from './Tasks';
 import Files from './Files';
+import { getLoggedInUser } from '../../helpers/authUtils';
+import PreLoaderWidget from '../Loader';
+
+const GET_PROFILE = gql`
+    query getProfile($id: String!) {
+        getProfile(id: $id) {
+            id
+            user {
+                id
+                name
+                email
+            }
+            image
+            title
+            phone
+            location
+            github_username
+            skills {
+                id
+            }
+        }
+    }
+`;
 
 const Profile = () => {
     const [state, setState] = useState({
         activeTab: '0',
     });
+    const { loading, error, data } = useQuery(GET_PROFILE, {
+        variables: { id: getLoggedInUser().id },
+    });
+    if (loading) return <PreLoaderWidget />;
+    if (error) return <p>Error :(</p>;
 
     toggleTab = toggleTab.bind(this);
 
@@ -32,7 +62,7 @@ const Profile = () => {
             <Row>
                 <Col lg={3}>
                     {/* User information */}
-                    <UserBox />
+                    <UserBox userInfo={data.getProfile} />
                 </Col>
 
                 <Col lg={9}>

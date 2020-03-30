@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, CardBody } from 'reactstrap';
 
-const SkillCard = ({ title, desc, type }) => {
+const SkillCard = ({ id, title, desc, type }) => {
     return (
-        <Card className="mb-4 mb-xl-0">
+        <Card xs={4}>
             <CardBody>
                 <h5 className="card-title font-size-16">{title}</h5>
                 <p className="card-text text-muted">{desc}</p>
@@ -13,10 +13,10 @@ const SkillCard = ({ title, desc, type }) => {
             </ul>
             <CardBody>
                 <a href="#" className="card-link text-custom">
-                    Card link
+                   Update
                 </a>
                 <a href="#" className="card-link text-custom">
-                    Another link
+                    Delete
                 </a>
             </CardBody>
         </Card>
