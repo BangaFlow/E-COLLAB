@@ -4,7 +4,7 @@ export default gql`
     extend type Query{
         me: User @auth
         user(id: ID!): User @auth
-        users: [User!]!
+        users: [User!]! @hasRole( roles: ["Super-Admin"])
     }
 
     extend type Mutation {

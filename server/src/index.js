@@ -11,13 +11,13 @@ import schemaDirectives from './directives'
 
 import { APP_PORT, IN_PROD, DB_NAME, DB_PORT, SESS_NAME, SESS_LIFETIME, SESS_SECRET, REDIS_HOST, REDIS_PASSWORD, REDIS_PORT, MONGO_DB } from './config'
 
-/*mongoose.connect(`mongodb://localhost:${DB_PORT}/${DB_NAME}`, {useNewUrlParser: true}, ()=>{
+mongoose.connect(`mongodb://localhost:${DB_PORT}/${DB_NAME}`, {useNewUrlParser: true}, ()=>{
     console.log('Connected to mongoDB!')
-}) */
+}) 
 
-mongoose.connect(MONGO_DB, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => {
-    console.log('Connected to mongoDB Atlas!')
- });
+// mongoose.connect(MONGO_DB, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => {
+//     console.log('Connected to mongoDB Atlas!')
+//  });
 
 mongoose.set('useFindAndModify', false);
 
