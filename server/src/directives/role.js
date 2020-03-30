@@ -7,6 +7,8 @@ import {
   defaultFieldResolver
 } from 'graphql'
 
+import { ensureSignedIn } from '../auth'
+
 class HasRoleDirective extends SchemaDirectiveVisitor {
 
   static getDirectiveDeclaration(directiveName, schema) {
@@ -26,6 +28,9 @@ class HasRoleDirective extends SchemaDirectiveVisitor {
     const roles = this.args.roles
     field.resolve = async function(...args) {
       const [, , context] = args
+      
+      ensureSignedIn(context.req)
+
       const userRoles = context.req.session.roles
 
       if (roles.some(role => role === userRoles.name)) {
