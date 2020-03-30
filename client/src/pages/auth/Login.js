@@ -10,6 +10,8 @@ import { loginUser } from '../../redux/actions';
 import { isUserAuthenticated } from '../../helpers/authUtils';
 import Loader from '../../components/Loader';
 
+import Shit from './Shit'
+
 class Login extends Component {
     _isMounted = false;
 
@@ -146,7 +148,7 @@ class Login extends Component {
                                 <p className="text-muted">Don't have an account? <Link to="/account/register" className="text-primary font-weight-bold ml-1">Sign Up</Link></p>
                             </Col>
                         </Row>
-
+                        <Shit />
                     </Container>
                 </div>}
             </React.Fragment>

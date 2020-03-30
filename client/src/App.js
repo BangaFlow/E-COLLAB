@@ -18,7 +18,7 @@ import './assets/scss/theme.scss';
 // import './assets/scss/theme-rtl.scss';
 
 // Apollo Client
-const Url = 'http://localhost:4000/graphql'
+const Url = 'http://localhost:5000/graphql'
 
 const client = new ApolloClient({
   uri: Url
