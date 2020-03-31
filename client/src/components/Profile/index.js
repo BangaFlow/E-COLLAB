@@ -14,7 +14,7 @@ import { getLoggedInUser } from '../../helpers/authUtils';
 import PreLoaderWidget from '../Loader';
 
 const GET_PROFILE = gql`
-    query getProfile($id: String!) {
+    query getProfile($id: ID!) {
         getProfile(id: $id) {
             id
             user {
