@@ -22,9 +22,7 @@ const userSchema = new mongoose.Schema({
     roles: [{
         type: Schema.Types.ObjectId,
         ref: 'Role'
-    }],
-    resetToken: String,
-    resetTokenExpiry: String
+    }]
 }, {
     timestamps: true
 })

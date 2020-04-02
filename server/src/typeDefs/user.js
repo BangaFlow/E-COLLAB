@@ -4,16 +4,13 @@ export default gql`
     extend type Query{
         me: User @auth
         user(id: ID!): User @auth
-        users: [User!]! #@hasRole( roles: ["Admin"])
+        users: [User!]! @hasRole( roles: ["Super-Admin"])
     }
 
     extend type Mutation {
         signUp(email: String!, username: String!, name: String!, password: String!): User @guest
         signIn(email: String!, password: String!): User @guest
         signOut: Boolean @auth
-        requestReset(email: String!): Boolean
-        updateMe(email: String, username: String, name: String, password: String): User
-        deleteUser(id: String!): User
     }
 
     type User {
@@ -22,7 +19,5 @@ export default gql`
         username: String!
         name: String!
         roles: [Role!]!
-        resetToken: String!
-        resetTokenExpiry: String!
         createdAt: String!
     }`
