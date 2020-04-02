@@ -97,7 +97,7 @@ export default {
                 service: 'gmail',
                 auth: {
                   user: 'khaled.saidi@esprit.tn',
-                  pass: 'omha12-*'
+                  pass: '*********'
                 }
               })
 
