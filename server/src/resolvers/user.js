@@ -44,7 +44,14 @@ export default {
 
             // await Joi.validate(arg, signUp, { abortEarly: false })
             
-            const user = await User.findByIdAndUpdate(req.session.userId, { $set: arg })
+            // const user = await User.findOneAndUpdate({_id: new mongoose.Types.ObjectId(req.session.userId)}, { $set: arg }, (err, doc) => {
+            //     if (err) {
+            //         console.log("Something wrong when updating data!");
+            //     }
+            //     console.log(doc);
+            // })
+            console.log(typeof req.session.userId)
+            const user = await User.find({_id: (req.session.userId).toString() })
 
             return user
         },
@@ -129,9 +136,9 @@ export default {
                                                 {new: true},
                                                 (err, doc) => {
                                                     if (err) {
-                                                        console.log("Something wrong when updating data!");
+                                                        console.log("Something wrong when updating data!")
                                                     }
-                                                    console.log(doc);
+                                                    console.log(doc)
                                                 })
             return result
       }
