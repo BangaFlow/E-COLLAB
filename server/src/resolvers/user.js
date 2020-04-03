@@ -78,14 +78,12 @@ export default {
             // Check that user exists.
             const user = await User.findOne({ email: email})
 
-            console.log(user)
-
             if (!user) throw new Error('No user found with that email.')
 
             // Create randomBytes that will be used as a token
             const randomBytesPromisified = promisify(randomBytes)
             const resetToken = (await randomBytesPromisified(8)).toString('hex')
-            const resetTokenExpiry = Date.now() + 3600000 // 1 hour from now
+            const resetTokenExpiry = Date.now() + 300000 // 5 minutes from now
 
             // console.log(randomBytesPromisified)
             // console.log(resetToken)
@@ -97,7 +95,7 @@ export default {
                 service: 'gmail',
                 auth: {
                   user: 'khaled.saidi@esprit.tn',
-                  pass: '*********'
+                  pass: 'Esprit12-*'
                 }
               })
 
@@ -109,8 +107,34 @@ export default {
               })
 
             return true
+        },
+        resetPassword: async (root, { email, password, confirmPassword, resetToken }, context, info) => {
+            
+            email = email.toLowerCase()
 
-        }
+            // check if passwords match
+            if (password !== confirmPassword) throw new Error(`Your passwords don't match`)
+
+
+            // find the user with that resetToken
+            // make sure it's not expired
+            const current = Date.now()
+            const user = await User.findOne({ resetToken, resetTokenExpiry: {$gte: current}})
+
+            // throw error if user doesn't exist
+            if (!user) throw new Error('Your password reset token is either invalid or expired.')
+
+            const result = await User.findOneAndUpdate({email},
+                                                { password, resetToken: null, resetTokenExpiry: null },
+                                                {new: true},
+                                                (err, doc) => {
+                                                    if (err) {
+                                                        console.log("Something wrong when updating data!");
+                                                    }
+                                                    console.log(doc);
+                                                })
+            return result
+      }
     },
     User: {
         roles: async (user, arg, context, info) => {
