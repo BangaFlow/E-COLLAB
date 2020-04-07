@@ -27,7 +27,27 @@ const ProjectSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "subject"
     }
-  ]
+  ],
+  auto_generate_teams: {
+    type: Boolean,
+    default: false
+  },
+  competence_generate_teams: {
+    type: Boolean,
+    default: false
+  },
+  learners_choose_teams: {
+    type: Boolean,
+    default: false
+  },
+  choose_date_limit: {
+    start_choose_date: {
+      type: Date
+    },
+    end_choose_date: {
+      type: Date
+    }
+  }
 });
 
 module.exports = Project = mongoose.model("project", ProjectSchema);

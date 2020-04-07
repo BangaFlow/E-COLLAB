@@ -148,7 +148,6 @@ class Login extends Component {
                                 <p className="text-muted">Don't have an account? <Link to="/account/register" className="text-primary font-weight-bold ml-1">Sign Up</Link></p>
                             </Col>
                         </Row>
-                        <Shit />
                     </Container>
                 </div>}
             </React.Fragment>
