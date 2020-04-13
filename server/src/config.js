@@ -1,6 +1,6 @@
 export const {
     MONGO_DB = 'mongodb+srv://ecollab123:ecollab123@e-collab-cluster-tinqo.gcp.mongodb.net/ecollab?retryWrites=true&w=majority',
-    APP_PORT = 5000,
+    APP_PORT = 4000,
     NODE_ENV = 'development',
     DB_NAME = 'test',
     DB_PORT = 27017,

@@ -1,12 +1,13 @@
-// @flow
-
 import { combineReducers } from 'redux';
-import Layout from './layout/reducers';
-import Auth from './auth/reducers';
-import AppMenu from './appMenu/reducers';
+import { authentication }  from './reducers/user.reducers'
+import settings from './settings/reducer';
+import menu from './menu/reducer';
 
-export default combineReducers({
-    Auth,
-    AppMenu,
-    Layout,
+
+const reducers = combineReducers({
+  authentication,
+  menu,
+  settings
 });
+
+export default reducers;

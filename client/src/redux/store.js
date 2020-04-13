@@ -1,16 +1,11 @@
-// @flow
-import { createStore, applyMiddleware, compose } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import reducers from './reducers';
-import sagas from './sagas';
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import rootReducer from './reducers'
 
-const sagaMiddleware = createSagaMiddleware();
-const middlewares = [sagaMiddleware];
-
-export function configureStore(initialState: {}) {
-    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-    const store = createStore(reducers, initialState, composeEnhancers(applyMiddleware(...middlewares)));
-    sagaMiddleware.run(sagas);
-    return store;
+export default function configureStore() {
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    return createStore(
+        rootReducer,  
+        composeEnhancers(applyMiddleware(thunkMiddleware))
+    )
 }

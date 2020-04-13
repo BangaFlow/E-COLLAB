@@ -1,44 +1,98 @@
-import React, { Component } from 'react';
-import Routes from './routes/Routes';
-import { ApolloProvider } from '@apollo/react-hooks'
-import ApolloClient from 'apollo-boost'
+import React, { Component, Suspense } from 'react';
+import { connect } from 'react-redux';
+import {
+  Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
+import { IntlProvider } from 'react-intl';
+import AppLocale from './lang';
+import ColorSwitcher from './components/common/ColorSwitcher';
+import NotificationContainer from './components/common/react-notifications/NotificationContainer';
+import { isMultiColorActive } from './constants/defaultValues';
+import { getDirection } from './helpers/Utils';
+import { history } from './helpers/history'
 
-// setup fake backend
-import { configureFakeBackend } from './helpers';
+const ViewMain = React.lazy(() =>
+  import(/* webpackChunkName: "views" */ './views')
+);
+const ViewAuth = React.lazy(() =>
+  import(/* webpackChunkName: "views" */ './components/authentication/SignIn')
+);
+const ViewApp = React.lazy(() =>
+  import(/* webpackChunkName: "views-app" */ './views/app')
+);
+const ViewError = React.lazy(() =>
+  import(/* webpackChunkName: "views-error" */ './views/error')
+);
 
-// Themes
-
-// default
-import './assets/scss/theme.scss';
-
-// dark
-// import './assets/scss/theme-dark.scss';
-
-// rtl
-// import './assets/scss/theme-rtl.scss';
-
-// Apollo Client
-const Url = 'http://localhost:5000/graphql'
-
-const client = new ApolloClient({
-  uri: Url
-})
-
-// configure fake backend
-configureFakeBackend();
-
-
-
-/**
- * Main app component
- */
 class App extends Component {
+  constructor(props) {
+    super(props);
+    const direction = getDirection();
+    if (direction.isRtl) {
+      document.body.classList.add('rtl');
+      document.body.classList.remove('ltr');
+    } else {
+      document.body.classList.add('ltr');
+      document.body.classList.remove('rtl');
+    }
+  }
+
   render() {
-    return <ApolloProvider client={client}>
-              <Routes></Routes>
-           </ApolloProvider>
-    
+    const { locale } = this.props;
+    const currentAppLocale = AppLocale[locale];
+
+    return (
+      <div className="h-100">
+        <IntlProvider
+          locale={currentAppLocale.locale}
+          messages={currentAppLocale.messages}
+        >
+          <React.Fragment>
+            <NotificationContainer />
+            {isMultiColorActive && <ColorSwitcher />}
+            <Suspense fallback={<div className="loading" />}>
+              <Router history={history}>
+                <Switch>
+                  <Route
+                    path="/app"
+                    render={props => <ViewApp {...props} />}
+                  />
+                  <Route
+                    path="/error"
+                    exact
+                    render={props => <ViewError {...props} />}
+                  />
+                  <Route
+                    path="/auth"
+                    exact
+                    render={props => <ViewAuth {...props} />}
+                  />
+                  <Route
+                    path="/"
+                    exact
+                    render={props => <ViewMain {...props} />}
+                  />
+                  <Redirect to="/error" />
+                </Switch>
+              </Router>
+            </Suspense>
+          </React.Fragment>
+        </IntlProvider>
+      </div>
+    );
   }
 }
 
-export default App;
+const mapStateToProps = ({ settings }) => {
+  const { locale } = settings;
+  return { locale };
+};
+const mapActionsToProps = {};
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(App);

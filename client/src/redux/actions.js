@@ -1,3 +1,16 @@
-export * from './auth/actions';
-export * from './layout/actions';
-export * from './appMenu/actions';
+/* SETTINGS */
+export const CHANGE_LOCALE = "CHANGE_LOCALE";
+
+
+/* MENU */
+export const MENU_SET_CLASSNAMES = "MENU_SET_CLASSNAMES";
+export const MENU_CONTAINER_ADD_CLASSNAME = "MENU_CONTAINER_ADD_CLASSNAME";
+export const MENU_CLICK_MOBILE_MENU = "MENU_CLICK_MOBILE_MENU";
+export const MENU_CHANGE_DEFAULT_CLASSES = "MENU_CHANGE_DEFAULT_CLASSES";
+export const MENU_CHANGE_HAS_SUB_ITEM_STATUS =
+  "MENU_CHANGE_HAS_SUB_ITEM_STATUS";
+
+
+
+export * from "./menu/actions";
+export * from "./settings/actions";
