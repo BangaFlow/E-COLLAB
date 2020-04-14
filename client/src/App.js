@@ -11,6 +11,7 @@ import AppLocale from './lang';
 import ColorSwitcher from './components/common/ColorSwitcher';
 import NotificationContainer from './components/common/react-notifications/NotificationContainer';
 import { isMultiColorActive } from './constants/defaultValues';
+import { PrivateRoute } from './helpers/PrivateRoute'
 import { getDirection } from './helpers/Utils';
 import { history } from './helpers/history'
 
@@ -56,9 +57,9 @@ class App extends Component {
             <Suspense fallback={<div className="loading" />}>
               <Router history={history}>
                 <Switch>
-                  <Route
+                  <PrivateRoute
                     path="/app"
-                    render={props => <ViewApp {...props} />}
+                    component={ViewApp}
                   />
                   <Route
                     path="/error"
