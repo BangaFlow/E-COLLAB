@@ -5,6 +5,7 @@ const LOG_IN = gql`
   mutation signIn($email: String!, $password: String!) {
     signIn(email: $email, password: $password) {
       id
+<<<<<<< HEAD
       name
       username
       email
@@ -13,6 +14,9 @@ const LOG_IN = gql`
         name
         permissions
       }
+=======
+      username
+>>>>>>> 66adb6320efd054ca3537e34a7179b435e9ea035
     }
   }
 `

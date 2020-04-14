@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react'
 import { userActions, alertActions } from '../../redux/actions/index'
 import '../../assets/scss/style.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { history } from '../../helpers/history'
+=======
+import React, { useState } from 'react'
+import { userActions } from '../../redux/actions/index'
+import '../../assets/scss/style.scss'
+import { useSelector, useDispatch } from 'react-redux'
+>>>>>>> 66adb6320efd054ca3537e34a7179b435e9ea035
 
 const SignIn = function () {
 
@@ -17,6 +24,7 @@ const SignIn = function () {
 
     // Redux - getting the authentication.logginging variable
     const loggingIn = useSelector(state => state.authentication.loggingIn)
+<<<<<<< HEAD
     const alert = useSelector(state => state.alert)
     // Setting up Redux dispatch hook 
     const dispatch = useDispatch()
@@ -30,6 +38,13 @@ const SignIn = function () {
     //Handle change in inputs
     function handleChange(e) {
         
+=======
+    // Setting up Redux dispatch hook 
+    const dispatch = useDispatch()
+
+    //Handle change in inputs
+    function handleChange(e) {
+>>>>>>> 66adb6320efd054ca3537e34a7179b435e9ea035
         const { name, value } = e.target
         setInputs(inputs => ({ ...inputs, [name]: value }))
     }
@@ -54,11 +69,14 @@ const SignIn = function () {
                     <span className="r s"/>
                     <span className="r"/>
                 </div>
+<<<<<<< HEAD
                 <div className="col-md-8 offset-md-2">
                     {alert.message &&
                         <div className={`alert ${alert.type}`}>{alert.message}</div>
                     }
                 </div>
+=======
+>>>>>>> 66adb6320efd054ca3537e34a7179b435e9ea035
                 <div className="card">
                     <form name="form" onSubmit={handleSubmit}>
                     <div className="card-body text-center">
