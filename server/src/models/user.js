@@ -19,10 +19,13 @@ const userSchema = new mongoose.Schema({
     },
     name: String,
     password: String,
-    roles: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Role'
-    }],
+    roles: {
+        type: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Role'
+        }],
+        default: ['5e95ed2eb628cc55f0c07784']
+    },
     resetToken: String,
     resetTokenExpiry: Date
 }, {
