@@ -60,7 +60,7 @@ const SignIn = function () {
                     }
                 </div>
                 <div className="card">
-                    <form name="form" onSubmit={handleSubmit}>
+                    <form name="form" onSubmit={handleSubmit} autoComplete="on">
                     <div className="card-body text-center">
                         <div className="mb-4">
                             <i className="feather icon-unlock auth-icon"/>
@@ -72,11 +72,11 @@ const SignIn = function () {
                             name="email" 
                             value={email} 
                             onChange={handleChange} 
-                            className={'form-control' + (submitted && !password ? ' is-invalid' : '')} 
+                            className={'form-control' + (submitted && !email ? ' is-invalid' : '')} 
                             placeholder="email" 
                             />
                             {submitted && !email &&
-                                <div className="invalid-feedback">Email is required</div>
+                                <div style={{top: "+4.5em", right: "-10em", color: '#9b45d1'}} className="invalid-feedback">Email is required</div>
                             }
                         </div>
                         <div className="input-group mb-4">
@@ -89,7 +89,7 @@ const SignIn = function () {
                             placeholder="password" 
                             />
                             {submitted && !password &&
-                                <div className="invalid-feedback">Password is required</div>
+                                <div style={{top: "+4.5em", right: "-10em", color: '#9b45d1'}} className="invalid-feedback">Password is required</div>
                             }
                         </div>
                         <div className="form-group text-left">
