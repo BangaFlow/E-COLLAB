@@ -1,9 +1,9 @@
 import AuthDirective from './auth'
 import GuestDirective from './guest'
-import AdminDirective from './admin'
+import HasRoleDirective from './role'
 
 export default {
     auth: AuthDirective,
     guest: GuestDirective,
-    admin: AdminDirective
+    hasRole: HasRoleDirective
 }

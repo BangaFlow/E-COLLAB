@@ -1,5 +1,8 @@
 import Joi from 'joi'
 import mongoose from 'mongoose'
+import randomBytes from 'randombytes'
+import nodemailer from 'nodemailer'
+import { promisify } from 'util'
 import { UserInputError } from 'apollo-server-express'
 import { signUp, signIn } from '../schemas'
 import { User, Role } from '../models'
@@ -37,6 +40,27 @@ export default {
 
             return user
         },
+        updateMe: async (root, arg, { req }, info) => {
+
+            // await Joi.validate(arg, signUp, { abortEarly: false })
+            
+            // const user = await User.findOneAndUpdate({_id: new mongoose.Types.ObjectId(req.session.userId)}, { $set: arg }, (err, doc) => {
+            //     if (err) {
+            //         console.log("Something wrong when updating data!");
+            //     }
+            //     console.log(doc);
+            // })
+            console.log(typeof req.session.userId)
+            const user = await User.find({_id: (req.session.userId).toString() })
+
+            return user
+        },
+        deleteUser: async (root, arg, { req }, info) => {
+            
+            const user = await User.findByIdAndDelete(arg.id)
+
+            return user
+        },
         signIn: async (root, arg, { req }, info) => {
 
             await Joi.validate(arg, signIn, { abortEarly: false })
@@ -53,7 +77,71 @@ export default {
         signOut: (root, arg, { req, res }, info) => {
 
             return signOut(req, res)
-        }
+        },
+        requestReset: async (root, { email }, { req }, info) => {
+            
+            email = email.toLowerCase()
+
+            // Check that user exists.
+            const user = await User.findOne({ email: email})
+
+            if (!user) throw new Error('No user found with that email.')
+
+            // Create randomBytes that will be used as a token
+            const randomBytesPromisified = promisify(randomBytes)
+            const resetToken = (await randomBytesPromisified(8)).toString('hex')
+            const resetTokenExpiry = Date.now() + 300000 // 5 minutes from now
+
+            // console.log(randomBytesPromisified)
+            // console.log(resetToken)
+            // console.log(new Date(resetTokenExpiry).toString())
+
+            const result = await User.updateOne({email}, { resetToken, resetTokenExpiry })
+
+            const transport = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  user: 'khaled.saidi@esprit.tn',
+                  pass: 'Esprit12-*'
+                }
+              })
+
+            const resMail = await transport.sendMail({
+                from: 'khaled.saidi@esprit.tn',
+                to: user.email,
+                subject: 'Your Password Reset Token',
+                html: `<h1>Welcome</h1> <p>Here is your token: ${resetToken}</p>`
+              })
+
+            return true
+        },
+        resetPassword: async (root, { email, password, confirmPassword, resetToken }, context, info) => {
+            
+            email = email.toLowerCase()
+
+            // check if passwords match
+            if (password !== confirmPassword) throw new Error(`Your passwords don't match`)
+
+
+            // find the user with that resetToken
+            // make sure it's not expired
+            const current = Date.now()
+            const user = await User.findOne({ resetToken, resetTokenExpiry: {$gte: current}})
+
+            // throw error if user doesn't exist
+            if (!user) throw new Error('Your password reset token is either invalid or expired.')
+
+            const result = await User.findOneAndUpdate({email},
+                                                { password, resetToken: null, resetTokenExpiry: null },
+                                                {new: true},
+                                                (err, doc) => {
+                                                    if (err) {
+                                                        console.log("Something wrong when updating data!")
+                                                    }
+                                                    console.log(doc)
+                                                })
+            return result
+      }
     },
     User: {
         roles: async (user, arg, context, info) => {

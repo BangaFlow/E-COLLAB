@@ -22,7 +22,9 @@ const userSchema = new mongoose.Schema({
     roles: [{
         type: Schema.Types.ObjectId,
         ref: 'Role'
-    }]
+    }],
+    resetToken: String,
+    resetTokenExpiry: Date
 }, {
     timestamps: true
 })
@@ -31,6 +33,18 @@ userSchema.pre('save', async function(next) {
     if (this.isModified('password')) {
         try {
             this.password = await hash(this.password, 12)
+        } catch (error) {
+            next(error)
+        }
+    }
+    next()
+})
+
+userSchema.pre('findOneAndUpdate', async function(next) {
+    
+    if (this._update.password) { 
+        try {
+            this._update.password =  await hash(this._update.password, 12) 
         } catch (error) {
             next(error)
         }
