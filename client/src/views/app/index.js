@@ -14,6 +14,10 @@ const BlankPage = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
 );
 
+const Skills = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-gogo" */ './skills')
+);
+
 class App extends Component {
   render() {
     const { match } = this.props;
@@ -24,6 +28,10 @@ class App extends Component {
           <Suspense fallback={<div className="loading" />}>
             <Switch>
               <Redirect exact from={`${match.url}/`} to={`${match.url}/gogo`} />
+              <Route
+                path={`${match.url}/skills`}
+                render={props => <Skills {...props} />}
+              />
               <Route
                 path={`${match.url}/gogo`}
                 render={props => <Gogo {...props} />}

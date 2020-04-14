@@ -1,5 +1,11 @@
 const data = [
   {
+    id: "skills_page",
+    icon: "iconsminds-three-arrow-fork",
+    label: "menu.skills",
+    to: "/app/skills"
+  },
+  {
     id: "gogo",
     icon: "iconsminds-air-balloon-1",
     label: "menu.gogo",
