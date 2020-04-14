@@ -76,7 +76,7 @@ const SignIn = function () {
                             placeholder="email" 
                             />
                             {submitted && !email &&
-                                <div style={{top: "+4.5em", right: "-10em", color: '#9b45d1'}} className="invalid-feedback">Email is required</div>
+                                <div style={{top: "+4.5em", right: "-10em", color: '#9b45d1', border: '1px solid #9b45d1'}} className="invalid-feedback">Email is required</div>
                             }
                         </div>
                         <div className="input-group mb-4">
@@ -89,7 +89,7 @@ const SignIn = function () {
                             placeholder="password" 
                             />
                             {submitted && !password &&
-                                <div style={{top: "+4.5em", right: "-10em", color: '#9b45d1'}} className="invalid-feedback">Password is required</div>
+                                <div style={{top: "+4.5em", right: "-10em", color: '#9b45d1', border: '1px solid #9b45d1'}} className="invalid-feedback">Password is required</div>
                             }
                         </div>
                         <div className="form-group text-left">
