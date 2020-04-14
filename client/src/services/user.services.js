@@ -17,10 +17,21 @@ const LOG_IN = gql`
   }
 `
 
+const LOG_OUT = gql`
+mutation { 
+	signOut
+}
+`
+
 async function signIn(email, password) {
     const variables = { email, password }
     var data = await client.mutate({ mutation: LOG_IN, variables })
     return data
   }
 
-export { signIn }
+async function signOut() {
+  var data = await client.mutate({ mutation: LOG_OUT })
+  return data
+}
+
+export { signIn, signOut }

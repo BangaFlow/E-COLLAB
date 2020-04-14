@@ -1,11 +1,12 @@
 import { userConstants } from '../constants'
-import { signIn }  from '../../services/user.services'
+import { signIn, signOut }  from '../../services/user.services'
 import { alertActions } from './alert.actions'
 import { history } from '../../helpers/history'
 
 
 export const userActions = {
-    login
+    login,
+    logout
 }
 
 function login(email, password) {
@@ -32,4 +33,11 @@ function login(email, password) {
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+}
+//TODO: handle signout graphql error 'You must be signed in!'
+function logout() {
+    signOut()
+    localStorage.removeItem('user')
+    history.push('/')
+    return { type: userConstants.LOGOUT }
 }

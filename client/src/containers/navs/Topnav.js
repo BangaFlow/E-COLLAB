@@ -17,7 +17,7 @@ import {
   clickOnMobileMenu,
   changeLocale
 } from "../../redux/actions";
-
+import { userActions } from '../../redux/actions/index'
 import {
   menuHiddenBreakpoint,
   searchPath,
@@ -174,7 +174,7 @@ class TopNav extends Component {
   };
 
   handleLogout = () => {
-    //logout
+    userActions.logout()
   };
 
   menuButtonClick = (e, menuClickCount, containerClassnames) => {
