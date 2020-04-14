@@ -16,7 +16,21 @@ const LOG_IN = gql`
     }
   }
 `
-
+const SIGN_UP = gql`
+  mutation signUp($name: String!, $username: String!, $email: String!, $password: String!) {
+    signUp(name: $name, username: $username, email: $email, password: $password) {
+      id
+      name
+      username
+      email
+      createdAt
+      roles{
+        name
+        permissions
+      }
+    }
+  }
+`
 const LOG_OUT = gql`
 mutation { 
 	signOut
@@ -34,4 +48,9 @@ async function signOut() {
   return data
 }
 
-export { signIn, signOut }
+async function signUp(user) {
+  var data = await client.mutate({mutation: SIGN_UP, variables: user})
+  return data
+}
+
+export { signUp, signIn, signOut }

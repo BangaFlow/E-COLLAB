@@ -14,6 +14,7 @@ import { isMultiColorActive } from './constants/defaultValues';
 import { PrivateRoute } from './helpers/PrivateRoute'
 import { getDirection } from './helpers/Utils';
 import { history } from './helpers/history'
+import SingUp from './components/authentication/SingUp';
 
 const ViewMain = React.lazy(() =>
   import(/* webpackChunkName: "views" */ './views')
@@ -60,6 +61,10 @@ class App extends Component {
                   <PrivateRoute
                     path="/app"
                     component={ViewApp}
+                  />
+                  <Route
+                  path="/signup"
+                  component={SingUp}
                   />
                   <Route
                     path="/error"
