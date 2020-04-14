@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import { userActions, alertActions } from '../../redux/actions/index'
 import '../../assets/scss/style.scss'
 import { useSelector, useDispatch } from 'react-redux'
@@ -103,8 +104,8 @@ const SignIn = function () {
                                 {loggingIn ? <span className="spinner-border spinner-border-sm mr-1">Loading ... </span> : 'Sign In'}
                             </button>
                         </div>
-                        <p className="mb-2 text-muted">Forgot password?</p>
-                        <p className="mb-0 text-muted">Don’t have an account?</p>
+                        <p className="mb-2 text-muted"><NavLink to="/auth">Forgot password?</NavLink></p>
+                        <p className="mb-0 text-muted"><NavLink to="/signup">Don’t have an account?</NavLink></p>
                     </div>
                     </form>
                 </div>
