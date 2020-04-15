@@ -17,36 +17,42 @@ export default {
       const teams = await Team.find();
       let user_teams = [];
       let index = 0;
-      teams.forEach(team => {
+      teams.forEach((team) => {
         if (team.members.indexOf(id) > -1) {
           user_teams[index] = team;
           index++;
         }
       });
       return user_teams;
-    }
+    },
     // getTeamsBySubjectId: async (root, { id }, context, info) => {},
     // getTeamsByTutorId: async (root, { id }, context, info) => {},
     // getTeamProject: async (root, args, context, info) => {}
   },
   Mutation: {
-    createTeam: async (_, { name, members }, context, info) => {
+    createTeam: async (_, { name, members, project_id }, context, info) => {
       let team = new Team({
         name,
-        members
+        members,
+        project: project_id,
       });
       team = await team.save();
       return team;
     },
     changeName: async (_, { id, name }, context, info) => {
-      return await Team.findOneAndUpdate(
-        { _id: id },
-        { $set: { name } },
+      let team = await Team.findById(id);
+      team.name = name;
+      team = await Team.findByIdAndUpdate(
+        id,
+        team,
         { new: true },
-        err => {
-          throw new Error(`Something went wrong ! ${err}`);
+        (err, doc) => {
+          if (err) {
+            throw new Error("Something wrong while assignTutor!");
+          }
         }
       );
+      return team;
     },
     moveLearner: async (
       root,
@@ -134,7 +140,7 @@ export default {
         number_of_members,
         subjects,
         tutors_involved,
-        number_of_tutors_per_team
+        number_of_tutors_per_team,
       } = await Project.findById(project_id);
 
       //generate teams
@@ -143,10 +149,7 @@ export default {
           ? number_of_members
           : Math.round(learners_involved.length / number_of_teams);
 
-      let teams = _.chain(learners_involved)
-        .shuffle()
-        .chunk(number)
-        .value();
+      let teams = _.chain(learners_involved).shuffle().chunk(number).value();
 
       let smallest_array = teams.reduce((prev, next) =>
         prev.length > next.length ? next : prev
@@ -186,13 +189,12 @@ export default {
       for (let index = 0; index < teams.length; index++) {
         let newTeam = new Team();
         newTeam.name = `Team ${index + 1}`;
+        newTeam.project = project_id;
         newTeam.members = teams[index];
         team_list[index] = newTeam;
 
         //random subjects
-        let subjects_ = _.chain(subjects)
-          .shuffle()
-          .value();
+        let subjects_ = _.chain(subjects).shuffle().value();
 
         let index_sub = 0;
         for (let index = 0; index < team_list.length; index++) {
@@ -285,7 +287,7 @@ export default {
       } else {
         throw new Error(`the old tutor not found!`);
       }
-    }
+    },
   },
 
   Team: {
@@ -297,6 +299,9 @@ export default {
     },
     subject: async (team, arg, context, info) => {
       return (await team.populate("subject").execPopulate()).subject;
-    }
-  }
+    },
+    project: async (team, arg, context, info) => {
+      return (await team.populate("project").execPopulate()).project;
+    },
+  },
 };

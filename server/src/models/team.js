@@ -19,6 +19,10 @@ const TeamSchema = new mongoose.Schema({
   subject: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "subject"
+  },
+  project: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "project"
   }
 });
 

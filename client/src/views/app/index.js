@@ -18,6 +18,10 @@ const Skills = React.lazy(() =>
   import(/* webpackChunkName: "viwes-gogo" */ './skills')
 );
 
+const Teams = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-gogo" */ './teams')
+);
+
 class App extends Component {
   render() {
     const { match } = this.props;
@@ -31,6 +35,10 @@ class App extends Component {
               <Route
                 path={`${match.url}/skills`}
                 render={props => <Skills {...props} />}
+              />
+              <Route
+                path={`${match.url}/teams`}
+                render={props => <Teams {...props} />}
               />
               <Route
                 path={`${match.url}/gogo`}

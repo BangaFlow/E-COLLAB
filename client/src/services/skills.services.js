@@ -55,7 +55,7 @@ const DELETE_SKILL = gql`
   }
 `;
 
-async function getSkills(email, password) {
+async function getSkills() {
   var data = await client.query({ query: GET_SKILLS });
   return data.data.getSkills;
 }

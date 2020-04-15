@@ -6,6 +6,19 @@ const data = [
     to: "/app/skills"
   },
   {
+    id: "teams_page",
+    icon: "iconsminds-library",
+    label: "menu.teams",
+    to: "/app/teams",
+    subs: [
+      {
+        icon: "simple-icon-paper-plane",
+        label: "menu.teams.all",
+        to: "/app/teams/all"
+      }
+    ]
+  },
+  {
     id: "gogo",
     icon: "iconsminds-air-balloon-1",
     label: "menu.gogo",
