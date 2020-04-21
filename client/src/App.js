@@ -84,7 +84,7 @@ class App extends Component {
                   <Route
                     path="/auth"
                     exact
-                    render={props => <ViewAuth {...props} />}
+                    render={localStorage.getItem('user') ? props => <ViewMain {...props} /> : props => <ViewAuth {...props} />}
                   />
                   <Route
                     path="/"

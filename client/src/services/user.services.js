@@ -31,6 +31,22 @@ const SIGN_UP = gql`
     }
   }
 `
+const GOOGLE_IN = gql`
+  mutation google($code: String!) {
+    google(code: $code) {
+      id
+      name
+      username
+      email
+      createdAt
+      roles{
+        name
+        permissions
+      }
+    }
+  }
+`
+
 const LOG_OUT = gql`
 mutation { 
 	signOut
@@ -82,5 +98,9 @@ async function changePassword(args) {
   var data = await client.mutate({mutation: CHANGE_PASSWORD, variables: args})
   return data
 }
+async function googleAuth(code) {
+  var data = await client.mutate({mutation: GOOGLE_IN, variables: {code}})
+  return data
+}
 
-export { signUp, signIn, signOut, resetPassword, changePassword }
+export { signUp, signIn, signOut, resetPassword, changePassword, googleAuth }

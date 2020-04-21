@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import GoogleLogin from 'react-google-login'
 import { userActions, alertActions } from '../../redux/actions/index'
 import '../../assets/scss/style.scss'
-import { useSelector, useDispatch } from 'react-redux'
 import { history } from '../../helpers/history'
+import { googleAuth } from '../../services/user.services'
 
 const SignIn = function () {
 
@@ -43,6 +45,29 @@ const SignIn = function () {
             dispatch(userActions.login(email, password))
         }
     }
+
+    const responseGoogle = (authResult) => {
+        try {
+          if (authResult['code']) {
+            console.log(authResult)
+            googleAuth(authResult['code'])
+            .then(data => {
+                const user = data.data.google
+                user ? console.log("logged in successfully!") : console.log("Error!")
+                localStorage.setItem('user', JSON.stringify(user))
+                history.push('/')
+            })
+            .catch( err => {
+                console.log(err.graphQLErrors[0].message)
+            })
+          } else {
+            throw new Error(authResult)
+          }
+        } catch (e) {
+          console.log(e)
+          window.alert(e.message)
+        }
+      }
 
     
 
@@ -104,6 +129,23 @@ const SignIn = function () {
                                 {loggingIn ? <span className="spinner-border spinner-border-sm mr-1">Loading ... </span> : 'Sign In'}
                             </button>
                         </div>
+                        <GoogleLogin
+                            // use your client id here
+                            clientId={'249588691331-bmubp1an7198lf7jo9pfjcjvbredi9ca.apps.googleusercontent.com'}
+                            buttonText="Login with google"
+                            responseType="code"
+                            /**
+                             * To get access_token and refresh_token in server side,
+                             * the data for redirect_uri should be postmessage.
+                             * postmessage is magic value for redirect_uri to get credentials without actual redirect uri.
+                             */
+                            redirectUri="postmessage"
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                            cookiePolicy={'single_host_origin'}
+                        />
+                        <br/>
+                        <br/>
                         <p className="mb-2 text-muted"><NavLink to="/reset-password">Forgot password?</NavLink></p>
                         <p className="mb-0 text-muted"><NavLink to="/signup">Don’t have an account?</NavLink></p>
                     </div>

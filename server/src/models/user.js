@@ -3,6 +3,7 @@ import { hash, compare } from 'bcryptjs'
 import user from '../resolvers/user'
 
 const userSchema = new mongoose.Schema({
+    googleId: String,
     email: {
         type: String,
         validate: {

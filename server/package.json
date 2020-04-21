@@ -16,6 +16,7 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "google-auth-library": "^6.0.0",
     "graphql": "^14.6.0",
     "graphql-voyager": "^1.0.0-rc.29",
     "joi": "^14.3.1",

@@ -7,6 +7,7 @@ import { UserInputError } from 'apollo-server-express'
 import { signUp, signIn } from '../schemas'
 import { User, Role } from '../models'
 import { attemptSignIn, signOut} from '../auth'
+import getProfileInfo from '../helpers/GoogleAuth'
 
 export default {
     Query: {
@@ -39,6 +40,35 @@ export default {
             req.session.userId = user.id
 
             return user
+        },
+        google: async (root, { code }, { req }, info) => {
+            
+            const profile = await getProfileInfo(code)
+            // console.log(profile)
+            const args = {
+                googleId: profile.sub,
+                name: profile.name,
+                username: profile.given_name,
+                email: profile.email,
+            }
+
+            const user = await User.findOne({googleId: args.googleId}, (err, doc) => {
+                if (err) {
+                    console.log("Something wrong when updating data!")
+                }
+                console.log(doc)
+            })
+            
+            if(user) {
+            req.session.userId = user.id
+            
+            return user
+            } else {
+            const user = await User.create(args)
+            req.session.userId = user.id
+
+            return user
+            }
         },
         updateMe: async (root, arg, { req }, info) => {
 

@@ -25,6 +25,8 @@ mongoose.set('useFindAndModify', false);
 
 const app = express()
 
+app.use(express.json())
+
 app.disable('x-powered-by')
 
 const RedisStore = connectRedis(session)
@@ -73,9 +75,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-app.use('/voyager', voyagerMiddleware({ endpointUrl: '/graphql' }));
-
 server.applyMiddleware({ app, cors: false })
+
+app.use('/voyager', voyagerMiddleware({ endpointUrl: '/graphql' }))
 
 app.listen({ port: APP_PORT }, () => 
     console.log(`Server ready at http://localhost:${APP_PORT}${server.graphqlPath}`)
