@@ -41,6 +41,22 @@ mutation requestReset($email: String!) {
   requestReset(email: $email)
 }`
 
+const CHANGE_PASSWORD = gql`
+mutation resetPassword ($email: String!, $password: String!, $confirmPassword: String!, $resetToken: String!){
+  resetPassword(email: $email, password: $password, confirmPassword: $confirmPassword, resetToken: $resetToken){
+    id
+    email
+    username
+    name
+    roles {
+      name
+    }
+    resetToken
+    resetTokenExpiry
+    createdAt
+  }
+}`
+
 async function signIn(email, password) {
     const variables = { email, password }
     var data = await client.mutate({ mutation: LOG_IN, variables })
@@ -62,4 +78,9 @@ async function resetPassword(email) {
   return data
 }
 
-export { signUp, signIn, signOut, resetPassword }
+async function changePassword(args) {
+  var data = await client.mutate({mutation: CHANGE_PASSWORD, variables: args})
+  return data
+}
+
+export { signUp, signIn, signOut, resetPassword, changePassword }

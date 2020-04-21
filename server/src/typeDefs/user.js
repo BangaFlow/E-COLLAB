@@ -23,7 +23,7 @@ export default gql`
         username: String!
         name: String!
         roles: [Role!]!
-        resetToken: String!
-        resetTokenExpiry: String!
+        resetToken: String
+        resetTokenExpiry: String
         createdAt: String!
     }`

@@ -4,10 +4,10 @@ import { alertActions } from '../../redux/actions/index'
 import '../../assets/scss/style.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { history } from '../../helpers/history'
+import { changePassword } from '../../services/user.services'
 
 
-
-function ChangePassword() {
+function ChangePassword(location) {
 
     //Local state variables
     const [inputs, setInputs] = useState({
@@ -44,8 +44,18 @@ function ChangePassword() {
 
         if (token && password && newpassword) {
             setChanging(true)
-            setTimeout(() => setChanging(false), 300)
-            console.log("changed successfully!")
+            const { email } = history.location.state
+            changePassword({email, password, confirmPassword: newpassword,resetToken: token})
+            .then( data => {
+                const user = data.data.resetPassword
+                user ? console.log("changed successfully!") : console.log("Error!")
+                localStorage.setItem('user', JSON.stringify(user))
+                history.push('/')
+            })
+            .catch( err => {
+                console.log(err.graphQLErrors[0].message)
+                // message.replace('GraphQL error:', '').trim()
+            })
         }
     }
 

@@ -115,7 +115,7 @@ export default {
 
             return true
         },
-        resetPassword: async (root, { email, password, confirmPassword, resetToken }, context, info) => {
+        resetPassword: async (root, { email, password, confirmPassword, resetToken }, {req}, info) => {
             
             email = email.toLowerCase()
 
@@ -140,6 +140,7 @@ export default {
                                                     }
                                                     console.log(doc)
                                                 })
+            req.session.userId = result.id
             return result
       }
     },

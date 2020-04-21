@@ -30,18 +30,19 @@ function ResetPassword() {
         setEmail(email => email = value )
     }
     // handle form submission
-   async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault()
         setSubmitted(true)
         
         if (email) {
             setLoading(true)
-            await resetPassword(email)
+            resetPassword(email)
             .then( data => {
                 data.data.requestReset ? history.push('/change-password') : console.log("Email doesn't exist!")
             })
-            .catch( err => console.log(err.toString()))
-            setLoading(false)
+            .catch( err => {
+                console.log(err.graphQLErrors[0].message)
+            })
         }
     }
 
