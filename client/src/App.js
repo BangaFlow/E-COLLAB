@@ -26,6 +26,9 @@ const ViewApp = React.lazy(() =>
 const ViewError = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/error')
 );
+const ViewCourses = React.lazy(() =>
+  import(/* webpackChunkName: "views-error" */ './views/app/calendar/AddNewModal')
+);
 
 class App extends Component {
   constructor(props) {
@@ -60,6 +63,7 @@ class App extends Component {
                     path="/app"
                     render={props => <ViewApp {...props} />}
                   />
+                  
                   <Route
                     path="/error"
                     exact
@@ -70,6 +74,12 @@ class App extends Component {
                     exact
                     render={props => <ViewAuth {...props} />}
                   />
+                  <Route
+                  path="/courses"
+                  exact
+                  render={props => <ViewCourses {...props} />}
+                />
+                  
                   <Route
                     path="/"
                     exact
@@ -96,3 +106,4 @@ export default connect(
   mapStateToProps,
   mapActionsToProps
 )(App);
+

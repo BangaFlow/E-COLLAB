@@ -13,6 +13,37 @@ const data = [
     ]
   },
   {
+    id: "Quiz",
+    icon: "iconsminds-air-balloon-1",
+    label: "Quiz",
+    to: "/app/gogo",
+    subs: [
+      {
+        icon: "simple-icon-paper-plane",
+        label: "menu.start",
+        to: "/app/gogo/start"
+      }     
+    ]
+  },
+  {
+    id: "Calendar",
+    icon: "iconsminds-calendar-1",
+    label: "Calendar",
+    to: "/app/calendar",
+    subs: [
+      {
+        icon: "simple-icon-paper-plane",
+        label: "Event",
+        to: "/app/calendar/events"
+      } ,
+      {
+        icon: "simple-icon-paper-plane",
+        label: "Event",
+        to: "/app/calendar/events"
+      }    
+    ]
+  },
+  {
     id: "secondmenu",
     icon: "iconsminds-three-arrow-fork",
     label: "menu.second-menu",

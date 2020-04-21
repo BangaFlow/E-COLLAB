@@ -12,7 +12,16 @@ const SecondMenu = React.lazy(() =>
 );
 const BlankPage = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
+
 );
+
+const CalendarPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './calendar/index')
+);
+
+
+
+
 
 class App extends Component {
   render() {
@@ -36,6 +45,15 @@ class App extends Component {
                 path={`${match.url}/blank-page`}
                 render={props => <BlankPage {...props} />}
               />
+
+              
+
+              <Route
+                path={`${match.url}/calendar`}
+                render={props => <CalendarPage {...props} />}
+              />
+              
+              
               <Redirect to="/error" />
             </Switch>
           </Suspense>
