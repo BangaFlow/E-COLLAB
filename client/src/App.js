@@ -15,6 +15,8 @@ import { PrivateRoute } from './helpers/PrivateRoute'
 import { getDirection } from './helpers/Utils';
 import { history } from './helpers/history'
 import SingUp from './components/authentication/SingUp';
+import ResetPassword from './components/authentication/ResetPassword';
+import ChangePassword from './components/authentication/ChangePassword';
 
 const ViewMain = React.lazy(() =>
   import(/* webpackChunkName: "views" */ './views')
@@ -65,6 +67,14 @@ class App extends Component {
                   <Route
                   path="/signup"
                   component={SingUp}
+                  />
+                  <Route
+                  path="/reset-password"
+                  component={ResetPassword}
+                  />
+                  <Route
+                  path="/change-password"
+                  component={ChangePassword}
                   />
                   <Route
                     path="/error"

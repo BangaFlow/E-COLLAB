@@ -5,6 +5,7 @@ import redis from 'redis'
 import connectRedis from 'connect-redis'
 import mongoose from 'mongoose'
 import cors from 'cors'
+import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 
 import typeDefs from './typeDefs'
 import resolvers from './resolvers'
@@ -71,6 +72,8 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
+
+app.use('/voyager', voyagerMiddleware({ endpointUrl: '/graphql' }));
 
 server.applyMiddleware({ app, cors: false })
 
