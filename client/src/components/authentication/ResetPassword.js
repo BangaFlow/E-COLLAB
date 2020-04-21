@@ -4,6 +4,7 @@ import { alertActions } from '../../redux/actions/index'
 import '../../assets/scss/style.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { history } from '../../helpers/history'
+import { resetPassword } from '../../services/user.services'
 
 function ResetPassword() {
 
@@ -29,15 +30,18 @@ function ResetPassword() {
         setEmail(email => email = value )
     }
     // handle form submission
-   function handleSubmit(e) {
+   async function handleSubmit(e) {
         e.preventDefault()
         setSubmitted(true)
         
         if (email) {
             setLoading(true)
-            setTimeout(() => setLoading(false), 300)
-            console.log("Email sent succefully!")
-            
+            await resetPassword(email)
+            .then( data => {
+                data.data.requestReset ? history.push('/change-password') : console.log("Email doesn't exist!")
+            })
+            .catch( err => console.log(err.toString()))
+            setLoading(false)
         }
     }
 
