@@ -14,6 +14,7 @@ export default gql`
       phone: String
       about: String
       github_username: String
+      user_id: ID!
     ): Profile
 
     updateMyProfile(

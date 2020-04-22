@@ -10,8 +10,8 @@ const Gogo = React.lazy(() =>
 const SecondMenu = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
 );
-const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
+const Profile = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './profile')
 );
 
 const Skills = React.lazy(() =>
@@ -49,8 +49,8 @@ class App extends Component {
                 render={props => <SecondMenu {...props} />}
               />
               <Route
-                path={`${match.url}/blank-page`}
-                render={props => <BlankPage {...props} />}
+                path={`${match.url}/profile`}
+                render={props => <Profile {...props} />}
               />
               <Redirect to="/error" />
             </Switch>

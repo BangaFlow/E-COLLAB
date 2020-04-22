@@ -53,5 +53,8 @@ module.exports = {
   /* teams */
   "menu.teams": "Teams",
   "menu.teams.all" : "All teams",
-  "menu.all" : "All teams"
+  "menu.all" : "All teams",
+
+  /* profile */
+  "menu.profile" : "Profile"
 };

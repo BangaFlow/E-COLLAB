@@ -31,6 +31,8 @@ import TopnavNotifications from "./Topnav.Notifications";
 import TopnavDarkSwitch from "./Topnav.DarkSwitch";
 
 import { getDirection, setDirection } from "../../helpers/Utils";
+import { history } from '../../helpers/history'
+
 
 class TopNav extends Component {
   constructor(props) {
@@ -177,6 +179,10 @@ class TopNav extends Component {
     userActions.logout()
   };
 
+  handleProfile = () => {
+    history.push('/app/profile');
+  };
+
   menuButtonClick = (e, menuClickCount, containerClassnames) => {
     e.preventDefault();
 
@@ -297,13 +303,13 @@ class TopNav extends Component {
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span className="name mr-1">Sarah Kortney</span>
+                <span className="name mr-1">{JSON.parse(localStorage.getItem("user")).name}</span>
                 <span>
-                  <img alt="Profile" src="/assets/img/profile-pic-l.jpg" />
+                  <img alt="Profile" src="/assets/img/avatar-2.jpg" />
                 </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
-                <DropdownItem>Account</DropdownItem>
+                <DropdownItem onClick={() => this.handleProfile()}>Account</DropdownItem>
                 <DropdownItem>Features</DropdownItem>
                 <DropdownItem>History</DropdownItem>
                 <DropdownItem>Support</DropdownItem>

@@ -16,13 +16,6 @@ const ProfileSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    validate: {
-      validator: function(v) {
-        return /\d{5} \d{8}/.test(v);
-      },
-      message: props =>
-        `${props.value} is not a valid phone number! it must be on the format 00216 22555444 `
-    }
   },
   about: {
     type: String

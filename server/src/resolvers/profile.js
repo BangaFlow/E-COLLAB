@@ -13,15 +13,17 @@ export default {
         }
     },
     Mutation: {
-        createProfile: async (root, {image, title, location, phone, about, github_username}, {req}, info) => {
+        createProfile: async (root, {image, title, location, phone, about, github_username, user_id}, {req}, info) => {
             let newProfile = new Profile();
-            newProfile.user = req.session.userId;
+            newProfile.user = user_id;
             newProfile.image = image;
             newProfile.title = title;
             newProfile.location = location;
             newProfile.phone = phone;
             newProfile.about = about;
             newProfile.github_username = github_username;
+            console.log(newProfile);
+            
             return await newProfile.save();
         },
 
