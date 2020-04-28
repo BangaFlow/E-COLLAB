@@ -40,7 +40,9 @@ class TopNav extends Component {
       isInFullScreen: false,
       searchKeyword: ""
     };
+    this.user = JSON.parse(localStorage.getItem('user'))
   }
+
 
   handleChangeLocale = (locale, direction) => {
     this.props.changeLocale(locale);
@@ -297,7 +299,7 @@ class TopNav extends Component {
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span className="name mr-1">Sarah Kortney</span>
+                <span className="name mr-1">{this.user? this.user.name : 'Sarah Korteny'}</span>
                 <span>
                   <img alt="Profile" src="/assets/img/profile-pic-l.jpg" />
                 </span>

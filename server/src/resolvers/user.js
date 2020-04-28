@@ -44,7 +44,7 @@ export default {
         google: async (root, { code }, { req }, info) => {
             
             const profile = await getProfileInfo(code)
-            // console.log(profile)
+            console.log(profile)
             const args = {
                 googleId: profile.sub,
                 name: profile.name,
@@ -52,12 +52,7 @@ export default {
                 email: profile.email,
             }
 
-            const user = await User.findOne({googleId: args.googleId}, (err, doc) => {
-                if (err) {
-                    console.log("Something wrong when updating data!")
-                }
-                console.log(doc)
-            })
+            const user = await User.findOne({googleId: args.googleId})
             
             if(user) {
             req.session.userId = user.id

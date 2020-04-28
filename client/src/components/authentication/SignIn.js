@@ -49,7 +49,6 @@ const SignIn = function () {
     const responseGoogle = (authResult) => {
         try {
           if (authResult['code']) {
-            console.log(authResult)
             googleAuth(authResult['code'])
             .then(data => {
                 const user = data.data.google
@@ -61,10 +60,11 @@ const SignIn = function () {
                 console.log(err.graphQLErrors[0].message)
             })
           } else {
-            throw new Error(authResult)
+            throw new Error(authResult.error)
+            // Sweet Alert better handling
           }
         } catch (e) {
-          console.log(e)
+          console.log(e.message)
           window.alert(e.message)
         }
       }
@@ -140,6 +140,8 @@ const SignIn = function () {
                              * postmessage is magic value for redirect_uri to get credentials without actual redirect uri.
                              */
                             redirectUri="postmessage"
+                            theme="dark"
+                            prompt="select_account"
                             onSuccess={responseGoogle}
                             onFailure={responseGoogle}
                             cookiePolicy={'single_host_origin'}
