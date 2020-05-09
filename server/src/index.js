@@ -69,7 +69,7 @@ const server = new ApolloServer({
 })
 
 const corsOptions = {
-    origin: ['http://localhost:3000', `http://localhost:${APP_PORT}${server.graphqlPath}`],
+    origin: ['http://localhost:3000', `http://localhost:${APP_PORT}${server.graphqlPath}`, 'chrome-extension://flnheeellpciglgpaodhkhmapeljopja'],
     credentials: true
 }
 

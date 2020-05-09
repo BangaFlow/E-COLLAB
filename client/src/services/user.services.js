@@ -58,8 +58,8 @@ mutation requestReset($email: String!) {
 }`
 
 const CHANGE_PASSWORD = gql`
-mutation resetPassword ($email: String!, $password: String!, $confirmPassword: String!, $resetToken: String!){
-  resetPassword(email: $email, password: $password, confirmPassword: $confirmPassword, resetToken: $resetToken){
+mutation resetPassword ($password: String!, $confirmPassword: String!, $resetToken: String!){
+  resetPassword(password: $password, confirmPassword: $confirmPassword, resetToken: $resetToken){
     id
     email
     username

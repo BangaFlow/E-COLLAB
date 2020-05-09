@@ -3,6 +3,8 @@ import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import AppLayout from '../../layout/AppLayout';
+import ListUsers from '../../components/users/ListUsers';
+import CreateUser from '../../components/users/CreateUser';
 
 const Gogo = React.lazy(() =>
   import(/* webpackChunkName: "viwes-gogo" */ './gogo')
@@ -35,6 +37,14 @@ class App extends Component {
               <Route
                 path={`${match.url}/blank-page`}
                 render={props => <BlankPage {...props} />}
+              />
+              <Route
+                path={`${match.url}/users`}
+                render={props => <ListUsers {...props} />}
+              />
+              <Route
+                path={`${match.url}/adduser`}
+                render={props => <CreateUser {...props} />}
               />
               <Redirect to="/error" />
             </Switch>

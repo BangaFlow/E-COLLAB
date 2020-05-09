@@ -32,7 +32,6 @@ const SignIn = function () {
 
     //Handle change in inputs
     function handleChange(e) {
-        
         const { name, value } = e.target
         setInputs(inputs => ({ ...inputs, [name]: value }))
     }

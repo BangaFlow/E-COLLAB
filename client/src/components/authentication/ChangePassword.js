@@ -7,18 +7,18 @@ import { history } from '../../helpers/history'
 import { changePassword } from '../../services/user.services'
 
 
-function ChangePassword(location) {
+function ChangePassword(props) {
 
+    const { match } = props
     //Local state variables
     const [inputs, setInputs] = useState({
-        token:'',
         password:'',
         newpassword:''
     })
     const [submitted, setSubmitted] = useState(false)
     const [changing, setChanging] = useState(false)
     //destructurinn varibales from input
-    const { token, password, newpassword } = inputs
+    const { password, newpassword } = inputs
 
     // Redux - getting the authentication.logginging variable
     const alert = useSelector(state => state.alert)
@@ -41,11 +41,9 @@ function ChangePassword(location) {
     function handleSubmit(e) {
         e.preventDefault()
         setSubmitted(true)
-
-        if (token && password && newpassword) {
+        if (password && newpassword) {
             setChanging(true)
-            const { email } = history.location.state
-            changePassword({email, password, confirmPassword: newpassword,resetToken: token})
+            changePassword({ password, confirmPassword: newpassword,resetToken: match.params.token})
             .then( data => {
                 const user = data.data.resetPassword
                 user ? console.log("changed successfully!") : console.log("Error!")
@@ -80,19 +78,6 @@ function ChangePassword(location) {
                         <i className="feather icon-edit auth-icon"/>
                     </div>
                     <h3 className="mb-4">Change Password</h3>
-                    <div className="input-group mb-3">
-                        <input 
-                        type="text" 
-                        name="token" 
-                        value={token} 
-                        onChange={handleChange} 
-                        className={'form-control' + (submitted && !token ? ' is-invalid' : '')} 
-                        placeholder="Reset-Token" 
-                        />
-                        {submitted && !token &&
-                            <div style={{top: "+4.5em", right: "-10em", color: '#9b45d1', border: '1px solid #9b45d1'}} className="invalid-feedback">Reset-Token is required</div>
-                        }
-                    </div>
                     <div className="input-group mb-4">
                         <input 
                         type="password" 

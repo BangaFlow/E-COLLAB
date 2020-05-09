@@ -135,14 +135,12 @@ export default {
                 from: 'khaled.saidi@esprit.tn',
                 to: user.email,
                 subject: 'Your Password Reset Token',
-                html: `<h1>Welcome</h1> <p>Here is your token: ${resetToken}</p>`
+                text: `Hi ${user.name}\nPlease click on the following link http://localhost:3000/change-password/${resetToken} to reset your password.\nIf you did not request this, please ignore this email and your password will remain unchanged.`
               })
 
             return true
         },
-        resetPassword: async (root, { email, password, confirmPassword, resetToken }, {req}, info) => {
-            
-            email = email.toLowerCase()
+        resetPassword: async (root, { password, confirmPassword, resetToken }, {req}, info) => {
 
             // check if passwords match
             if (password !== confirmPassword) throw new Error(`Your passwords don't match`)
@@ -156,7 +154,7 @@ export default {
             // throw error if user doesn't exist
             if (!user) throw new Error('Your password reset token is either invalid or expired.')
 
-            const result = await User.findOneAndUpdate({email},
+            const result = await User.findOneAndUpdate({email: user.email},
                                                 { password, resetToken: null, resetTokenExpiry: null },
                                                 {new: true},
                                                 (err, doc) => {

@@ -32,6 +32,12 @@ const data = [
     to: "/app/blank-page"
   },
   {
+    id: "users",
+    icon: "iconsminds-bucket",
+    label: "menu.users",
+    to: "/app/users"
+  },
+  {
     id: "docs",
     icon: "iconsminds-library",
     label: "menu.docs",
