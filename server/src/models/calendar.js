@@ -9,22 +9,6 @@ const calendarSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    year: {
-        type : Number,
-        required: true,
-       
-    },
-    month:{
-        type: Number,
-        required: true,
-        
-       
-    },
-    day:{
-        type: Number,
-        required: true,
-        
-    },
     events:{
         type: [{
             type: mongoose.Schema.Types.ObjectId,

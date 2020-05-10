@@ -1,42 +1,54 @@
 import mongoose from 'mongoose'
-import { hash, compare } from 'bcryptjs'
+
 
 const eventSchema = new mongoose.Schema({
     eventName: {
+
         type: String,
         required: true,
 
     },
     eventType: {
+
         type: String,
 
+    },
+    keyWords: {
 
+        type: [String],
 
     },
     description: {
+
         type: String,
 
+    },
+    eventCreator: {
+
+        type: String,
 
     },
-    date: {
-        type: Date,
+    eventOrganizers :{
 
-
-    },
-    startTime: {
-        type: Date,
-
+        type: String
 
     },
-    endTime: {
+    startDate: {
+
         type: Date,
 
+    },
+    endDate: {
+
+        type: Date,
 
     },
     participants: [{
+
         type:
             mongoose.Schema.Types.ObjectId,
         ref: "User"
+
     }
     ],
 

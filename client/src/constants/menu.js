@@ -1,7 +1,7 @@
 const data = [
   {
     id: "gogo",
-    icon: "iconsminds-air-balloon-1",
+    icon: "iconsminds-library",
     label: "menu.gogo",
     to: "/app/gogo",
     subs: [
@@ -13,34 +13,41 @@ const data = [
     ]
   },
   {
-    id: "Quiz",
-    icon: "iconsminds-air-balloon-1",
-    label: "Quiz",
-    to: "/app/gogo",
+  id: "Quiz",
+    icon: " iconsminds-livejournal",
+    label: "menu.Quiz",
+    to: "/app/Quiz",
     subs: [
       {
         icon: "simple-icon-paper-plane",
-        label: "menu.start",
-        to: "/app/gogo/start"
+        label: "menu.Quizzes",
+        to: "/app/Quiz/quizzes"
       }     
     ]
   },
+  
   {
-    id: "Calendar",
+    id: "event",
     icon: "iconsminds-calendar-1",
-    label: "Calendar",
-    to: "/app/calendar",
+    label: "Event",
+    to: "/app/Event",
     subs: [
       {
-        icon: "simple-icon-paper-plane",
-        label: "Event",
-        to: "/app/calendar/events"
+        icon: "simple-icon-note",
+        label: "Events",
+        to: "/app/Event/events"
       } ,
       {
-        icon: "simple-icon-paper-plane",
-        label: "Event",
-        to: "/app/calendar/events"
-      }    
+        icon: "simple-icon-star",
+        label: "Workshops ",
+        to: "/app/Event/workshops"
+      } ,
+      {
+        icon: "simple-icon-paper-clip",
+        label: "Mettings ",
+        to: "/app/Event/meetings"
+      } 
+
     ]
   },
   {
@@ -61,6 +68,12 @@ const data = [
     icon: "iconsminds-bucket",
     label: "menu.blank-page",
     to: "/app/blank-page"
+  },
+  {
+    id: "Calendar",
+    icon: "iconsminds-calendar-4",
+    label: "menu.Calendar",
+    to: "/calendar"
   },
   {
     id: "docs",

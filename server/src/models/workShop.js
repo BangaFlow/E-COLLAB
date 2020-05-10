@@ -7,19 +7,9 @@ const workShopSchema = new mongoose.Schema({
         required: true,
 
     },
-    workShopType: {
-        type: String,
-        required: true,
-
-
-    },
+    
     workShop_description: {
         type: String,
-        required: true,
-
-    },
-    workShop_date: {
-        type: Date,
         required: true,
 
     },

@@ -20,15 +20,18 @@ const ViewMain = React.lazy(() =>
 const ViewAuth = React.lazy(() =>
   import(/* webpackChunkName: "views" */ './components/authentication/SignIn')
 );
+const ViewCalendar = React.lazy(() =>
+  import(/* webpackChunkName: "views" */ './components/Calendar/myCalendar')
+);
 const ViewApp = React.lazy(() =>
   import(/* webpackChunkName: "views-app" */ './views/app')
 );
 const ViewError = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/error')
 );
-const ViewCourses = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ './views/app/calendar/AddNewModal')
-);
+
+
+
 
 class App extends Component {
   constructor(props) {
@@ -75,10 +78,12 @@ class App extends Component {
                     render={props => <ViewAuth {...props} />}
                   />
                   <Route
-                  path="/courses"
+                  path="/calendar"
                   exact
-                  render={props => <ViewCourses {...props} />}
+                  render={props => <ViewCalendar {...props} />}
                 />
+
+              
                   
                   <Route
                     path="/"
@@ -102,8 +107,5 @@ const mapStateToProps = ({ settings }) => {
 };
 const mapActionsToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(App);
+export default connect(mapStateToProps,mapActionsToProps)(App);
 

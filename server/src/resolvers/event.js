@@ -30,7 +30,7 @@ export default {
 
 
         },
-        updateEvent: async (root, { id, evenNtame, eventType, description, date, startTime, endTime }, context, info) => {
+        updateEvent: async (root, { id, eventName, eventType, description, date, startTime, endTime }, context, info) => {
             if (!id) return;
             return await Event.findOneAndUpdate(
                 {
@@ -38,7 +38,7 @@ export default {
                 },
                 {
                     $set: {
-                        eventName: evenNtame,
+                        eventName: eventName,
                         eventType: eventType,
                         description: description,
                         date: date,
@@ -73,7 +73,7 @@ export default {
               { new: true },
               (err, doc) => {
                 if (err) {
-                  throw new Error("Something wrong while assignOrChangeSubject!");
+                  throw new Error("Something wrong while assignOrChangeEvent!");
                 }
               }
             );

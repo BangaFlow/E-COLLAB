@@ -47,4 +47,22 @@ module.exports = {
  "pages.error-title": "Ooops... looks like an error occurred!",
  "pages.error-code": "Error code",
  "pages.go-back-home": "GO BACK HOME",
+
+
+ /*event */
+"menu.Event":"All Event",
+"menu.event":"Event",
+"menu.events":"Event",
+"menu.calendar":"Calendar",
+"menu.Calendar":"Calendar",
+"menu.meetings":"All Meetings",
+"menu.workshops":"All Workshops",
+/* Quiz*/
+"menu.Quiz" :"Quiz",
+"menu.Quizzes":"All Quizzes",
+"menu.quizzes":"All Quizzes",
+"menu.question":"Questions",
+"menu.questions":"Questions"
+
+
 };

@@ -1,6 +1,7 @@
 import { gql } from 'apollo-server-express'
 
 export default gql`
+   scalar Date
    
     extend type Query{
      event(id :String ):Event
@@ -10,7 +11,14 @@ export default gql`
     }
 
     extend type Mutation {
-        addEvent(id:String,eventName :String,eventType:String, description : String, date: String,  startTime : String,endTime : String ):Event 
+        addEvent( eventName :String,
+        eventType:String,
+        description : String,
+        keyWords: [String],
+        eventCreator:String,
+        eventOrganizers:String
+        startDate: Date,
+        endDate : Date):Event 
         updateEvent(id:String,eventName :String,eventType:String, description : String, date: String,  startTime : String,endTime : String ) :Event 
         deleteEvent(id: String): Event
         participantsAssignment(participant:String,id:ID!): Event
@@ -23,9 +31,11 @@ export default gql`
         eventName :String,
         eventType:String,
         description : String,
-        date: String,
-        startTime : String,
-        endTime : String    
+        keyWords: [String],
+        eventCreator:String,
+        eventOrganizers:String
+        startDate: Date,
+        endDate : Date,   
         participants:[User]
     
          

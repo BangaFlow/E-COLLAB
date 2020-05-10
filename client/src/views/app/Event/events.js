@@ -8,7 +8,8 @@ import { connect } from "react-redux";
 import * as eventAction from "../../../redux/actions/eventActions"
 import { bindActionCreators } from "redux"
 import Event from "../../../components/Calendar/event"
-import AddNewModal from "./AddNewModal";
+
+import AddNewModal  from '../../../components/Calendar/AddNewModal'
 
 
 
@@ -16,7 +17,8 @@ export class Calendar extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      modalOpen: false
+      modalOpen: false,
+      
     }
   }
   componentDidMount() {
@@ -29,6 +31,8 @@ export class Calendar extends Component {
       modalOpen: !this.state.modalOpen
     });
   };
+
+
   render() {
 
 
@@ -39,34 +43,20 @@ export class Calendar extends Component {
 
 
 
-        <AddNewModal
-          modalOpen={this.state.modalOpen}
-          toggleModal={this.toggleModal}
-
-        />
-
-        <Row>
-          <div className="mb-2">
-
-            <Button
-              color="primary"
-              size="lg"
-              className="top-right-button"
-              onClick={() => this.toggleModal()}
-            ></Button></div>
-
-          <Colxx xxs="12">
-            <Breadcrumb heading="Events" match={this.props.match} />
-
-            <Separator className="mb-5" />
-          </Colxx>
-        </Row>
-        <Row>
-
-          <p><IntlMessages id="Calendar" /></p>
+        <Row className="app-row survey-app">
+        <Colxx xxs="12">
+          <Breadcrumb heading="Events" match={this.props.match} />
+          <div className="float-sm-right">
+            <Button color="primary" size="lg" onClick={this.toggleModal}>
+              Add Event
+            </Button>
+          </div>
           <Separator className="mb-5" />
-          <br></br>
-          <Row>
+        </Colxx>
+      </Row>
+      <Colxx >
+          <Row  >
+           
             {
 
 
@@ -75,16 +65,26 @@ export class Calendar extends Component {
                 <Event key={event.id} event={event} />
 
               ))}
-
-          </Row>
-
-
-
+              
+             
+          </Row></Colxx>
 
 
 
 
-        </Row>
+
+
+        
+       
+
+
+
+
+
+        <AddNewModal
+        modalOpen={this.state.modalOpen}
+        toggleModal={this.toggleModal} />
+      
       </Fragment>
     )
   }

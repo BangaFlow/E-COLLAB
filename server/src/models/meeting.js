@@ -13,11 +13,6 @@ const meetingSchema = new mongoose.Schema({
             ref: 'User'
         }]
     },
-    date: {
-        type: Date,
-        required: true,
-
-    },
     startTime: {
         type: Date,
         required: true,

@@ -11,20 +11,28 @@ export default gql`
     }
 
     extend type Mutation {
-        addWorkShop(id:String, workShopName :String, workShopType:String,workShop_description : String,workShop_date: String, workShop_startTime : String,workShop_endTime : String ,workShop_Requirments :String ,workShop_goals :String, workShop_Certification: Boolean ):WorkShop 
-        updateWorkShop(id:String,  workShopName :String, workShopType:String,workShop_description : String,workShop_date: String, workShop_startTime : String,workShop_endTime : String ,workShop_Requirments :String ,workShop_goals :String, workShop_Certification: Boolean) :WorkShop 
+        addWorkShop(
+        workShopName :String,
+        workShop_description : String,
+        workShop_startTime : Date,
+        workShop_endTime : Date ,
+        workShop_Requirments :String ,
+        workShop_goals :String,
+        workShop_Certification: Boolean
+        ):WorkShop 
+        updateWorkShop(id:String,  workShopName :String,workShop_description : String, workShop_startTime : Date,workShop_endTime : Date ,workShop_Requirments :String ,workShop_goals :String, workShop_Certification: Boolean) :WorkShop 
         deleteWorkShop(id: String): WorkShop
+        AssignmentGroupToWorkShops(id_workShop:String,emails:[String]):WorkShop
     }
 
     type WorkShop {
+        id:ID
         workShopName :String,
-        workShopType:String,
         workShop_description : String,
-        workShop_date: String,
-        workShop_startTime : String,
-        workShop_endTime : String
-        workShop_participants:[User],
-        workShopor_ganiser :User,
+        workShop_startTime : Date,
+        workShop_endTime : Date ,
+         participants:[User],
+        workShopor_oganiser :User,
         workShop_Requirments :String ,
         workShop_goals :String,
         workShop_Certification: Boolean

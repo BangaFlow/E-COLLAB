@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import WorkShop from '../models/workShop';
+import  User  from '../models/user';
 
 export default {
 
@@ -12,9 +13,9 @@ export default {
 
             return WorkShop.findById(id)
         },
-        allworkShops: (root, args, context, info) => {
+        allworkShops: async (root, args, context, info) => {
 
-            return WorkShop.find({})
+            return await WorkShop.find({})
 
         }
     },
@@ -38,7 +39,6 @@ export default {
                         workShopName: workShopName,
                         workShopType: workShopType,
                         description: workShop_description,
-                        date: workShop_date,
                         startTime: workShop_startTime,
                         endTime: workShop_endTime,
                         Requirments: workShop_Requirments,
@@ -57,6 +57,42 @@ export default {
         deleteWorkShop: (root, { id }, context, info) => {
             return WorkShop.findByIdAndRemove(id)
 
+        },
+        AssignmentGroupToWorkShops: async (root, args, context, info) => {
+
+            
+          
+            args.emails.forEach(async element => {
+               
+              let workShop = await WorkShop.findById(args.id_workShop)
+              console.log(workShop)
+              
+              let user = await User.findById(element);
+              console.log(user)
+
+              workShop.participants.push(user)
+
+              workShop = await WorkShop.findByIdAndUpdate(
+                 args.id_workShop,
+                 workShop,
+                 { new: true },
+                 (err, doc) => {
+                   if (err) {
+                     throw new Error("Something wrong while assignOrChangeEvent!");
+                   }
+                 }
+               );
+         
+               
+            
+            });
+            
+            return await WorkShop.findById(args.id_workShop)
+        }
+    },
+    WorkShop: {
+        participants: async (workShop, arg, context, info) => {
+            return (await workShop.populate("participants").execPopulate()).participants;
         }
     }
 

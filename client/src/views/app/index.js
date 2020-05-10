@@ -15,8 +15,17 @@ const BlankPage = React.lazy(() =>
 
 );
 
-const CalendarPage = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ './calendar/index')
+const QuizPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Quiz')
+
+);
+
+const EventPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Event/index')
+);
+
+const QuestionPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Quiz/questions')
 );
 
 
@@ -46,11 +55,20 @@ class App extends Component {
                 render={props => <BlankPage {...props} />}
               />
 
-              
+              <Route
+                path={`${match.url}/questions`}
+                render={props => <QuestionPage {...props} />}
+              />
 
               <Route
-                path={`${match.url}/calendar`}
-                render={props => <CalendarPage {...props} />}
+                path={`${match.url}/Event`}
+                render={props => <EventPage {...props} />}
+              />
+
+              
+              <Route
+                path={`${match.url}/Quiz`}
+                render={props => <QuizPage {...props} />}
               />
               
               
