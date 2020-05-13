@@ -19,6 +19,8 @@ const userSchema = new mongoose.Schema({
         }
     },
     name: String,
+    birthDate: Date,
+    gender: String,
     password: String,
     roles: {
         type: [{

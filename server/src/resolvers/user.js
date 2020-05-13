@@ -80,6 +80,13 @@ export default {
 
             return user
         },
+        createUser: async (root, args, context, info) => {
+            
+            // console.log(args.roles)
+            const user = await User.create(args)
+            
+            return user
+        },
         deleteUser: async (root, arg, { req }, info) => {
             
             const user = await User.findByIdAndDelete(arg.id)

@@ -1,11 +1,14 @@
-const createUserFetch = async (email, password, username, name) => {
+const createUserFetch = async (email, password, username, firstName, lastName, gender, roles, birthDate) => {
     const query = JSON.stringify({
       query: `mutation {
-            signUp(
+            createUser(
                 email: "${email}",
                 password: "${password}",
                 username: "${username}",
-                name: "${name}"
+                name: "${firstName+' '+lastName}",
+                gender: "${gender}",
+                roles: ${roles},
+                birthDate: "${birthDate}"
                 ) { 
                 id
                 name

@@ -15,6 +15,7 @@ export default gql`
         requestReset(email: String!): Boolean
         resetPassword(email: String, password: String, confirmPassword: String, resetToken: String): User
         updateMe(email: String, username: String, name: String, password: String): User
+        createUser(email: String!, username: String!, name: String!, password: String!, gender: String!, birthDate: String! roles: [String!]!): User
         deleteUser(id: String!): User
     }
 
@@ -23,6 +24,8 @@ export default gql`
         email: String!
         username: String!
         name: String!
+        gender: String!
+        birthDate: String!
         roles: [Role!]!
         resetToken: String
         resetTokenExpiry: String

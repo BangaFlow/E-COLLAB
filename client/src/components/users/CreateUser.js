@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Form,
   Input,
@@ -12,6 +12,7 @@ import {
 } from 'antd'
 import { Link } from 'react-router-dom'
 import createUserFetch from './createUser_fetch'
+import getRolesFetch from './getRoles_fetch';
 
 
 const formItemLayout = {
@@ -37,14 +38,14 @@ const tailFormItemLayout = {
   },
 };
 
-const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
+// const OPTIONS = ['appels', 'potates', 'ok', 'tard', 'shit'];
 
 const CreateUser = () => {
   const [form] = Form.useForm()
 
   const onFinish = values => {
-    console.log('Received values of form: ', values.birthDate.format('L'))
-    createUserFetch(values.email, values.password, values.username, values.firstName +" "+ values.lastName)
+    console.log('Received values of form: ', values)
+    createUserFetch(values.email, values.password, values.username, values.firstName, values.lastName, values.gender, JSON.stringify(values.roles), values.birthDate )
     notification['success']({
       message: 'User Creation',
       description: 'User created successfully!',
@@ -55,7 +56,7 @@ const CreateUser = () => {
 
 
   const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-  const [selectedItems, setSelectedItems] = useState([])
+  const [OPTIONS, setOPTIONS] = useState([])
 
   const onWebsiteChange = value => {
     if (!value) {
@@ -70,12 +71,9 @@ const CreateUser = () => {
     value: website,
   }));
 
-  const handleChange = selectedItems => {
-    console.log(selectedItems)
-    setSelectedItems(selectedItems);
-  };
-
-  const filteredOptions = OPTIONS.filter(o => !selectedItems.includes(o));
+  useEffect(() => {
+    getRolesFetch().then(data => setOPTIONS(data.roles))
+  }, [])
 
   return (
     <Form
@@ -176,13 +174,11 @@ const CreateUser = () => {
         <Select
           mode="multiple"
           placeholder="Inserted are removed"
-          value={selectedItems}
-          onChange={handleChange}
           style={{ width: '100%' }}
         >
-          {filteredOptions.map(item => (
-            <Select.Option key={item} value={item}>
-              {item}
+          {OPTIONS.map(item => (
+            <Select.Option key={item.id} value={item.id}>
+              {item.name}
             </Select.Option>
           ))}
         </Select>
