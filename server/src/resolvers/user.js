@@ -87,6 +87,20 @@ export default {
             
             return user
         },
+        updateUser: async (root, args, context, info) => {
+            console.log(args)
+            const result = await User.findOneAndUpdate({_id: args._id},
+                { $set: args },
+                { runValidators: true},
+                (err, doc) => {
+                    if (err) {
+                        console.log(err.message)
+                    }
+                    console.log(doc)
+                })
+
+            return result
+        },
         deleteUser: async (root, arg, { req }, info) => {
             
             const user = await User.findByIdAndDelete(arg.id)

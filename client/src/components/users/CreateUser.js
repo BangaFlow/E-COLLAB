@@ -8,11 +8,15 @@ import {
   AutoComplete,
   notification,
   Radio,
-  Select
+  Select,
+  Spin
 } from 'antd'
-import { Link } from 'react-router-dom'
+import moment from 'moment'
+import { Link, useParams } from 'react-router-dom'
 import createUserFetch from './createUser_fetch'
-import getRolesFetch from './getRoles_fetch';
+import updateUserFetch from './updateUser_fetch'
+import getRolesFetch from './getRoles_fetch'
+import getUserFetch from './getUser_fecth'
 
 
 const formItemLayout = {
@@ -36,12 +40,16 @@ const tailFormItemLayout = {
       offset: 8,
     },
   },
-};
-
-// const OPTIONS = ['appels', 'potates', 'ok', 'tard', 'shit'];
+}
 
 const CreateUser = () => {
+
   const [form] = Form.useForm()
+  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
+  const [OPTIONS, setOPTIONS] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState({})
+  const { id } = useParams()
 
   const onFinish = values => {
     console.log('Received values of form: ', values)
@@ -51,12 +59,20 @@ const CreateUser = () => {
       description: 'User created successfully!',
       placement: 'bottomRight',
     })
-    // form.resetFields()
+    form.resetFields()
   }
 
-
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-  const [OPTIONS, setOPTIONS] = useState([])
+  const OnFinishUpdate = values => {
+    console.log('Received values of form: ', values)
+    const usernameChanged = values.username !== user.username ? true : false
+    const emailChanged = values.email !== user.email ? true : false
+    updateUserFetch(id, values.email, values.username, values.firstName, values.lastName, values.gender, JSON.stringify(values.roles), values.birthDate, usernameChanged, emailChanged )
+    notification['success']({
+      message: 'User Update',
+      description: 'User updated successfully!',
+      placement: 'bottomRight',
+    })
+  }
 
   const onWebsiteChange = value => {
     if (!value) {
@@ -71,22 +87,43 @@ const CreateUser = () => {
     value: website,
   }));
 
-  useEffect(() => {
+  const initialValues = 
+  Object.entries(user).length !== 0 ?
+  {
+    email: user.email,
+    username: user.username,
+    firstName: user.name.split(' ')[0],
+    lastName: user.name.split(' ')[1],
+    birthDate : moment.unix(user.birthDate / 1000),
+    gender: user.gender,
+    roles: user.roles.map(role => role.id)
+  }
+  :
+  {}
+  
+
+  useEffect( () => {
+    if(id) {
+      getUserFetch(id).then(data => setUser(data.user)).finally(()=> setLoading(false))
+    } else{
+      setLoading(false)
+    }
     getRolesFetch().then(data => setOPTIONS(data.roles))
+    // eslint-disable-next-line 
   }, [])
+  
 
   return (
+    !loading ?
     <Form
       style={{marginRight: '30%', marginTop: '20%'}}
       {...formItemLayout}
       form={form}
       name="register"
-      onFinish={onFinish}
-      initialValues={{
-      }}
+      initialValues={initialValues}
+      onFinish={Object.entries(user).length === 0 ? onFinish : OnFinishUpdate}
       scrollToFirstError
     >
-
       <Form.Item
         name="username"
         label={
@@ -184,7 +221,7 @@ const CreateUser = () => {
         </Select>
       </Form.Item>
 
-      <Form.Item
+      {Object.entries(user).length === 0 ? <Form.Item
         name="password"
         label="Password"
         rules={[
@@ -201,8 +238,9 @@ const CreateUser = () => {
       >
         <Input.Password />
       </Form.Item>
+       : null}
 
-      <Form.Item
+      {Object.entries(user).length === 0 ? <Form.Item
         name="confirm"
         label="Confirm Password"
         dependencies={['password']}
@@ -224,6 +262,7 @@ const CreateUser = () => {
       >
         <Input.Password />
       </Form.Item>
+      :null}
 
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit" >
@@ -236,6 +275,9 @@ const CreateUser = () => {
         </Button>
       </Form.Item>
     </Form>
+    :
+    <Spin style={{position:"absolute", left: "50%", top: "50%"}} size="large" />
+
   )
 }
 

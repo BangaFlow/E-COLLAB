@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Empty, Tag, notification, Popconfirm, Divider, Button, Space, Input } from 'antd'
-import { SearchOutlined } from '@ant-design/icons'
+import { Table, Empty, Tag, notification, Popconfirm, Divider, Button, Space, Input, Avatar } from 'antd'
+import { SearchOutlined, UserOutlined } from '@ant-design/icons'
 import deleteUserFetch from './deleteUser_fecth'
 import getUsersFetch from './getUsers_fetch'
 import { Link } from 'react-router-dom'
@@ -96,9 +96,14 @@ function ListUsers() {
       clearFilters();
       setSearch({ searchText: '' })
     }
-
     // Table columns
     const columns = [
+        {
+          width: 40,
+          key: 'avatarUrl',
+          align: 'center',
+          render: () => <Avatar shape="square" style={{ color: '#f56a00', backgroundColor: '#fde3cf', verticalAlign: 'middle'}} icon={<UserOutlined />}/>,
+        },
         {
           title: 'Name',
           dataIndex: 'name',
@@ -137,7 +142,7 @@ function ListUsers() {
           key: 'action',
           render: (text, record) => (
             <span>
-              <a href='/' style={{ marginRight: 16, color: 'MEDIUMAQUAMARINE' }}>Update</a>
+              <a href={`/app/moduser/${record.id}`} style={{ marginRight: 16, color: 'MEDIUMAQUAMARINE' }}>Update</a>
               <Divider type="vertical" />
               <Popconfirm
               title="Are you sure delete this task?"
@@ -167,7 +172,7 @@ function ListUsers() {
             </div> 
             
             : 
-            <Table columns={columns} dataSource={users} rowKey={record => record.id} ><Empty /></Table>}
+            <Table  columns={columns} dataSource={users} rowKey={record => record.id} ><Empty /></Table>}
         </div>
     )
 }

@@ -46,6 +46,10 @@ class App extends Component {
                 path={`${match.url}/adduser`}
                 render={props => <CreateUser {...props} />}
               />
+              <Route
+                path={`${match.url}/moduser/:id`}
+                render={props => <CreateUser {...props} />}
+              />
               <Redirect to="/error" />
             </Switch>
           </Suspense>
