@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import AppLayout from '../../layout/AppLayout';
 import ListUsers from '../../components/users/ListUsers';
 import CreateUser from '../../components/users/CreateUser';
+import ListRoles from '../../components/roles/ListRoles';
 
 const Gogo = React.lazy(() =>
   import(/* webpackChunkName: "viwes-gogo" */ './gogo')
@@ -50,7 +51,11 @@ class App extends Component {
                 path={`${match.url}/moduser/:id`}
                 render={props => <CreateUser {...props} />}
               />
-              <Redirect to="/error" />
+              <Route
+                path={`${match.url}/roles`}
+                render={props => <ListRoles {...props} />}
+              />
+              {/* <Redirect to="/error" /> */}
             </Switch>
           </Suspense>
         </div>

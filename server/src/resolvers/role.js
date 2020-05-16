@@ -14,6 +14,11 @@ export default {
             const role = await Role.create(arg)
 
             return role
+        },
+        deleteRole: async (root, arg, context, info) => {
+            const role = await Role.findByIdAndDelete(arg.id)
+
+            return role
         }
     }
 }

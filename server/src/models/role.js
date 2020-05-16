@@ -8,7 +8,10 @@ const roleSchema = new mongoose.Schema({
             message: ({ value }) => `Role ${value} exist already.`
         }
     },
-    permissions: [String]
+    permissions:{
+        type: [String],
+        default: ['C','R','U','D']
+    } 
 }, {
     timestamps: true
 })
