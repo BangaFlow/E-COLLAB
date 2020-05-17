@@ -1,9 +1,34 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Empty, Tag, notification, Popconfirm, Divider, Button, Space, Input, Avatar } from 'antd'
-import { SearchOutlined, UserOutlined } from '@ant-design/icons'
+import { Table, Empty, Tag, notification, Popconfirm, Divider, Button, Space, Input, Avatar, PageHeader } from 'antd'
+import { SearchOutlined, UserOutlined, UserAddOutlined } from '@ant-design/icons'
 import deleteUserFetch from './deleteUser_fecth'
 import getUsersFetch from './getUsers_fetch'
 import { Link } from 'react-router-dom'
+import { history } from '../../helpers/history'
+
+// Breadcrumb routes
+const routes = [
+  {
+    path: "",
+    breadcrumbName: "Home",
+  },
+  {
+    path: "users",
+    breadcrumbName: "Users",
+  },
+  {
+    breadcrumbName: "List",
+  },
+]
+// For the breadcrumb routes
+function itemRender(route, params, routes, paths) {
+  const last = routes.indexOf(route) === routes.length - 1
+  return last ? (
+    <span>{route.breadcrumbName}</span>
+  ) : (
+    <Link to={paths.join("/")}>{route.breadcrumbName}</Link>
+  )
+}
 
 function ListUsers() {
 
@@ -164,15 +189,55 @@ function ListUsers() {
             {/*<pre>{JSON.stringify(users, null, 2)}</pre>*/}
             {users.length > 0 
             ?
-            <div>
-              <div style={{marginBottom: '1.5em'}}>
-                <Button type="primary" block><Link to="/app/adduser">Add</Link></Button>
-              </div>
-              <Table columns={columns} dataSource={users} rowKey={record => record.id} /> 
-            </div> 
-            
+            <>
+              <PageHeader
+                title="Users List"
+                className="site-page-header"
+                subTitle="This is a subtitle"
+                tags={<Tag color="blue">Running</Tag>}
+                extra={[
+                  <Button
+                    key="1"
+                    icon={<UserAddOutlined />}
+                    type="dashed"
+                    onClick={() => history.push('/app/adduser')}
+                  >
+                    Add a new user
+                  </Button>,
+                ]}
+                avatar={{
+                  src: "https://avatars1.githubusercontent.com/u/8186664?s=460&v=4",
+                }}
+                style={{ marginBottom: "2em" }}
+                breadcrumb={{ routes, itemRender }}
+              ></PageHeader>
+              <Table columns={columns} dataSource={users} rowKey={record => record.id} />
+            </>
             : 
-            <Table  columns={columns} dataSource={users} rowKey={record => record.id} ><Empty /></Table>}
+            <>
+            <PageHeader
+                title="Users List"
+                className="site-page-header"
+                subTitle="This is a subtitle"
+                tags={<Tag color="blue">Running</Tag>}
+                extra={[
+                  <Button
+                    key="1"
+                    icon={<UserAddOutlined />}
+                    type="dashed"
+                  >
+                    Add a new user
+                  </Button>,
+                ]}
+                avatar={{
+                  src: "https://avatars1.githubusercontent.com/u/8186664?s=460&v=4",
+                }}
+                style={{ marginBottom: "2em" }}
+                breadcrumb={{ routes, itemRender }}
+            ></PageHeader>
+            <Table  columns={columns} dataSource={users} rowKey={record => record.id} ><Empty /></Table>
+            </>
+            }
         </div>
     )
 }
