@@ -14,3 +14,11 @@ export { default as Meeting } from './meeting'
 
 export { default as Soutenance } from './soutenance'
 
+export { default as Answer } from './answer'
+
+export { default as Question } from './question'
+
+export { default as Quiz } from './quiz'
+
+
+

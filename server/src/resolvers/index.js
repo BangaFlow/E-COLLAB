@@ -7,6 +7,8 @@ import event from './event';
 import workShop from './workShop';
 import meeting from './meeting';
 import soutenance from './soutenance';
+import answer from './answer';
+
 export default [
     user,
     role,
@@ -16,6 +18,8 @@ export default [
     workShop,
     event,
     meeting,
-    soutenance
+    soutenance,
+    answer,
+    
    
 ]

@@ -8,6 +8,9 @@ import calendar from './calendar';
 import event from './event';
 import meeting from './meeting';
 import soutenance from './soutenance';
+import answer from './answer';
+import quiz from './quiz';
+import question from './question';
 export default [ 
     root,
     user,
@@ -18,5 +21,8 @@ export default [
     workShop,
     calendar,
     soutenance,
-    meeting
+    meeting,
+    answer,
+    quiz,
+    question,
 ]
