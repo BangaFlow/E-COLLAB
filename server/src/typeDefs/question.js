@@ -3,16 +3,16 @@ import { gql } from 'apollo-server-express'
 export default gql`
  
     extend type Query{
-     question(id :String ):Meeting
-     allQuestions : [Meeting]
+     question(id :String ):Question
+     allQuestions : [Question]
     
 
     }
 
     extend type Mutation {
         addQuestion( question:String ,note:Int):Question 
-        updateQuestion(id:String,question:String) :Question 
-        AssignmentAnswersToQuestion(id_quiz:String,id_question:[String]):Question
+        updateQuestion(id:String,question:String,note:Int) :Question 
+        AssignmentAnswersToQuestion(id_question:String,id_answers:[String]):Question
         deleteQuestion(id: String): Question
     }
 

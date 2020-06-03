@@ -8,6 +8,8 @@ import workShop from './workShop';
 import meeting from './meeting';
 import soutenance from './soutenance';
 import answer from './answer';
+import question from './question';
+import quiz from './quiz';
 
 export default [
     user,
@@ -20,6 +22,8 @@ export default [
     meeting,
     soutenance,
     answer,
+    question,
+    quiz
     
    
 ]

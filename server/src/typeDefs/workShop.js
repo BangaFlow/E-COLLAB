@@ -31,7 +31,7 @@ export default gql`
         workShop_description : String,
         workShop_startTime : Date,
         workShop_endTime : Date ,
-         participants:[User],
+        participants:[User],
         workShopor_oganiser :User,
         workShop_Requirments :String ,
         workShop_goals :String,

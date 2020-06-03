@@ -12,7 +12,7 @@ const quizSchema = new mongoose.Schema({
 
         type:
             mongoose.Schema.Types.ObjectId,
-        ref: "Question"
+        ref: 'question'
 
     }
     ],
@@ -20,7 +20,7 @@ const quizSchema = new mongoose.Schema({
 
         type:
             mongoose.Schema.Types.ObjectId,
-        ref: "Skill"
+        ref: 'Skill'
 
     }
 

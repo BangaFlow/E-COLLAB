@@ -11,8 +11,8 @@ export default gql`
 
     extend type Mutation {
         addQuiz(label:String):Quiz 
-        updateQuiz(id:String,question:String) :Quiz 
-        AssignmentQuestionsToQuiz(id_quiz:String,questions:[String]):Quiz
+        updateQuiz(id:String,label:String) :Quiz 
+        AssignmentQuestionsToQuiz(id_quiz:String,id_questions:[String]):Quiz
         deleteQuiz(id: String): Quiz
     }
 

@@ -8,11 +8,10 @@ const questionSchema = new mongoose.Schema({
         required: true,
 
     },
-    answers: [{
+    answers:[{
 
-        type:
-            mongoose.Schema.Types.ObjectId,
-        ref: "Answer"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'answer'
 
     }
     ],
