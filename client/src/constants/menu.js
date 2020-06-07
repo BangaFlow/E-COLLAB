@@ -48,7 +48,7 @@ const data = [
     id: "blankpage",
     icon: "iconsminds-bucket",
     label: "menu.profile",
-    to: "/app/profile"
+    to: "/app/profile/me"
   },
   {
     id: "docs",

@@ -12,9 +12,9 @@ import {
 } from "reactstrap";
 import { AvForm, AvField, AvGroup } from "availity-reactstrap-validation";
 import { Colxx } from "../../components/common/CustomBootstrap";
-import TopNav from "../../containers/navs/Topnav";
 
 import * as profileActions from "../../redux/actions/profile.actions";
+import { history } from "../../helpers/history";
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -29,6 +29,15 @@ class CreateProfile extends Component {
     };
   }
 
+  componentDidMount = () => {
+    const user_id = JSON.parse(localStorage.getItem("user")).id;
+    this.props.actions.fetchProfile(user_id).then(() => {
+      if (this.props.profile) {
+        history.push("/app/profile/me");
+      }
+    });
+  };
+
   handleSubmit = (event, errors) => {
     const user_id = JSON.parse(localStorage.getItem("user")).id;
     const title = this.state.title;
@@ -37,7 +46,6 @@ class CreateProfile extends Component {
     const phone = this.state.phone;
     const github_username = this.state.github_username;
     const image = this.state.image;
-    
     if (!errors.length) {
       this.props.actions
         .createProfile(
@@ -49,6 +57,11 @@ class CreateProfile extends Component {
           github_username,
           user_id
         )
+        .then(() => {
+          if (this.props.profile) {
+            history.push("/app/profile/me");
+          }
+        })
         .catch((err) => {
           console.log(err);
         });
@@ -56,150 +69,146 @@ class CreateProfile extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <TopNav history={this.props.history} />
+    return this.props.profile ? null : (
+      <div className="container">
+        <Fragment>
+          <Row className="mb-4">
+            <Colxx xxs="12">
+              <Card>
+                <CardBody>
+                  <CardTitle>Profile</CardTitle>
 
-        <div className="container" style={{ marginTop: "20vh" }}>
-          <Fragment>
-            <Row className="mb-4">
-              <Colxx xxs="12">
-                <Card>
-                  <CardBody>
-                    <CardTitle>Profile</CardTitle>
+                  <AvForm
+                    className="av-tooltip tooltip-label-right"
+                    onSubmit={this.handleSubmit}
+                  >
+                    {/* <AvGroup className="error-t-negative">
+                      <Label>Image</Label>
+                      <AvField
+                        name="image"
+                        type="file"
+                        value={this.state.image}
+                        onChange={(event) => {
+                          this.setState({ image: event.target.value });
+                        }}
+                      />
+                    </AvGroup> */}
+                    <FormGroup row>
+                      <Colxx sm={6}>
+                        <AvGroup className="error-t-negative">
+                          <Label>Title *</Label>
+                          <AvField
+                            name="title"
+                            type="text"
+                            value={this.state.title}
+                            onChange={(event) => {
+                              this.setState({ title: event.target.value });
+                            }}
+                            validate={{
+                              required: {
+                                value: true,
+                                errorMessage: "Please enter your title",
+                              },
+                            }}
+                          />
+                        </AvGroup>
+                      </Colxx>
+                      <Colxx sm={6}>
+                        <AvGroup className="error-l-75 error-t-negative">
+                          <Label>Location *</Label>
+                          <AvField
+                            name="location"
+                            type="text"
+                            value={this.state.location}
+                            onChange={(event) => {
+                              this.setState({ location: event.target.value });
+                            }}
+                            validate={{
+                              required: {
+                                value: true,
+                                errorMessage: "Please enter your location",
+                              },
+                            }}
+                          />
+                        </AvGroup>
+                      </Colxx>
+                    </FormGroup>
+                    <AvGroup className="error-t-negative">
+                      <Label>About *</Label>
+                      <AvField
+                        name="about"
+                        type="textarea"
+                        value={this.state.about}
+                        onChange={(event) => {
+                          this.setState({ about: event.target.value });
+                        }}
+                        validate={{
+                          required: {
+                            value: true,
+                            errorMessage: "Please describe yourself",
+                          },
+                          minLength: {
+                            value: 10,
+                            errorMessage:
+                              "Location must be between 10 and 150 characters",
+                          },
+                          maxLength: {
+                            value: 150,
+                            errorMessage:
+                              "Location must be between 10 and 150 characters",
+                          },
+                        }}
+                      />
+                    </AvGroup>
 
-                    <AvForm
-                      className="av-tooltip tooltip-label-right"
-                      onSubmit={this.handleSubmit}
-                    >
-                      <AvGroup className="error-t-negative">
-                        <Label>Image</Label>
-                        <AvField
-                          name="image"
-                          type="file"
-                          value={this.state.image}
-                          onChange={(event) => {
-                            this.setState({ image: event.target.value });
-                          }}
-                        />
-                      </AvGroup>
-                      <FormGroup row>
-                        <Colxx sm={6}>
-                          <AvGroup className="error-t-negative">
-                            <Label>Title *</Label>
-                            <AvField
-                              name="title"
-                              type="text"
-                              value={this.state.title}
-                              onChange={(event) => {
-                                this.setState({ title: event.target.value });
-                              }}
-                              validate={{
-                                required: {
-                                  value: true,
-                                  errorMessage: "Please enter your title",
-                                },
-                              }}
-                            />
-                          </AvGroup>
-                        </Colxx>
-                        <Colxx sm={6}>
-                          <AvGroup className="error-l-75 error-t-negative">
-                            <Label>Location *</Label>
-                            <AvField
-                              name="location"
-                              type="text"
-                              value={this.state.location}
-                              onChange={(event) => {
-                                this.setState({ location: event.target.value });
-                              }}
-                              validate={{
-                                required: {
-                                  value: true,
-                                  errorMessage: "Please enter your location",
-                                },
-                              }}
-                            />
-                          </AvGroup>
-                        </Colxx>
-                      </FormGroup>
-                      <AvGroup className="error-t-negative">
-                        <Label>About *</Label>
-                        <AvField
-                          name="about"
-                          type="textarea"
-                          value={this.state.about}
-                          onChange={(event) => {
-                            this.setState({ about: event.target.value });
-                          }}
-                          validate={{
-                            required: {
-                              value: true,
-                              errorMessage: "Please describe yourself",
-                            },
-                            minLength: {
-                              value: 10,
-                              errorMessage:
-                                "Location must be between 10 and 150 characters",
-                            },
-                            maxLength: {
-                              value: 150,
-                              errorMessage:
-                                "Location must be between 10 and 150 characters",
-                            },
-                          }}
-                        />
-                      </AvGroup>
+                    <FormGroup row>
+                      <Colxx sm={6}>
+                        <AvGroup className="error-l-50 error-t-negative">
+                          <Label>Phone *</Label>
+                          <AvField
+                            name="phone"
+                            type="text"
+                            value={this.state.phone}
+                            onChange={(event) => {
+                              this.setState({ phone: event.target.value });
+                            }}
+                            validate={{
+                              number: {
+                                value: true,
+                                errorMessage: "Value must be a number",
+                              },
+                              required: {
+                                value: true,
+                                errorMessage: "Please enter a number",
+                              },
+                            }}
+                          />
+                        </AvGroup>
+                      </Colxx>
+                      <Colxx sm={6}>
+                        <AvGroup className="error-l-125 error-t-negative">
+                          <Label>Github username</Label>
+                          <AvField
+                            name="github_username"
+                            type="text"
+                            value={this.state.github_username}
+                            onChange={(event) => {
+                              this.setState({
+                                github_username: event.target.value,
+                              });
+                            }}
+                          />
+                        </AvGroup>
+                      </Colxx>
+                    </FormGroup>
 
-                      <FormGroup row>
-                        <Colxx sm={6}>
-                          <AvGroup className="error-l-50 error-t-negative">
-                            <Label>Phone *</Label>
-                            <AvField
-                              name="phone"
-                              type="text"
-                              value={this.state.phone}
-                              onChange={(event) => {
-                                this.setState({ phone: event.target.value });
-                              }}
-                              validate={{
-                                number: {
-                                  value: true,
-                                  errorMessage: "Value must be a number",
-                                },
-                                required: {
-                                  value: true,
-                                  errorMessage: "Please enter a number",
-                                },
-                              }}
-                            />
-                          </AvGroup>
-                        </Colxx>
-                        <Colxx sm={6}>
-                          <AvGroup className="error-l-125 error-t-negative">
-                            <Label>Github username</Label>
-                            <AvField
-                              name="github_username"
-                              type="text"
-                              value={this.state.github_username}
-                              onChange={(event) => {
-                                this.setState({
-                                  github_username: event.target.value,
-                                });
-                              }}
-                            />
-                          </AvGroup>
-                        </Colxx>
-                      </FormGroup>
-
-                      <Button color="primary">Submit</Button>
-                    </AvForm>
-                  </CardBody>
-                </Card>
-              </Colxx>
-            </Row>
-          </Fragment>
-        </div>
+                    <Button color="primary">Submit</Button>
+                  </AvForm>
+                </CardBody>
+              </Card>
+            </Colxx>
+          </Row>
+        </Fragment>
       </div>
     );
   }

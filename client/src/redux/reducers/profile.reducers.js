@@ -1,14 +1,14 @@
 import * as types from "../constants/profile.constants";
 
-const INIT_STATE = {
-  profiles: [],
-};
-
-export default (state = INIT_STATE.profiles, action) => {
+export default (currentState = [], action) => {
   switch (action.type) {
+    case types.FETCH_PROFILE_BY_USER_ID:
+      return action.profile;
     case types.CREATE_PROFILE_SUCCESS:
-        return [...state, { ...action.profile }];
+      return action.profile;
+    case types.UPDATE_PROFILE:
+      return action.profile;
     default:
-      return state;
+      return currentState;
   }
 };

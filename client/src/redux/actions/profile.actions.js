@@ -1,10 +1,5 @@
 import * as types from "../constants/profile.constants";
 import * as profileApi from "../../services/profile.services";
-import { history } from "../../helpers/history";
-
-export function createProfileSuccess(profile) {
-  return { type: types.CREATE_PROFILE_SUCCESS, profile };
-}
 
 export function createProfile(
   image,
@@ -27,8 +22,51 @@ export function createProfile(
         user_id
       )
       .then((profile) => {
-        dispatch(createProfileSuccess(profile));
-        history.push("/app/profile");
+        dispatch({ type: types.CREATE_PROFILE_SUCCESS, profile });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+}
+
+export function fetchProfile(id) {
+  return function (dispatch) {
+    return profileApi
+      .getProfile(id)
+      .then((profile) => {
+        dispatch({ type: types.FETCH_PROFILE_BY_USER_ID, profile });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+}
+
+export function updateProfile({
+  image,
+  title,
+  location,
+  phone,
+  about,
+  github_username,
+  profile_id,
+}) {
+  return function (dispatch) {
+    return profileApi
+      .updateProfile(
+        image,
+        title,
+        location,
+        phone,
+        about,
+        github_username,
+        profile_id
+      )
+      .then((profile) => {
+        console.log(profile);
+        
+        dispatch({ type: types.UPDATE_PROFILE, profile });
       })
       .catch((err) => {
         throw err;

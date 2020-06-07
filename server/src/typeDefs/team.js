@@ -10,6 +10,10 @@ export default gql`
 
   type Project {
     id: ID!
+    title: String
+    start_date: Date
+    end_date: Date
+    short_desc: String
     number_of_teams: Int
     number_of_members: Int
     tutors_involved: [User]

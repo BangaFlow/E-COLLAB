@@ -6,6 +6,7 @@ import menu from './menu/reducer';
 import skills from './reducers/skills.reducers'
 import teams from './reducers/teams.reducers'
 import profile from './reducers/profile.reducers'
+import {currentUser, currentUserData, userRepos,} from './reducers/github.reducers'
 
 
 const reducers = combineReducers({
@@ -15,7 +16,10 @@ const reducers = combineReducers({
   settings,
   skills,
   teams,
-  profile
+  profile,
+  currentUser,
+  currentUserData,
+  userRepos,
 });
 
 export default reducers;

@@ -180,7 +180,7 @@ class TopNav extends Component {
   };
 
   handleProfile = () => {
-    history.push('/app/profile');
+    history.push('/app/profile/me');
   };
 
   menuButtonClick = (e, menuClickCount, containerClassnames) => {
@@ -305,7 +305,7 @@ class TopNav extends Component {
               <DropdownToggle className="p-0" color="empty">
                 <span className="name mr-1">{JSON.parse(localStorage.getItem("user")).name}</span>
                 <span>
-                  <img alt="Profile" src="/assets/img/avatar-2.jpg" />
+                  {/* <img alt="Profile" src="/assets/img/avatar-2.jpg" /> */}
                 </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>

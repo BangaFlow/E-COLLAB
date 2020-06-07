@@ -28,6 +28,11 @@ export default gql`
     ): Profile
   }
 
+  type Owned_skill {
+    skill : Skill
+    grade : String
+  }
+
   type Profile {
     id: ID!
     user: User!
@@ -36,7 +41,8 @@ export default gql`
     location: String
     phone: String
     about: String
-    skills: [Skill]
+    skills: [Owned_skill]
     github_username: String
+    teams: [Team]
   }
 `;

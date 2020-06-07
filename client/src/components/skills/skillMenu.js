@@ -14,30 +14,17 @@ export default class skillMenu extends Component {
           <div className="p-4">
             <p className="text-muted text-small">Status</p>
             <ul className="list-unstyled mb-5">
-              <div>
+              <div className="mb-2">
                 <i className="simple-icon-reload" />
                 All Skills
                 <span className="float-right"></span>
               </div>
-              <div>
-                <i className="simple-icon-refresh" />
-                Recommended
-                <span className="float-right"></span>
-              </div>
-              <div>
-                <i className="simple-icon-check" />
-                Top 10
-                <span className="float-right"></span>
-              </div>
-            </ul>
-            <p className="text-muted text-small">Categories</p>
-            <ul className="list-unstyled mb-5">
-              <div>
+              <div className="mb-2">
                 <i className="simple-icon-reload" />
                 Technical Skills
                 <span className="float-right"></span>
               </div>
-              <div>
+              <div className="mb-2">
                 <i className="simple-icon-refresh" />
                 Soft Skills
                 <span className="float-right"></span>

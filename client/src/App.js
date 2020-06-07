@@ -29,7 +29,7 @@ const ViewError = React.lazy(() =>
 );
 
 const ViewCreateProfile = React.lazy(() =>
-  import(/* webpackChunkName: "views" */ './components/profile/CreateProfile')
+  import(/* webpackChunkName: "views" */ './views/create-profile')
 );
 
 class App extends Component {

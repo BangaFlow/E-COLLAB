@@ -35,7 +35,7 @@ class Skills extends Component {
 
     return (
       <Fragment>
-        <Row className="app-row survey-app">
+        <Row>
           <Colxx xxs="12">
             <Breadcrumb heading="menu.skills" match={this.props.match} />
             <div className="float-sm-right">
@@ -46,16 +46,15 @@ class Skills extends Component {
             <Separator className="mb-5" />
           </Colxx>
         </Row>
-        <Row className="app-row survey-app">
-          <Colxx xxs="12" className="mb-4">
-            <div>
-              {skills
-                ? skills.map((skill) => <Skill key={skill.id} item={skill} />)
-                : "loading"}
-            </div>
-          </Colxx>
+        <Row>
+          {skills
+            ? skills.map((skill) => (
+                <Colxx xxs="6">
+                  <Skill key={skill.id} item={skill} />{" "}
+                </Colxx>
+              ))
+            : "loading"}
         </Row>
-        <SkillMenu />
         <SkillForm
           toggleModal={this.toggleModal}
           modalOpen={modalOpen}

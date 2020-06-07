@@ -11,15 +11,15 @@ const SecondMenu = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
 );
 const Profile = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ './profile')
+  import(/* webpackChunkName: "viwes-profile" */ './profile')
 );
 
 const Skills = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-gogo" */ './skills')
+  import(/* webpackChunkName: "viwes-skills" */ './skills')
 );
 
 const Teams = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-gogo" */ './teams')
+  import(/* webpackChunkName: "viwes-teams" */ './teams')
 );
 
 class App extends Component {
@@ -49,7 +49,7 @@ class App extends Component {
                 render={props => <SecondMenu {...props} />}
               />
               <Route
-                path={`${match.url}/profile`}
+                path={`${match.url}/profile/me`}
                 render={props => <Profile {...props} />}
               />
               <Redirect to="/error" />
