@@ -39,7 +39,7 @@ class CreateProfile extends Component {
   };
 
   handleSubmit = (event, errors) => {
-    const user_id = JSON.parse(localStorage.getItem("user")).id;
+    const user_id = JSON.parse(localStorage.getItem("user")).id;   
     const title = this.state.title;
     const location = this.state.location;
     const about = this.state.about;

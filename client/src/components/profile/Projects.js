@@ -1,5 +1,4 @@
-// @flow
-import React from "react";
+import React, { useState } from "react";
 import {
   Row,
   Col,
@@ -11,11 +10,7 @@ import {
 } from "reactstrap";
 import classNames from "classnames";
 import "../../assets/scss/custom-profile-style/style.scss";
-
-import avatar1 from "../../assets/images/users/avatar-6.jpg";
-import avatar3 from "../../assets/images/users/avatar-8.jpg";
-
-import { projects, todayTasks } from "./Data";
+import Loader from "../../helpers/loader";
 
 // single project
 const Team = (props) => {
@@ -128,11 +123,16 @@ const Team = (props) => {
 };
 
 const Projects = ({ teams }) => {
+  const [Limit, setLimit] = useState(6);
+  const LoadMore = () => {
+    setLimit(Limit + 6);
+  };
+
   return teams && teams.length > 0 ? (
     <React.Fragment>
       <h5 className="mt-3">Projects</h5>
       <Row>
-        {teams.map((team, i) => {
+        {teams.slice(0, Limit).map((team, i) => {
           return (
             <Col lg={6} xl={4} key={"proj-" + team.id}>
               <Team team={team} />
@@ -144,9 +144,11 @@ const Projects = ({ teams }) => {
       <Row className="mb-3 mt-2">
         <Col>
           <div className="text-center">
-            <Button color="white">
-              {/* <Loader className="icon-dual icon-xs mr-2"></Loader>Load more */}
-            </Button>
+            {Limit < teams.length && (
+              <Button color="white" onClick={LoadMore}>
+                <Loader className="icon-dual icon-xs mr-2"></Loader>Load more
+              </Button>
+            )}
           </div>
         </Col>
       </Row>
