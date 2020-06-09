@@ -34,6 +34,10 @@ const ViewQuizPaly = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/app/Quiz/quizPage')
 );
 
+const ViewQuizResult = React.lazy(() =>
+import(/* webpackChunkName: "views-error" */ './views/app/Quiz/SummaryPage')
+);
+
 
 
 class App extends Component {
@@ -91,6 +95,12 @@ class App extends Component {
                 path="/playQuiz"
                 exact
                 render={props => <ViewQuizPaly {...props} />}
+              />
+
+              <Route
+                path="/ResultQuiz"
+                exact
+                render={props => <ViewQuizResult {...props} />}
               />
                   
                   <Route

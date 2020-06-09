@@ -1,9 +1,15 @@
 import React, { Component, Fragment } from "react";
-import { Row, Card,Button, CustomInput, CardTitle,FormGroup,Badge } from "reactstrap";
+import { Row, Card,Button, CustomInput, CardTitle,FormGroup,Badge 
+  , Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,} from "reactstrap";
 import IntlMessages from "../../../helpers/IntlMessages";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb" ;
 import { NavLink } from "react-router-dom";
+import QuizPage from "../Quiz/quizPage"
+import SummaryPage from '../Quiz/SummaryPage';
  
 export default class Quizzes extends Component {
   constructor(props, context) {
@@ -19,6 +25,12 @@ export default class Quizzes extends Component {
     });
   };
 
+  toggle2 = () => {
+    this.setState(prevState => ({
+        modal2: !prevState.modal2
+    }));
+};
+
     render() {
         return (
             <Fragment>
@@ -29,7 +41,7 @@ export default class Quizzes extends Component {
                 <Breadcrumb heading="menu.Quizzes" match={this.props.match} />
                 <div className="float-sm-right">
                 <Button color="primary" size="lg" onClick={this.toggleModal}>
-                  New Meeting
+                  New Quiz
                 </Button>
               </div>
                 <Separator className="mb-5" />
@@ -57,9 +69,9 @@ export default class Quizzes extends Component {
                         <p className="mb-1 text-muted text-small w-15 w-sm-100">1 Question</p>
                         <p className="mb-1 text-muted text-small w-15 w-sm-100"></p>
                         <div className="w-15 w-sm-100">
-                        <NavLink to="/app/questions" className="d-flex">
-                          <Badge color="primary" pill >Show questions</Badge>
-                          </NavLink>
+                      
+                          <Badge color="primary" pill  onClick={this.toggle2}>paly Quiz</Badge>
+                        
                         </div>
                       </div>
                       <div className="custom-control custom-checkbox pl-1 align-self-center pr-4">
@@ -72,6 +84,7 @@ export default class Quizzes extends Component {
               </Row>
             </Colxx>
           </Row>
+         
 
           </Fragment>
         )
