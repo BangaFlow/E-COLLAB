@@ -36,6 +36,7 @@ export default gql`
   }
 
   extend type Query {
+    getProjects: [Project]
     getTeams: [Team]
     getTeamById(id: ID!): Team
     getTeamsByUserId(id: ID!): [Team]

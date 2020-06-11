@@ -54,6 +54,30 @@ module.exports = {
   "menu.teams": "Teams",
   "menu.teams.all" : "All teams",
   "menu.all" : "All teams",
+  "menu.team.create": "Create Team",
+  "menu.create": "Create Team",
+  "menu.team.members.swap":"Swap Members",
+  "menu.members-swap":"Swap Members",
+
+  "menu.team.members.transfer":"Transfer Member",
+  "menu.members-transfer":"Transfer Member",
+
+  "menu.team.subject.assign":"Assign Subject",
+  "menu.subject-assign":"Assign Subject",
+
+  "menu.team.subject.change":"Change Subject",
+  "menu.subject-change":"Change Subject",
+
+  "menu.team.tutors.assign":"Assign Tutors",
+  "menu.tutors-assign":"Assign Tutors",
+
+  "menu.team.tutors.change":"Change Tutor",
+  "menu.tutors-change":"Change Tutor",
+
+  "menu.team.generate.random":"Generate Random Teams",
+  "menu.generate-random":"Generate Random Teams",
+
+  "menu.team" : "Team Details",
 
   /* profile */
   "menu.profile" : "Profile"

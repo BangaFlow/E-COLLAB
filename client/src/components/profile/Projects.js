@@ -135,7 +135,7 @@ const Projects = ({ teams }) => {
         {teams.slice(0, Limit).map((team, i) => {
           return (
             <Col lg={6} xl={4} key={"proj-" + team.id}>
-              <Team team={team} />
+              <Team team={team} key={"-" + i} />
             </Col>
           );
         })}

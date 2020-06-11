@@ -3,20 +3,14 @@ const data = [
     id: "skills_page",
     icon: "iconsminds-three-arrow-fork",
     label: "menu.skills",
-    to: "/app/skills"
+    to: "/app/skills",
   },
   {
     id: "teams_page",
     icon: "iconsminds-library",
     label: "menu.teams",
-    to: "/app/teams",
-    subs: [
-      {
-        icon: "simple-icon-paper-plane",
-        label: "menu.teams.all",
-        to: "/app/teams/all"
-      }
-    ]
+    to: "/app/teams/all",
+
   },
   {
     id: "gogo",
@@ -27,9 +21,9 @@ const data = [
       {
         icon: "simple-icon-paper-plane",
         label: "menu.start",
-        to: "/app/gogo/start"
-      }     
-    ]
+        to: "/app/gogo/start",
+      },
+    ],
   },
   {
     id: "secondmenu",
@@ -40,22 +34,22 @@ const data = [
       {
         icon: "simple-icon-paper-plane",
         label: "menu.second",
-        to: "/app/second-menu/second"
-      }
-    ]
+        to: "/app/second-menu/second",
+      },
+    ],
   },
   {
     id: "blankpage",
     icon: "iconsminds-bucket",
     label: "menu.profile",
-    to: "/app/profile/me"
+    to: "/app/profile/me",
   },
   {
     id: "docs",
     icon: "iconsminds-library",
     label: "menu.docs",
     to: "https://gogo-react-docs.coloredstrategies.com/",
-    newWindow:true
-  }
+    newWindow: true,
+  },
 ];
 export default data;

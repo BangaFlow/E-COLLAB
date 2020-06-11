@@ -7,8 +7,13 @@ import User from "../models/user";
 
 export default {
   Query: {
+    getProjects: async (root, args, context, info) => {
+      const projects = await Project.find();      
+      return projects;
+    },
     getTeams: async (root, args, context, info) => {
-      return await Team.find();
+      const teams = await Team.find();      
+      return teams;
     },
     getTeamById: async (root, { id }, context, info) => {
       return await Team.findById(id);
@@ -302,6 +307,19 @@ export default {
     },
     project: async (team, arg, context, info) => {
       return (await team.populate("project").execPopulate()).project;
+    },
+  },
+  Project: {
+    subjects: async (project, arg, context, info) => {
+      return (await project.populate("subjects").execPopulate()).subjects;
+    },
+    tutors_involved: async (project, arg, context, info) => {
+      return (await project.populate("tutors_involved").execPopulate())
+        .tutors_involved;
+    },
+    learners_involved: async (project, arg, context, info) => {
+      return (await project.populate("learners_involved").execPopulate())
+        .learners_involved;
     },
   },
 };
