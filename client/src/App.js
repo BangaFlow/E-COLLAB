@@ -30,7 +30,9 @@ const ViewApp = React.lazy(() =>
 const ViewError = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/error')
 );
-
+const Details = React.lazy(() =>
+  import(/* webpackChunkName: "views-error" */ './views/app/projects/details')
+);
 class App extends Component {
   constructor(props) {
     super(props);
@@ -90,6 +92,11 @@ class App extends Component {
                     path="/"
                     exact
                     render={props => <ViewMain {...props} />}
+                  />
+                    <Route
+                    path="/app/projects/details"
+                    exact
+                    render={props => <Details {...props} />}
                   />
                   <Redirect to="/error" />
                 </Switch>

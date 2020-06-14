@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 const Start = React.lazy(() =>
   import(/* webpackChunkName: "start" */ './start')
 );
+
 const Gogo = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
     <Switch>
@@ -14,6 +15,7 @@ const Gogo = ({ match }) => (
       />
       <Redirect to="/error" />
     </Switch>
+ 
   </Suspense>
 );
 export default Gogo;

@@ -9,7 +9,8 @@ const SkillSchema = new mongoose.Schema({
     },
     type :{
         type : String
-    }
+    },
+   
 });
 
 module.exports = Skill = mongoose.model('skill', SkillSchema);

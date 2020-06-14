@@ -3,11 +3,18 @@ import user from './user'
 import role from './role'
 import profile from "./profile";
 import skill from './skill';
-
+import project from './project';
+import subject from './subject';
+import Typeproject from './Typeproject'
+import Step from './step'
 export default [ 
     root,
     user,
     role,
     profile,
-    skill
+    skill,
+    project,
+    subject,
+    Typeproject,
+    Step
 ]

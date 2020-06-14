@@ -1,4 +1,5 @@
 const data = [
+
   {
     id: "gogo",
     icon: "iconsminds-air-balloon-1",
@@ -9,7 +10,40 @@ const data = [
         icon: "simple-icon-paper-plane",
         label: "menu.start",
         to: "/app/gogo/start"
+      }  ,{
+        icon: "simple-icon-paper-plane",
+        label: "menu.start",
+        to: "/app/gogo/Projects"
       }     
+    ]
+  },
+  {
+    id: "projects",
+    icon: "iconsminds-air-balloon-1",
+    label: "projects",
+    to: "/app/projects",
+    subs: [
+      {
+        icon: "simple-icon-paper-plane",
+        label: "Categories",
+        to: "/app/projects/categories"
+      } ,
+      {
+        icon: "simple-icon-paper-plane",
+        label: "Projects",
+        to: "/app/projects/Projects"
+      } ,
+      {
+        icon: "simple-icon-paper-plane",
+        label: "Subjects",
+        to: "/app/projects/Subjects"
+      } ,
+      {
+        icon: "simple-icon-paper-plane",
+        label: "Chart",
+        to: "/app/projects/Stats"
+      }
+        
     ]
   },
   {
