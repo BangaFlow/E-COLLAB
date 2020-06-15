@@ -7,6 +7,7 @@ import menu from './menu/reducer';
 import  event   from './reducers/event.reducers'
 import  workShop   from './reducers/workShop.reducers'
 import  meeting   from './reducers/meeting.reducers'
+import quiz from './reducers/quiz.reducers'
 const reducers = combineReducers({
   alert,
   authentication,
@@ -15,7 +16,8 @@ const reducers = combineReducers({
   courses,
   event,
   workShop,
-  meeting
+  meeting,
+  quiz
 
 });
 

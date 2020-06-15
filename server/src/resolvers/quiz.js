@@ -24,13 +24,13 @@ export default {
     },
 
     Mutation: {
-        addQuiz: (root, args, context, info) => {
-            return Quiz.create(args)
+        addQuiz: async (root, args, context, info) => {
+            return await Quiz.create(args)
 
         },
-        updateQuiz: (root, args, context, info) => {
+        updateQuiz: async (root, args, context, info) => {
             if (!args.id) return;
-            return Quiz.findOneAndUpdate(
+            return await Quiz.findOneAndUpdate(
                 {
                     _id: args.id
                 },
@@ -50,8 +50,8 @@ export default {
                 }
             );
         },
-        deleteQuiz: (root, { id }, context, info) => {
-            return Quiz.findByIdAndRemove(id)
+        deleteQuiz: async (root, { id }, context, info) => {
+            return await Quiz.findByIdAndRemove(id)
 
         },
 

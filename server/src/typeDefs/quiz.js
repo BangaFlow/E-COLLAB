@@ -10,7 +10,7 @@ export default gql`
     }
 
     extend type Mutation {
-        addQuiz(label:String):Quiz 
+        addQuiz(label:String,time:Int):Quiz 
         updateQuiz(id:String,label:String) :Quiz 
         AssignmentQuestionsToQuiz(id_quiz:String,id_questions:[String]):Quiz
         deleteQuiz(id: String): Quiz
@@ -20,5 +20,6 @@ export default gql`
         id:ID,
         label:String,
         skill:Skill,
+        time:Int,
         questions:[Question],
     }`

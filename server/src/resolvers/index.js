@@ -7,7 +7,6 @@ import event from './event';
 import workShop from './workShop';
 import meeting from './meeting';
 import soutenance from './soutenance';
-import answer from './answer';
 import question from './question';
 import quiz from './quiz';
 
@@ -21,7 +20,6 @@ export default [
     event,
     meeting,
     soutenance,
-    answer,
     question,
     quiz
     

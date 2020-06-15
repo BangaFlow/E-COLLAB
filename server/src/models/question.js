@@ -8,14 +8,32 @@ const questionSchema = new mongoose.Schema({
         required: true,
 
     },
-    answers:[{
+    answer:{
 
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'answer'
+        type: String
 
-    }
-    ],
-    note: {
+    },
+    optionA:{
+
+        type: String
+
+    },
+    optionB:{
+
+        type: String
+
+    },
+    optionC:{
+
+        type: String
+
+    },
+    optionD:{
+
+        type: String
+
+    },
+    note:{
          type:Number
     }
     ,

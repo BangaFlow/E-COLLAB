@@ -73,7 +73,7 @@ const data = [
     id: "Calendar",
     icon: "iconsminds-calendar-4",
     label: "menu.Calendar",
-    to: "/calendar"
+    to: "/app/myClendar"
   },
   {
     id: "docs",

@@ -63,7 +63,7 @@ class AddNewModal extends React.Component  {
         </Label>
         <Input defaultValue={this.state.eventName}
         onChange={(event) => {
-          this.setState({ eventName: event.target.value }); 
+          this.setState({ eventName: event.target.value}); 
         }}/>
 
 

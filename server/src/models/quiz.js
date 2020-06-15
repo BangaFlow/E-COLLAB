@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { number } from 'joi'
 
 
 const quizSchema = new mongoose.Schema({
@@ -6,8 +7,7 @@ const quizSchema = new mongoose.Schema({
 
         type:String
 
-    }
-    ,
+    },
     questions: [{
 
         type:
@@ -21,6 +21,12 @@ const quizSchema = new mongoose.Schema({
         type:
             mongoose.Schema.Types.ObjectId,
         ref: 'Skill'
+
+    },
+    time :{
+
+        type: Number
+
 
     }
 

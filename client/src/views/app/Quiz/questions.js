@@ -2,28 +2,27 @@ import React, { Component, Fragment } from "react";
 import {
     Collapse,
     Button,
-    Row,
-    Card,
-    CardSubtitle,
-    CardBody, Modal,
+    Row, Modal, Col,
     ModalHeader,
     ModalBody,
     ModalFooter, InputGroup,
     InputGroupAddon,
     Input,
-    InputGroupText,
-    CardTitle
+    InputGroupText, Label,
+    FormGroup, FormText
 } from "reactstrap";
+
+import { AvForm, AvField ,AvRadioGroup,AvRadio } from 'availity-reactstrap-validation';
+
 import IntlMessages from "../../../helpers/IntlMessages";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
 import PropTypes from 'prop-types'
 import { connect } from "react-redux";
-import * as eventAction from "../../../redux/actions/eventActions"
+import * as quizAction from "../../../redux/actions/quiz.actions"
 import { bindActionCreators } from "redux"
-import Event from "../../../components/Calendar/event"
-
-import AddNewModal from '../../../components/Calendar/AddNewModal'
+import QuestionDetails from "../../../components/Quiz/QuestionDetails"
+import UpdateQuiz from "../../../components/Quiz/UpdateQuiz";
 
 
 
@@ -31,43 +30,81 @@ export class Questions extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            modalOpen: false,
+            modal2: false,
             collapse: false,
-            accordion: [true, false, false]
+            accordion: [true, false, false],
+            questions: this.data,
+            question: '',
+            optionA: '',
+            optionB: '',
+            optionC: '',
+            optionD: '',
+            answer: '',
+            note:"",
+            nbQuestion:""
         }
     }
+    data = []
     componentDidMount() {
-        this.props.actions.getAllEvent().catch(e => {
-            alert(e)
-        })
+        this.forceUpdate()
+    
+        {
+            
+            this.props.quiz.map(q => {
+                if (q.id === this.props.match.params.id) {
+                    console.log(q)
+                    if(q.questions !== undefined){
+                    q.questions.forEach(q => {
+                        this.data.push(q)
+
+                    });}
+
+                }
+            })
+            this.setState({ questions: this.data })
+            console.log(this.state.questions)
+
+
+        }
+
+
     }
-    toggleModal = () => {
-        this.setState({
-            modalOpen: !this.state.modalOpen,
+   
 
-        });
-    };
-    toggleAccordion = tab => {
-        const prevState = this.state.accordion;
-        const state = prevState.map((x, index) => (tab === index ? !x : false));
-        this.setState({
-            accordion: state
-        });
-    };
-
-    toggle = () => {
-        this.setState({ collapse: !this.state.collapse });
-    };
-    toggle1 = () => {
-        this.setState(prevState => ({
-            modal: !prevState.modal
-        }));
-    };
     toggle2 = () => {
-        this.setState(prevState => ({
-            modal2: !prevState.modal2
-        }));
-    };
+        this.setState({
+          modal2: !this.state.modal2
+        });
+      };
+      
+ 
+    save = (event, errors, values) => {
+
+        console.log(values)
+
+       
+        this.setState({
+            nbQuestion :values.nbQuestion
+
+        })
+        
+        
+          const quizInfo={
+            nbQuestion : this.state.nbQuestion,
+            id:this.props.match.params.id
+        
+      
+          }
+          this.props.history.push("/app/questionPageAdd",quizInfo)
+      
+    }
+
+
+  
+
+   
+  
+   
 
     render() {
 
@@ -77,213 +114,75 @@ export class Questions extends Component {
 
 
 
+            <Row>
+            <Colxx xxs="12">
+              <Breadcrumb heading="menu.Quizzes" match={this.props.match} />
+              <div className="float-sm-right">
+                <Button color="primary" size="lg" outline onClick={this.toggle2} >
+                  Add Question
+                  </Button>
+              </div>
+              <Separator className="mb-5" />
+            </Colxx>
+          </Row>
+          <Row>
+            <Colxx xxs="12" className="mb-4">
+              <p><IntlMessages id="All Questions " /></p>
+            </Colxx>
+          </Row>
+          
+  
+  
+            <Colxx xxs="12">
 
 
-                <Row className="app-row survey-app">
-                    <Colxx xxs="12">
-                        <Breadcrumb heading="menu.question" match={this.props.match} />
-                        
-                        <div className="float-sm-right">
-                                    <Button color="primary" outline onClick={this.toggle2}>
-                                        <IntlMessages id="Add Question" />
-                                    </Button>
-                                    <Modal isOpen={this.state.modal2} toggle={this.toggle2}>
-                                        <ModalHeader toggle={this.toggle2}>
-                                            <IntlMessages id="modal.modal-title" />
-                                        </ModalHeader>
-                                        <ModalBody>
-                                            <InputGroup className="mb-3">
-                                                <InputGroupAddon addonType="prepend">Question</InputGroupAddon>
-                                                <Input placeholder="question" />
-                                            </InputGroup>
-                                            <InputGroup>
-                                                <InputGroupAddon addonType="prepend">
-                                                    <span className="input-group-text">
-                                                        <IntlMessages id="Answer & valisation" />
-                                                    </span>
-                                                </InputGroupAddon>
-                                                <Input placeholder="answer" />
-                                                <Input placeholder="true or false" />
-                                            </InputGroup>
-                                            <InputGroup>
-                                                <InputGroupAddon addonType="prepend">
-                                                    <span className="input-group-text">
-                                                        <IntlMessages id="Answer & validation" />
-                                                    </span>
-                                                </InputGroupAddon>
-                                                <Input placeholder="answer" />
-                                                <Input placeholder="true or false" />
-                                            </InputGroup>
-                                            <InputGroup>
-                                                <InputGroupAddon addonType="prepend">
-                                                    <span className="input-group-text">
-                                                        <IntlMessages id="Answer & validation" />
-                                                    </span>
-                                                </InputGroupAddon>
-                                                <Input placeholder="answer" />
-                                                <Input placeholder="true or false" />
-                                            </InputGroup>
-                                        </ModalBody>
-                                        <ModalFooter>
-                                            <Button color="primary" onClick={this.toggle2}>
-                                                Add
-                                            </Button>{" "}
-                                            <Button color="secondary" onClick={this.toggle2}>
-                                                Cancel
-                                            </Button>
-                                        </ModalFooter>
-                                    </Modal>
-                                </div>
-                           
 
 
-                        <Separator className="mb-5" />
-                    </Colxx>
-                </Row>
-                <Colxx >
-                    <Row  >
-                    <div className="border">
-                            <Button
-                                block
-                                color="link"
-                                className="text-left"
-                                onClick={() => this.toggleAccordion(0)}
-                                aria-expanded={this.state.accordion[0]}
-                            >
-                                Question Number #1
-                                </Button>
-                            <Collapse isOpen={this.state.accordion[0]}>
-                                <div className="p-4">
-                                React est une bibliothèque JavaScript libre développée par Facebook depuis 2013. Le but principal de cette bibliothèque est de faciliter la création d'application web monopage, via la création de composants dépendant d'un état et générant une page HTML à chaque changement d'état
-                                </div>
+                <Colxx className="text-center">
+                  
 
-                                <div className="list-unstyled text-center">
+                {
+                        this.state.questions.map(p=>(
 
-                                    <li>
-                                        <p>1. bibliothèque JavaScript </p>
-                                    </li>
-                                    <li>
-                                        <p>2. Framework JavaScript</p>
-                                    </li>
-                                    <li>
-                                        <p>3. platform  JavaScript </p>
-                                    </li>
+                            <QuestionDetails  key={p.id} question={p} idCurrent={this.props.match.params.id}/> )
+                        )
 
-                                </div>
+                }
+                   
+                
+                </Colxx>
+            </Colxx>
 
 
-                                <div className="float-sm-right">
-                                    <Button color="primary" outline onClick={this.toggle1}>
-                                        <IntlMessages id="Update" />
-                                    </Button>
-                                   
-                                </div>
-                            </Collapse>
-                        </div>
-                        </Row>
-                        <Row>
-
-                        <div className="border">
-                            <Button
-                                block
-                                color="link"
-                                className="text-left"
-                                onClick={() => this.toggleAccordion(0)}
-                                aria-expanded={this.state.accordion[0]}
-                            >
-                                Question Number #2
-                                </Button>
-                            <Collapse isOpen={this.state.accordion[0]}>
-                                <div className="p-4">
-                                React est une bibliothèque JavaScript libre développée par Facebook depuis 2013. Le but principal de cette bibliothèque est de faciliter la création d'application web monopage, via la création de composants dépendant d'un état et générant une page HTML à chaque changement d'état
-                                </div>
-
-                                <div className="list-unstyled text-center">
-
-                                    <li>
-                                        <p>1. bibliothèque JavaScript </p>
-                                    </li>
-                                    <li>
-                                        <p>2. Framework JavaScript</p>
-                                    </li>
-                                    <li>
-                                        <p>3. platform  JavaScript </p>
-                                    </li>
-
-                                </div>
 
 
-                                <div className="float-sm-right">
-                                    <Button color="primary" outline onClick={this.toggle1}>
-                                        <IntlMessages id="Update" />
-                                    </Button>
-                                   
-                                </div>
-                            </Collapse>
-                        </div>
+            <Modal isOpen={this.state.modal2} toggle={this.toggle2}>
 
+            <ModalHeader toggle={this.toggle2} >
+                <IntlMessages id="Add Question" />
+            </ModalHeader>
+            <ModalBody>
 
-                    </Row>
-                    </Colxx>
-                    <Modal isOpen={this.state.modal} toggle={this.toggle1}>
-                                        <ModalHeader toggle={this.toggle1}>
-                                            <IntlMessages id="modal.modal-title" />
-                                        </ModalHeader>
-                                        <ModalBody>
-                                            <InputGroup className="mb-3">
-                                                <InputGroupAddon addonType="prepend">Question</InputGroupAddon>
-                                                <Input placeholder="question" />
-                                            </InputGroup>
-                                            <InputGroup>
-                                                <InputGroupAddon addonType="prepend">
-                                                    <span className="input-group-text">
-                                                        <IntlMessages id="Answer & valisation" />
-                                                    </span>
-                                                </InputGroupAddon>
-                                                <Input placeholder="answer" />
-                                                <Input placeholder="true or false" />
-                                            </InputGroup>
-                                            <InputGroup>
-                                                <InputGroupAddon addonType="prepend">
-                                                    <span className="input-group-text">
-                                                        <IntlMessages id="Answer & valisation" />
-                                                    </span>
-                                                </InputGroupAddon>
-                                                <Input placeholder="answer" />
-                                                <Input placeholder="true or false" />
-                                            </InputGroup>
-                                            <InputGroup>
-                                                <InputGroupAddon addonType="prepend">
-                                                    <span className="input-group-text">
-                                                        <IntlMessages id="Answer & validation" />
-                                                    </span>
-                                                </InputGroupAddon>
-                                                <Input placeholder="answer" />
-                                                <Input placeholder="true or false" />
-                                            </InputGroup>
-                                             </ModalBody>
-                                            <ModalFooter>
-                                            <Button color="primary" onClick={this.toggle1}>
-                                                Update
-                                            </Button>{" "}
-                                            <Button color="secondary" onClick={this.toggle1}>
-                                                Cancel
-                                             </Button>
-                                        </ModalFooter>
-                                    </Modal>
+            <AvForm  onSubmit={this.save}>
+            <AvField name="nbQuestion" label="number of questions" type="number" />
+            <Button color="primary" >Next</Button>
+            </AvForm>
+                
+                      
+
+                      
+               </ModalBody>
+            
 
 
 
 
 
+        </Modal>
 
 
 
 
-
-                <AddNewModal
-                    modalOpen={this.state.modalOpen}
-                    toggleModal={this.toggleModal} />
 
             </Fragment>
         )
@@ -297,13 +196,13 @@ Questions.propType = {
 function mapStateToProps(state) {
     debugger
     return {
-        event: state.event
+        quiz: state.quiz
     }
 
 
 };
 
 function mapDispatchtoProps(dispatch) {
-    return { actions: bindActionCreators(eventAction, dispatch) }
+    return { actions: bindActionCreators(quizAction, dispatch) }
 }
 export default connect(mapStateToProps, mapDispatchtoProps)(Questions);

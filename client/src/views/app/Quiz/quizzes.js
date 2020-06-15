@@ -1,92 +1,118 @@
 import React, { Component, Fragment } from "react";
-import { Row, Card,Button, CustomInput, CardTitle,FormGroup,Badge 
+import {
+  Row,
+  Card, Button,
+  CustomInput,
+  Badge
   , Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,} from "reactstrap";
+  ModalFooter, FormText
+} from "reactstrap";
 import IntlMessages from "../../../helpers/IntlMessages";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
-import Breadcrumb from "../../../containers/navs/Breadcrumb" ;
-import { NavLink } from "react-router-dom";
+import Breadcrumb from "../../../containers/navs/Breadcrumb";
+import { Link, NavLink } from "react-router-dom";
 import QuizPage from "../Quiz/quizPage"
 import SummaryPage from '../Quiz/SummaryPage';
- 
-export default class Quizzes extends Component {
+import PropTypes from 'prop-types'
+import { connect } from "react-redux";
+import * as quizAction from "../../../redux/actions/quiz.actions"
+import { bindActionCreators } from "redux"
+import AddModal from  '../../../components/Quiz/AddModal';
+import Quiz from  '../../../components/Quiz/Quiz';
+class Quizzes extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       modalOpen: false,
+    
       
+
+
     }
   }
+ 
+
+  
+
+  componentDidMount() {
+
+    this.props.actions.getAllQuizzes().catch(e => {
+      alert(e)
+    })
+  }
+
   toggleModal = () => {
     this.setState({
       modalOpen: !this.state.modalOpen
     });
   };
+  
 
-  toggle2 = () => {
-    this.setState(prevState => ({
-        modal2: !prevState.modal2
-    }));
+  handleQuiz = () => {
+    this.props.history.push("/app/playQuiz")
+  };
+  render() {
+
+    return (
+      <Fragment>
+
+
+
+
+        <Row>
+          <Colxx xxs="12">
+            <Breadcrumb heading="menu.Quizzes" match={this.props.match} />
+            <div className="float-sm-right">
+              <Button color="primary" size="lg" outline onClick={this.toggleModal}>
+                New Quiz
+                </Button>
+            </div>
+            <Separator className="mb-5" />
+          </Colxx>
+        </Row>
+        <Row>
+          <Colxx xxs="12" className="mb-4">
+            <p><IntlMessages id="menu.Quizzes" /></p>
+          </Colxx>
+        </Row>
+        <Row>
+
+
+          <Colxx xxs="12">
+            {this.props.quiz.map(quiz => (
+
+             
+              <Quiz key={quiz.id} curentQuiz={quiz}/>
+            ))}
+          </Colxx>
+
+        </Row>
+        <AddModal
+        modalOpen={this.state.modalOpen}
+        toggleModal={this.toggleModal} />
+
+      </Fragment>
+    )
+  }
+}
+
+Quizzes.propType = {
+  dispatch: PropTypes.func.isRequired,
+  actions: PropTypes.array.isRequired
 };
 
-    render() {
-        return (
-            <Fragment>
+function mapStateToProps(state) {
+  debugger
+  return {
+    quiz: state.quiz
+  }
 
-           
-            <Row>
-              <Colxx xxs="12">
-                <Breadcrumb heading="menu.Quizzes" match={this.props.match} />
-                <div className="float-sm-right">
-                <Button color="primary" size="lg" onClick={this.toggleModal}>
-                  New Quiz
-                </Button>
-              </div>
-                <Separator className="mb-5" />
-              </Colxx>
-            </Row>
-            <Row>
-              <Colxx xxs="12" className="mb-4">
-                <p><IntlMessages id="menu.Quizzes"/></p>
-              </Colxx>
-            </Row>
-            <Row>
-            <Colxx xxs="12">
-            
-              <Row>
-                <Colxx xxs="12">
-                  <Card className="d-flex flex-row mb-3">
-                    <NavLink to="/app/questions" className="d-flex">
-                      <img alt="Thumbnail" src="/assets/img/quiz.jpg" className="list-thumbnail responsive border-0" />
-                    </NavLink>
-                    <div className="pl-2 d-flex flex-grow-1 min-width-zero">
-                      <div className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                        <NavLink to="/app/questions" className="w-40 w-sm-100">
-                          <p className="list-item-heading mb-1 truncate">React</p>
-                        </NavLink>
-                        <p className="mb-1 text-muted text-small w-15 w-sm-100">1 Question</p>
-                        <p className="mb-1 text-muted text-small w-15 w-sm-100"></p>
-                        <div className="w-15 w-sm-100">
-                      
-                          <Badge color="primary" pill  onClick={this.toggle2}>paly Quiz</Badge>
-                        
-                        </div>
-                      </div>
-                      <div className="custom-control custom-checkbox pl-1 align-self-center pr-4">
-                     
-                      </div>
-                    </div>
-                  </Card>
-                </Colxx>
-                
-              </Row>
-            </Colxx>
-          </Row>
-         
 
-          </Fragment>
-        )
-    }
+};
+
+function mapDispatchtoProps(dispatch) {
+  return { actions: bindActionCreators(quizAction, dispatch) }
 }
+export default connect(mapStateToProps, mapDispatchtoProps)(Quizzes);

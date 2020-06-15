@@ -8,7 +8,7 @@ import calendar from './calendar';
 import event from './event';
 import meeting from './meeting';
 import soutenance from './soutenance';
-import answer from './answer';
+
 import quiz from './quiz';
 import question from './question';
 export default [ 
@@ -22,7 +22,6 @@ export default [
     calendar,
     soutenance,
     meeting,
-    answer,
     quiz,
     question,
 ]

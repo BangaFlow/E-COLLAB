@@ -17,6 +17,7 @@ import {
     Badge,
     CardTitle
 } from "reactstrap";
+import { ceil } from 'mathjs'
 import isEmpty from "../Quiz/isEmpty"
 import ReactTable from "react-table";
 
@@ -66,7 +67,7 @@ export class SummaryPage extends Component {
 
     handleQuit = () => {
         window.confirm("Are you sure you want to quite?")
-        this.props.history.push("/", )
+        this.props.history.push("/app/Quiz/quizzes" )
 
 
     }
@@ -97,10 +98,10 @@ export class SummaryPage extends Component {
                     <Colxx className="mb-4">
                         <GradientWithRadialProgressCard
                             icon="iconsminds-pen"
-                            title={"Your Score is "}
-                            detail={"the total number of questions is "} 
-                            percent={(5 * 100) / 12}
-                            progressText={this.props.location.state.score}
+                            title={` Your Score is `}
+                            detail=""
+                            percent={(this.props.location.state.score * 100) / this.props.location.state.totalScore} 
+                            progressText={`${ceil(((this.props.location.state.score * 100) / this.props.location.state.totalScore))} %`}
                         />
                     </Colxx>
 
@@ -121,7 +122,8 @@ export class SummaryPage extends Component {
                             <div className="text-center">{this.props.location.state.nbNoAnswer} of {this.props.location.state.numberofQuestions}</div>
                             <Progress value={this.props.location.state.nbNoAnswer}   />
                             <br></br>
-                            <Button className="button-outline" onClick={this.handleQuit}>Home</Button>
+                            <CardTitle className="text-right"> <Button className="button-outline" color="primary" onClick={this.handleQuit}>Finish</Button>
+                            </CardTitle>
                         </CardBody>
                     </Card>
 

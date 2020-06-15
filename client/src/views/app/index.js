@@ -19,6 +19,15 @@ const QuizPage = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './Quiz')
 
 );
+const PlayQuiz = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Quiz/quizPage')
+
+);
+const SummaryPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Quiz/SummaryPage')
+
+)
+
 
 const EventPage = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './Event/index')
@@ -28,8 +37,14 @@ const QuestionPage = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './Quiz/questions')
 );
 
+const AddQuestionPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Quiz/questionsPage')
+);
 
 
+const MyCalendar = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Event/myCalendar')
+);
 
 
 class App extends Component {
@@ -56,9 +71,26 @@ class App extends Component {
               />
 
               <Route
-                path={`${match.url}/questions`}
+                path={`${match.url}/questions/:id`}
                 render={props => <QuestionPage {...props} />}
               />
+
+
+            <Route
+            path={`${match.url}/play/:id`}
+            render={props => <PlayQuiz {...props} />}
+          />
+
+
+          <Route
+          path={`${match.url}/result`}
+          render={props => <SummaryPage {...props} />}
+        />
+        
+        <Route
+        path={`${match.url}/questionPageAdd`}
+        render={props => <AddQuestionPage {...props} />}
+      />
 
               <Route
                 path={`${match.url}/Event`}
@@ -70,6 +102,10 @@ class App extends Component {
                 path={`${match.url}/Quiz`}
                 render={props => <QuizPage {...props} />}
               />
+              <Route
+              path={`${match.url}/myCalendar`}
+              render={props => <MyCalendar {...props} />}
+            />
               
               
               <Redirect to="/error" />

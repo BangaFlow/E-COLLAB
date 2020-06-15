@@ -10,15 +10,18 @@ export default gql`
     }
 
     extend type Mutation {
-        addQuestion( question:String ,note:Int):Question 
-        updateQuestion(id:String,question:String,note:Int) :Question 
-        AssignmentAnswersToQuestion(id_question:String,id_answers:[String]):Question
+        addQuestion( id:String,question:String,optionA:String,optionB:String,optionC:String,optionD:String,note:Int,time:Int, answer:String):Question 
+        updateQuestion(id:String,question:String,answer:String,optionA:String,optionB:String,optionC:String,optionD:String,note:Int) :Question 
         deleteQuestion(id: String): Question
     }
 
     type Question {
         id:ID,
         question:String,
-        answers:[Answer],
+        optionA:String,
+        optionB:String,
+        optionC:String,
+        optionD:String,
+        answer:String,
         note: Int
     }`

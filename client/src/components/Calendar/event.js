@@ -188,11 +188,6 @@ export class Event extends Component {
         <UpdateModal
         modalOpen={this.state.modalOpen}
         toggleModal={this.toggleModal} currentEvent={this.props.event} />
-      
-
-
-        
-
 
         <Collapse isOpen={this.state.isOpen}>
         <Card>

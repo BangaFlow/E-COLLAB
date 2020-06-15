@@ -1,20 +1,21 @@
 
 import mongoose from 'mongoose'
 import { Question } from '../models'
+import { Quiz } from '../models'
 
-import { Answer } from '../models'
+
 
 
 export default {
 
     Query: {
-        question: (root, { id }, context, info) => {
+        question:async (root, { id }, context, info) => {
 
             if (!mongoose.Types.ObjectId.isValid(id)) {
 
             }
 
-            return Question.findById(id)
+            return await Question.findById(id)
         },
         allQuestions: async (root, args, context, info) => {
 
@@ -24,20 +25,42 @@ export default {
     },
 
     Mutation: {
-        addQuestion: (root, args, context, info) => {
-            return Question.create(args)
+        addQuestion: async (root, args, context, info) => {
+            const question= await Question.create(args)
+            let quiz= await Quiz.findById(args.id)
+           
+            quiz.questions.push(question)
+            console.log(question.id)
+            quiz = await Quiz.findByIdAndUpdate(
+                args.id,
+                quiz,
+                { new: true },
+                (err, doc) => {
+                  if (err) {
+                    throw new Error("Something wrong while assignOrChangeQuiz!");
+                  }
+                }
+              );
+
+
+            return question
 
 
         },
-        updateQuestion: (root, args, context, info) => {
+        updateQuestion: async (root, args, context, info) => {
             if (!args.id) return;
-            return Question.findOneAndUpdate(
+            return await Question.findOneAndUpdate(
                 {
                     _id: args.id
                 },
                 {
                     $set: {
                         question: args.question,
+                        optionA : args.optionA,
+                        optionB : args.optionB,
+                        optionC :args.optionC,
+                        optionD : args.optionD,
+                        answer  : args.answer,
                         note:args.note
                        
                         
@@ -51,43 +74,16 @@ export default {
                 }
             );
         },
-        deleteQuestion: (root, { id }, context, info) => {
-            return Question.findByIdAndRemove(id)
+        deleteQuestion: async (root, { id }, context, info) => {
+            
+
+             return await Question.findByIdAndRemove(id)
 
         },
 
-        AssignmentAnswersToQuestion :async (root,args, context, info) => {
-            let question= await Question.findById(args.id_question)
-            args.id_answers.forEach(async id_answer => {
-               
-                let answer= await Answer.findById(id_answer)
-                
-                question.answers.push(answer)
-                console.log(question)
-                question = await Question.findByIdAndUpdate(
-                    args.id_question,
-                    question,
-                    { new: true },
-                    (err, doc) => {
-                      if (err) {
-                        throw new Error("Something wrong while assignOrChangeQuestion!");
-                      }
-                    }
-                  );
-             
-            });
-            
-
-            return Question.findById(args.id_question)
-            
-       }
        
     },
-    Question: {
-        answers: async (question, arg, context, info) => {
-            return (await question.populate("answers").execPopulate()).answers;
-        }
-    }
+   
 }
 
 
