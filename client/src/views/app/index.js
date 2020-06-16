@@ -6,6 +6,7 @@ import AppLayout from '../../layout/AppLayout';
 import ListUsers from '../../components/users/ListUsers';
 import CreateUser from '../../components/users/CreateUser';
 import ListRoles from '../../components/roles/ListRoles';
+import RoadMap from '../../components/workspace/RoadMap';
 
 const Gogo = React.lazy(() =>
   import(/* webpackChunkName: "viwes-gogo" */ './gogo')
@@ -54,6 +55,10 @@ class App extends Component {
               <Route
                 path={`${match.url}/roles`}
                 render={props => <ListRoles {...props} />}
+              />
+              <Route
+                path={`${match.url}/workspace`}
+                render={props => <RoadMap {...props} />}
               />
               {/* <Redirect to="/error" /> */}
             </Switch>

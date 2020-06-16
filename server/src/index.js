@@ -72,12 +72,23 @@ const corsOptions = {
     origin: ['http://localhost:3000', `http://localhost:${APP_PORT}${server.graphqlPath}`, 'chrome-extension://flnheeellpciglgpaodhkhmapeljopja'],
     credentials: true
 }
-
+const products = [
+{
+    "id": 1, "name": "product 1"
+}, {
+    "id": 2, "name": "product 2"
+}, {
+    "id": 3, "name": "product 3"
+}]
 app.use(cors(corsOptions))
 
 server.applyMiddleware({ app, cors: false })
 
 app.use('/voyager', voyagerMiddleware({ endpointUrl: '/graphql' }))
+
+app.get('/products', (req, res) => {
+    return res.json(products)
+})
 
 app.listen({ port: APP_PORT }, () => 
     console.log(`Server ready at http://localhost:${APP_PORT}${server.graphqlPath}`)

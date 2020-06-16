@@ -32,6 +32,8 @@ import TopnavDarkSwitch from "./Topnav.DarkSwitch";
 
 import { getDirection, setDirection } from "../../helpers/Utils";
 
+// const dispatch = useDispatch();
+
 class TopNav extends Component {
   constructor(props) {
     super(props);

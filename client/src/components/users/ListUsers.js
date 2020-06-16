@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import moment from 'moment'
 import { Table, Empty, Tag, notification, Popconfirm, Divider, Button, Space, Input, Avatar, PageHeader } from 'antd'
 import { SearchOutlined, UserOutlined, UserAddOutlined } from '@ant-design/icons'
 import deleteUserFetch from './deleteUser_fecth'
@@ -29,6 +30,7 @@ function itemRender(route, params, routes, paths) {
     <Link to={paths.join("/")}>{route.breadcrumbName}</Link>
   )
 }
+
 
 function ListUsers() {
 
@@ -140,6 +142,7 @@ function ListUsers() {
           title: 'Email',
           dataIndex: 'email',
           key: 'email',
+          ...getColumnSearchProps('email'),
         },
         {
           title: 'Roles',
@@ -184,6 +187,12 @@ function ListUsers() {
         },
       ]
 
+      const getAge = (birthDate) => {
+        const birthYear = moment.unix(birthDate / 1000).year()
+        const currentYear = new moment().year()
+        return currentYear - birthYear
+      }
+
     return (
         <div>
             {/*<pre>{JSON.stringify(users, null, 2)}</pre>*/}
@@ -211,7 +220,14 @@ function ListUsers() {
                 style={{ marginBottom: "2em" }}
                 breadcrumb={{ routes, itemRender }}
               ></PageHeader>
-              <Table columns={columns} dataSource={users} rowKey={record => record.id} />
+              <Table 
+              columns={columns} 
+              dataSource={users} 
+              rowKey={record => record.id} 
+              expandable={{
+                expandedRowRender: record => <p style={{ margin: 0, paddingLeft: "1rem" }}>{`${record.name} is a  ${record.gender}, who is ${getAge(record.birthDate)} years old.`}</p>
+              }}        
+            />
             </>
             : 
             <>
@@ -235,7 +251,7 @@ function ListUsers() {
                 style={{ marginBottom: "2em" }}
                 breadcrumb={{ routes, itemRender }}
             ></PageHeader>
-            <Table  columns={columns} dataSource={users} rowKey={record => record.id} ><Empty /></Table>
+            <Table  columns={columns} dataSource={users} rowKey={record => record.id}  ><Empty /></Table>
             </>
             }
         </div>

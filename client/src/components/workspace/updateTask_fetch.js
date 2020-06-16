@@ -1,18 +1,10 @@
-const getUsersFetch = async () => {
+const updateTaskFetch = async (taskId, title, type, doers) => {
     const query = JSON.stringify({
-      query: `{
-        users {
-        name
-        id
-        email
-        gender
-        birthDate
-        roles {
-            id
-            name
+      query: `mutation{
+        updateTask(_id:"${taskId}", title: "${title}", type: "${type}", doers: ${doers} ){
+          id
         }
-        }
-    }`
+      }`
     })
   
     const response = await fetch('http://localhost:4000/graphql', {
@@ -25,4 +17,4 @@ const getUsersFetch = async () => {
     return responseJson.data
 }
 
-export default getUsersFetch
+export default updateTaskFetch

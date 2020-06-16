@@ -1,16 +1,19 @@
-const getUsersFetch = async () => {
+const getColumnsFetch = async () => {
     const query = JSON.stringify({
       query: `{
-        users {
-        name
-        id
-        email
-        gender
-        birthDate
-        roles {
+        columns{
             id
-            name
-        }
+            title
+            taskIds
+            tasks {
+                id
+                title
+                type
+                doers {
+                    id
+                    name
+                }
+            }
         }
     }`
     })
@@ -25,4 +28,4 @@ const getUsersFetch = async () => {
     return responseJson.data
 }
 
-export default getUsersFetch
+export default getColumnsFetch

@@ -114,7 +114,7 @@ export default {
             const user = await attemptSignIn(arg.email, arg.password)
 
             const roles = await Role.findById(user.roles[0])
-
+            
             req.session.userId = user.id
             req.session.roles = roles
 
