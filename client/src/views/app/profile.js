@@ -126,7 +126,7 @@ const Profile = (props) => {
                       Github
                     </NavLink>
                   </NavItem>
-                  <NavItem>
+                  {/* <NavItem>
                     <NavLink
                       href="#"
                       className={classNames({
@@ -138,8 +138,8 @@ const Profile = (props) => {
                     >
                       Messages
                     </NavLink>
-                  </NavItem>
-                  <NavItem>
+                  </NavItem> */}
+                  {/* <NavItem>
                     <NavLink
                       href="#"
                       className={classNames({
@@ -151,8 +151,8 @@ const Profile = (props) => {
                     >
                       Tasks
                     </NavLink>
-                  </NavItem>
-                  <NavItem>
+                  </NavItem> */}
+                  {/* <NavItem>
                     <NavLink
                       href="#"
                       className={classNames({
@@ -164,7 +164,7 @@ const Profile = (props) => {
                     >
                       Files
                     </NavLink>
-                  </NavItem>
+                  </NavItem> */}
                 </Nav>
                 <TabContent activeTab={state.activeTab}>
                   <TabPane tabId="0">

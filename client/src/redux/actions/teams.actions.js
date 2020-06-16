@@ -72,3 +72,112 @@ export const setSelectedTeam = (team) => {
     team,
   };
 };
+
+export function changeSubject(id, new_subject_id) {
+  return function (dispatch) {
+    return teamsApi
+      .assignOrChangeSubject(id, new_subject_id)
+      .then((team) => {
+        dispatch({ type: types.CHANGE_SUBJECT, team });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+}
+
+export function addNewTutor(id_team, id_tutor) {
+  return function (dispatch) {
+    return teamsApi
+      .addTutor(id_team, id_tutor)
+      .then((team) => {
+        dispatch({ type: types.ADD_TUTOR, team });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+}
+
+export function changeTutor(id_team, id_old_tutor, id_new_tutor) {
+  return function (dispatch) {
+    return teamsApi
+      .changeTutor(id_team, id_old_tutor, id_new_tutor)
+      .then((team) => {
+        dispatch({ type: types.SWAP_TUTOR, team });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+}
+
+export function transfermember(id_member, id_team_from, id_team_to) {
+  return function (dispatch) {
+    return teamsApi
+      .transferMember(id_member, id_team_from, id_team_to)
+      .then((teams) => {
+        dispatch({ type: types.TRANSFER_MEMBERS, teams });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+}
+
+export function swapMembers(
+  id_team_1,
+  id_member_team_1,
+  id_team_2,
+  id_member_team_2
+) {
+  return function (dispatch) {
+    return teamsApi
+      .swapMembers(id_team_1, id_member_team_1, id_team_2, id_member_team_2)
+      .then((teams) => {
+        dispatch({ type: types.SWAP_MEMBERS, teams });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+}
+
+export function addNewMember(id_team, id_member) {
+  return function (dispatch) {
+    return teamsApi
+      .addMember(id_team, id_member)
+      .then((team) => {
+        dispatch({ type: types.ADD_MEMBER, team });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+}
+
+export function removeMember(id_team, id_member) {
+  return function (dispatch) {
+    return teamsApi
+      .removeMember(id_team, id_member)
+      .then((team) => {
+        dispatch({ type: types.REMOVE_MEMBER, team });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+}
+
+export function removeTutor(id_team, id_tutor) {
+  return function (dispatch) {
+    return teamsApi
+      .removeMember(id_team, id_tutor)
+      .then((team) => {
+        dispatch({ type: types.REMOVE_TUTOR, team });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+}

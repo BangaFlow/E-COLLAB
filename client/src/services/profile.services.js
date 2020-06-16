@@ -254,7 +254,7 @@ async function updateProfile(
     github_username,
     profile_id,
   };
-  var data = await client.mutate({ mutation: UPDATE_PROFILE, variables });    
+  var data = await client.mutate({ mutation: UPDATE_PROFILE, variables });
   return data.data.updateMyProfile;
 }
 

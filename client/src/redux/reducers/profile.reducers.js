@@ -7,6 +7,8 @@ export default (currentState = [], action) => {
     case types.CREATE_PROFILE_SUCCESS:
       return action.profile;
     case types.UPDATE_PROFILE:
+      console.log(action.profile);
+      
       return action.profile;
     default:
       return currentState;

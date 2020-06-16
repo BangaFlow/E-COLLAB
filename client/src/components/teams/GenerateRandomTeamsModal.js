@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as teamsAction from "../../redux/actions/teams.actions";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import Select from "react-select";
+import swal from "sweetalert";
 
 import {
   Button,
@@ -63,9 +64,19 @@ const GenerateRandomTeamsModal = (props) => {
 
   const GenerateRandom = (e) => {
     e.preventDefault();
-    props.actions.generateRandomTeams(project.id).catch((err) => {
-      console.log(err);
-    });
+    props.actions
+      .generateRandomTeams(project.id)
+      .then(
+        swal(
+          "RANDOM TEAMS!",
+          "Teams generation has been successuly executed!",
+          "success"
+        )
+      )
+      .catch((err) => {
+        swal("Error!", "An error has occured ! please try again..", "error");
+        console.log(err);
+      });
     toggle();
   };
   return (

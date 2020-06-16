@@ -20,6 +20,12 @@ export default {
             index++;
           }
         });
+        teams.forEach((team) => {
+          if (team.tutors.indexOf(id) > -1) {
+            user_teams[index] = team;
+            index++;
+          }
+        });
         profile.teams = user_teams;
       }
       return profile;
@@ -45,13 +51,20 @@ export default {
         let user_teams = [];
         let index = 0;
         teams.forEach((team) => {
-          if (team.members.indexOf(user_id) > -1) {
+          if (team.members.indexOf(id) > -1) {
+            user_teams[index] = team;
+            index++;
+          }
+        });
+        teams.forEach((team) => {
+          if (team.tutors.indexOf(id) > -1) {
             user_teams[index] = team;
             index++;
           }
         });
         newProfile.teams = user_teams;
       }
+
       return await newProfile.save();
     },
 
@@ -78,6 +91,26 @@ export default {
           }
         }
       );
+      if (profile) {
+        
+        const teams = await Team.find();
+        let user_teams = [];
+        let index = 0;
+        teams.forEach((team) => {
+          if (team.members.indexOf(profile.user) > -1) {
+            user_teams[index] = team;
+            index++;
+          }
+        });
+        teams.forEach((team) => {
+          if (team.tutors.indexOf(profile.user) > -1) {
+            user_teams[index] = team;
+            index++;
+          }
+        });
+        profile.teams = user_teams;
+      }
+      console.log("2- ", profile);
       return profile;
     },
   },

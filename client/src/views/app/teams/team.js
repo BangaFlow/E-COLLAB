@@ -1,30 +1,119 @@
 import React, { useState, useEffect } from "react";
 import { Row, Card, CardTitle, CardBody, CardText, Table } from "reactstrap";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
-import Breadcrumb from "../../../containers/navs/Breadcrumb";
-import ChangeNameModal from "../../../components/teams/ChangeNameModal";
 import { bindActionCreators } from "redux";
-import * as teamsAction from "../../../redux/actions/teams.actions";
 import { connect } from "react-redux";
 import { history } from "../../../helpers/history";
+import Breadcrumb from "../../../containers/navs/Breadcrumb";
+import * as teamsAction from "../../../redux/actions/teams.actions";
+import ChangeNameModal from "../../../components/teams/ChangeNameModal";
+import AssignOrChangeSubjectModal from "../../../components/teams/AssignOrChangeSubjectModal";
+import AddTutorModal from "../../../components/teams/AddTutorModal";
+import SwapTutors from "../../../components/teams/SwapTutors";
+import TransferMembersModal from "../../../components/teams/TransferMembersModal";
+import SwapMembers from "../../../components/teams/SwapMembers";
+import AddNewMember from "../../../components/teams/AddNewMember";
+import swal from "sweetalert";
 
 const Team = (props) => {
+  //name modal
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
+  //subject modal
+  const [subjectModal, setSubjectModale] = useState(false);
+  const toggleSubjectModal = () => setSubjectModale(!subjectModal);
+  //add tutor modal
+  const [addTutorModalState, setAddTutorModalState] = useState(false);
+  const toggleAddTutorModalState = () =>
+    setAddTutorModalState(!addTutorModalState);
+  //swap tutors
+  const [swapTutorModalState, setSwapTutorModalState] = useState(false);
+  const toggleSwapTutorModalState = () =>
+    setSwapTutorModalState(!swapTutorModalState);
+  const [tutorToChange, setTutorToChange] = useState();
+  //transfer members
+  const [transferMemberModalState, setTransferMemberModalState] = useState(
+    false
+  );
+  const toggleTransferMemberModalState = () =>
+    setTransferMemberModalState(!transferMemberModalState);
+  const [memberToTransfer, setMemberToTransfer] = useState();
+  //swap members
+  const [swapMemberModalState, setSwapMemberModalState] = useState(false);
+  const toggleSwapMemberModalState = () =>
+    setSwapMemberModalState(!swapMemberModalState);
+  //add member
+  const [addMemberModalState, setAddMemberModalState] = useState(false);
+  const toggleAddMemberModalState = () =>
+    setAddMemberModalState(!addMemberModalState);
 
   const [team, setTeam] = useState(props.state.selectedTeam);
 
-  const goBack = () => {
-    history.push("/app/teams/all");
-  }
   if (!team) {
     history.push("/app/teams/all");
   }
 
+  const removeMember = (pos) => {
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure you want to remove this member from this group?!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        props.actions
+          .removeMember(team.id, team.members[pos].id)
+          .then(
+            team.members.splice(pos, 1)
+          )
+          .then(
+            swal("MEMBER REMOVED!", "The member has been removed!", "success")
+          )
+          .catch((err) => {
+            swal(
+              "Error!",
+              "An error has occured ! please try again..",
+              "error"
+            );
+            console.log(err);
+          });
+      }
+    });
+  };
+
+  const removeTutor = (pos) => {
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure you want to remove this tutor from this group?!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        props.actions
+          .removeTutor(team.id, team.tutors[pos].id)
+          .then(
+            team.tutors.splice(pos, 1)
+          )
+          .then(
+            swal("TUTOR REMOVED!", "The tutor has been removed!", "success")
+          )
+          .catch((err) => {
+            swal(
+              "Error!",
+              "An error has occured ! please try again..",
+              "error"
+            );
+            console.log(err);
+          });
+      }
+    });
+  };
+
   return (
     team && (
       <React.Fragment>
-        <a onClick={()=> goBack()} >back</a>
         <Row>
           <Colxx xxs="12">
             <Breadcrumb heading="menu.team" match={props.match} />
@@ -80,12 +169,18 @@ const Team = (props) => {
                         <>
                           <b> Name: </b>
                           <p>{team.subject.name}</p>
-                          <div className="badge badge-info float-right mr-1">
+                          <div
+                            className="badge badge-info float-right mr-1"
+                            onClick={() => toggleSubjectModal()}
+                          >
                             Change Subject
                           </div>
                         </>
                       ) : (
-                        <div className="badge badge-secondary float-right mr-1">
+                        <div
+                          className="badge badge-secondary float-right mr-1"
+                          onClick={() => toggleSubjectModal()}
+                        >
                           Assign Subject
                         </div>
                       )}
@@ -107,8 +202,11 @@ const Team = (props) => {
                             <th>Name</th>
                             <th>Email</th>
                             <th>
-                              Actions{" "}
-                              <div className="badge badge-success float-right  mr-1">
+                              Actions
+                              <div
+                                className="badge badge-success float-right  mr-1"
+                                onClick={() => toggleAddMemberModalState()}
+                              >
                                 Add new member
                               </div>
                             </th>
@@ -122,11 +220,31 @@ const Team = (props) => {
                                 <td>{member.name}</td>
                                 <td>{member.email}</td>
                                 <td>
-                                  <div className="badge badge-info  mr-1">
+                                  <div
+                                    className="badge badge-info  mr-1"
+                                    onClick={() => {
+                                      setMemberToTransfer(member);
+                                      toggleSwapMemberModalState();
+                                    }}
+                                  >
                                     Swap
                                   </div>
-                                  <div className="badge badge-danger t mr-1">
+                                  <div
+                                    className="badge badge-secondary t mr-1"
+                                    onClick={() => {
+                                      setMemberToTransfer(member);
+                                      toggleTransferMemberModalState();
+                                    }}
+                                  >
                                     Transfer
+                                  </div>
+                                  <div
+                                    className="badge badge-danger t mr-1"
+                                    onClick={() => {
+                                      removeMember(id);
+                                    }}
+                                  >
+                                    Remove
                                   </div>
                                 </td>
                               </tr>
@@ -156,9 +274,11 @@ const Team = (props) => {
                             <th>Name</th>
                             <th>Email</th>
                             <th>
-                              {" "}
-                              Actions{" "}
-                              <div className="badge badge-success float-right  mr-1">
+                              Actions
+                              <div
+                                className="badge badge-success float-right  mr-1"
+                                onClick={() => toggleAddTutorModalState()}
+                              >
                                 Add new tutor
                               </div>
                             </th>
@@ -172,10 +292,21 @@ const Team = (props) => {
                                 <td>{tutor.name}</td>
                                 <td>{tutor.email}</td>
                                 <td>
-                                  <div className="badge badge-info  mr-1">
+                                  <div
+                                    className="badge badge-info  mr-1"
+                                    onClick={() => {
+                                      setTutorToChange(tutor);
+                                      toggleSwapTutorModalState();
+                                    }}
+                                  >
                                     Change
                                   </div>
-                                  <div className="badge badge-danger t mr-1">
+                                  <div
+                                    className="badge badge-danger t mr-1"
+                                    onClick={() => {
+                                      removeTutor(id);
+                                    }}
+                                  >
                                     Remove
                                   </div>
                                 </td>
@@ -193,6 +324,51 @@ const Team = (props) => {
         <ChangeNameModal
           modal={modal}
           toggle={toggle}
+          team={team}
+          setTeam={setTeam}
+          {...props}
+        />
+        <AssignOrChangeSubjectModal
+          modal={subjectModal}
+          toggle={toggleSubjectModal}
+          team={team}
+          setTeam={setTeam}
+          {...props}
+        />
+        <AddTutorModal
+          modal={addTutorModalState}
+          toggle={toggleAddTutorModalState}
+          team={team}
+          setTeam={setTeam}
+          {...props}
+        />
+        <SwapTutors
+          modal={swapTutorModalState}
+          toggle={toggleSwapTutorModalState}
+          team={team}
+          setTeam={setTeam}
+          tutorToChange={tutorToChange}
+          {...props}
+        />
+        <TransferMembersModal
+          modal={transferMemberModalState}
+          toggle={toggleTransferMemberModalState}
+          team={team}
+          setTeam={setTeam}
+          memberToTransfer={memberToTransfer}
+          {...props}
+        />
+        <SwapMembers
+          modal={swapMemberModalState}
+          toggle={toggleSwapMemberModalState}
+          team={team}
+          setTeam={setTeam}
+          memberToTransfer={memberToTransfer}
+          {...props}
+        />
+        <AddNewMember
+          modal={addMemberModalState}
+          toggle={toggleAddMemberModalState}
           team={team}
           setTeam={setTeam}
           {...props}

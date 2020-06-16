@@ -8,11 +8,11 @@ import User from "../models/user";
 export default {
   Query: {
     getProjects: async (root, args, context, info) => {
-      const projects = await Project.find();      
+      const projects = await Project.find();
       return projects;
     },
     getTeams: async (root, args, context, info) => {
-      const teams = await Team.find();      
+      const teams = await Team.find();
       return teams;
     },
     getTeamById: async (root, { id }, context, info) => {
@@ -68,9 +68,11 @@ export default {
       let team_from = await Team.findById(id_team_from);
       let team_to = await Team.findById(id_team_to);
       const index = team_from.members.indexOf(id_member);
-      if (index_1 > -1) {
-        team_from.members.splice(index_1, 1);
-        id_team_to.members.push(id_member);
+      console.log(team_from);
+
+      if (index > -1) {
+        team_from.members.splice(index, 1);
+        team_to.members.push(id_member);
         team_from = await Team.findByIdAndUpdate(
           id_team_from,
           team_from,
@@ -91,7 +93,7 @@ export default {
             }
           }
         );
-        retun[(team_from, team_to)];
+        return [team_from, team_to];
       } else {
         throw new Error("Something wrong when moving team member!");
       }
@@ -102,7 +104,6 @@ export default {
     ) => {
       let team_1 = await Team.findById(id_team_1);
       let team_2 = await Team.findById(id_team_2);
-
       const index_1 = team_1.members.indexOf(id_member_team_1);
       if (index_1 > -1) {
         team_1.members.splice(index_1, 1);
@@ -274,7 +275,13 @@ export default {
       let team = await Team.findById(id_team);
       let old_tutor = await User.findById(id_old_tutor);
       let new_tutor = await User.findById(id_new_tutor);
-      const index = team.tutors.indexOf(old_tutor);
+      let index = 0;
+      while (
+        index <= team.tutors.length &&
+        team.tutors[index] != old_tutor.id
+      ) {
+        index++;
+      }
       if (index > -1) {
         team.tutors.splice(index, 1);
         team.tutors.push(new_tutor);
@@ -292,6 +299,54 @@ export default {
       } else {
         throw new Error(`the old tutor not found!`);
       }
+    },
+    addNewMember: async (root, { id_team, id_member }, context, info) => {
+      let team = await Team.findById(id_team);
+      let member = await User.findById(id_member);
+      team.members.push(member);
+      team = await Team.findByIdAndUpdate(
+        id_team,
+        team,
+        { new: true },
+        (err, doc) => {
+          if (err) {
+            throw new Error("Something wrong while addNewMember!");
+          }
+        }
+      );
+      return team;
+    },
+    removeMember: async (root, { id_team, id_member }, context, info) => {
+      let team = await Team.findById(id_team);
+      let member = await User.findById(id_member);
+      team.members.splice(team.members.indexOf(member), 1);
+      team = await Team.findByIdAndUpdate(
+        id_team,
+        team,
+        { new: true },
+        (err, doc) => {
+          if (err) {
+            throw new Error("Something wrong while removeMember!");
+          }
+        }
+      );
+      return team;
+    },
+    removeTutor: async (root, { id_team, id_tutor }, context, info) => {
+      let team = await Team.findById(id_team);
+      let tutor = await User.findById(id_tutor);
+      team.tutors.splice(team.tutors.indexOf(tutor), 1);
+      team = await Team.findByIdAndUpdate(
+        id_team,
+        team,
+        { new: true },
+        (err, doc) => {
+          if (err) {
+            throw new Error("Something wrong while removeTutor!");
+          }
+        }
+      );
+      return team;
     },
   },
 

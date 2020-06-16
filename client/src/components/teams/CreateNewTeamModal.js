@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as teamsAction from "../../redux/actions/teams.actions";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import Select from "react-select";
+import swal from "sweetalert";
 
 import {
   Button,
@@ -21,11 +22,6 @@ import {
 const CreateNewTeamModal = (props) => {
   const { projects, teams } = props.teams;
   const { modal, toggle } = props;
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
 
   const [selectedMembers, setselectedMembers] = useState();
   const [isLoading, setLoading] = useState(false);
@@ -81,9 +77,17 @@ const CreateNewTeamModal = (props) => {
       newTeamMembers.push(member.key);
     });
 
-    props.actions.createTeam(newName, newTeamMembers, project.id).catch((err) => {
-      console.log(err);
-    });
+    props.actions
+      .createTeam(newName, newTeamMembers, project.id)
+      .then(swal("NEW TEAM!", "A new team has been created!", "success"))
+      .catch((err) => {
+        swal(
+          "Error!",
+          "An error has occured while trying to create a new team! please try again..",
+          "error"
+        );
+        console.log(err);
+      });
     setHidden(true);
     setDisabled(true);
     toggle();

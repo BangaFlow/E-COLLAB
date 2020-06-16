@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as teamsAction from "../../redux/actions/teams.actions";
 import { Colxx } from "../../components/common/CustomBootstrap";
+import swal from "sweetalert";
 
 import {
   Button,
@@ -18,16 +19,23 @@ import {
 } from "reactstrap";
 
 const ChangeNameModal = (props) => {
- 
   const { modal, toggle, team, setTeam } = props;
 
   const [newName, setNewName] = useState(team.name);
 
   const ChangeName = (e) => {
     e.preventDefault();
-    props.actions.changeName(team.id, newName).catch((err) => {
-      console.log(err);
-    });
+    props.actions
+      .changeName(team.id, newName)
+      .then(swal("TEAM NAME CHANGED!", "The name of the team has been change successfuly!", "success"))
+      .catch((err) => {
+        swal(
+          "Error!",
+          "An error has occured while trying to change the name of the team! please try again..",
+          "error"
+        );
+        console.log(err);
+      });
     setTeam({
       ...team,
       name: newName,

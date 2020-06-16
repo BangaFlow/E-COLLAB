@@ -6,6 +6,7 @@ import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
 import classNames from "classnames";
 import { history } from "../../../helpers/history";
+import Loader from "../../../helpers/loader";
 
 import * as teamsAction from "../../../redux/actions/teams.actions";
 import CreateNewTeamModal from "../../../components/teams/CreateNewTeamModal";
@@ -16,6 +17,8 @@ function AllTeams(props) {
   const [modalCreateTeam, setModalCreateTeam] = useState(false);
   const toggleodalCreateTeam = () => setModalCreateTeam(!modalCreateTeam);
   const [modalGenerateRandomTeam, setModalGenerateRandomTeam] = useState(false);
+  const [Limit, setLimit] = useState(7);
+
   const toggleGenerateRandomTeam = () =>
     setModalGenerateRandomTeam(!modalGenerateRandomTeam);
 
@@ -30,6 +33,10 @@ function AllTeams(props) {
   const showDetails = (team) => {
     props.actions.setSelectedTeam(team);
     history.push("/app/teams/team");
+  };
+
+  const LoadMore = () => {
+    setLimit(Limit + 5);
   };
 
   return (
@@ -63,14 +70,14 @@ function AllTeams(props) {
                   <th>Project</th>
                   <th>Subject</th>
                   <th>Number of members</th>
-                  <th>Learners choosing teams</th>
+                  {/* <th>Learners choosing teams</th> */}
                   <th>Project Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {teams &&
-                  teams.map((team, id) => (
+                  teams.slice(0, Limit).map((team, id) => (
                     <tr>
                       <th scope="row">{id + 1}</th>
                       <td>{team.name}</td>
@@ -85,7 +92,7 @@ function AllTeams(props) {
                         )}
                       </td>
                       <td>{team.members.length}</td>
-                      <td>
+                      {/* <td>
                         <div
                           className={classNames("badge", "mr-1", {
                             "badge-success": team.project.learners_choose_teams,
@@ -134,7 +141,7 @@ function AllTeams(props) {
                               : "Ongoing"}
                           </div>
                         )}
-                      </td>
+                      </td> */}
                       <td>
                         <div
                           className={classNames("badge", {
@@ -174,9 +181,17 @@ function AllTeams(props) {
                   ))}
               </tbody>
             </Table>
+            <div className="text-center mb-2">
+              {Limit < teams.length && (
+                <Button color="white" onClick={LoadMore}>
+                  <Loader className="icon-dual icon-xs mr-2"></Loader>Load more
+                </Button>
+              )}
+            </div>
           </CardBody>
         </Card>
       </Row>
+
       <CreateNewTeamModal
         modal={modalCreateTeam}
         toggle={toggleodalCreateTeam}

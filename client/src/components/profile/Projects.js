@@ -15,6 +15,18 @@ import Loader from "../../helpers/loader";
 // single project
 const Team = (props) => {
   const team = props.team || {};
+  const connected_user = JSON.parse(localStorage.getItem("user"));
+
+  const isWhat = () => {
+    let index = 0;
+    team.members.forEach((member) => {
+      if (member.id == connected_user.id) {
+        index++;
+      }
+    });
+
+    return index != 0 ? "Member" : "Tutor";
+  };
 
   const today = new Date();
 
@@ -52,11 +64,13 @@ const Team = (props) => {
           {team.project.title}
         </p>
 
-        <h5>
-          <a href="#" className="text-dark">
-            {team.subject.name}
-          </a>
-        </h5>
+        {team.subject && (
+          <h5>
+            <a href="#" className="text-dark">
+              {team.subject.name}
+            </a>
+          </h5>
+        )}
 
         <p className="text-muted mb-4">
           {team.project.short_desc}...
@@ -65,6 +79,10 @@ const Team = (props) => {
           </a>
         </p>
         <div>
+          <span className="rounded-circle bg-soft-info text-info font-weight-bold ">
+            Role : {isWhat()}
+          </span>
+          <br />
           <span className="rounded-circle bg-soft-warning text-warning font-weight-bold ">
             Team Name : {team.name}
           </span>

@@ -34,6 +34,49 @@ export default (state = INIT_STATE, action) => {
       });
     case types.SELECT_TEAM:
       return { ...state, selectedTeam: action.team };
+    case types.CHANGE_SUBJECT:
+      tab = state.teams.map((item) =>
+        item.id === action.team.id ? action.team : item
+      );
+      return { ...state, teams: tab };
+    case types.ADD_TUTOR:
+      tab = state.teams.map((item) =>
+        item.id === action.team.id ? action.team : item
+      );
+      return { ...state, teams: tab };
+    case types.TRANSFER_MEMBERS:
+      tab = state.teams.map((item) =>
+        item.id === action.teams[0].id
+          ? action.teams[0]
+          : item.id === action.teams[1].id
+          ? action.teams[1]
+          : item
+      );
+      return { ...state, teams: tab };
+    case types.SWAP_MEMBERS:
+      tab = state.teams.map((item) =>
+        item.id === action.teams[0].id
+          ? action.teams[0]
+          : item.id === action.teams[1].id
+          ? action.teams[1]
+          : item
+      );
+      return { ...state, teams: tab };
+    case types.ADD_MEMBER:
+      tab = state.teams.map((item) =>
+        item.id === action.team.id ? action.team : item
+      );
+      return { ...state, teams: tab };
+    case types.REMOVE_MEMBER:
+      tab = state.teams.map((item) =>
+        item.id === action.team.id ? action.team : item
+      );
+      return { ...state, teams: tab, selectedTeam: action.team };
+    case types.REMOVE_TUTOR:
+      tab = state.teams.map((item) =>
+        item.id === action.team.id ? action.team : item
+      );
+      return { ...state, teams: tab, selectedTeam: action.team };
     default:
       return state;
   }

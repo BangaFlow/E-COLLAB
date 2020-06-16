@@ -1,6 +1,6 @@
 import React, { useState, Suspense } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import swal from "sweetalert";
 
 import {
   Card,
@@ -133,7 +133,11 @@ const EditProfile = (props) => {
         github_username: github,
         profile_id: props.profile.id,
       };
-      update(variables);
+      console.log(variables);
+      
+      update(variables).then(
+        swal("PROFILE UPDATED!", "The profile has been updated!", "success")
+      );
       repos(github);
       showEdit();
     }

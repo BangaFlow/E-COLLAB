@@ -56,5 +56,8 @@ export default gql`
     assignTutor(id_team: ID!, id_tutor: ID!): Team
     changeTutors(id_team: ID!, id_old_tutor: ID!, id_new_tutor: ID!): Team
     moveLearner(id_member: ID!, id_team_from: ID!, id_team_to: ID!): [Team]
+    addNewMember(id_team: ID!, id_member: ID!): Team
+    removeMember(id_team: ID!, id_member: ID!): Team
+    removeTutor(id_team: ID!, id_tutor: ID!): Team
   }
 `;

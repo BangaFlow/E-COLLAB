@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Select from "react-select";
+import swal from "sweetalert";
 import {
   Button,
   Modal,
@@ -29,9 +30,14 @@ class SkillForm extends Component {
     let label = this.state.label;
     let description = this.state.description;
     let type = this.state.type.value;
-    this.props.actions.addSkill(label, description, type).catch((err) => {
-      console.log(err);
-    });
+    this.props.actions
+      .addSkill(label, description, type)
+      .then(
+        swal("NEW SKILL ADDED!", "A new skill has been added successfuly", "success")
+      )
+      .catch((err) => {
+        console.log(err);
+      });
 
     this.props.toggleModal();
     this.setState({
@@ -43,7 +49,7 @@ class SkillForm extends Component {
 
   render() {
     const categories = ["Technical skill", "Soft skill"];
-    const { modalOpen, toggleModal } = this.props;  
+    const { modalOpen, toggleModal } = this.props;
 
     return (
       <Modal
@@ -81,7 +87,7 @@ class SkillForm extends Component {
               return { label: x, value: x, key: i };
             })}
             value={this.state.type}
-            onChange={(val) => {              
+            onChange={(val) => {
               this.setState({ type: val });
             }}
           />
