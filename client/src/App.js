@@ -35,7 +35,7 @@ const ViewQuizPaly = React.lazy(() =>
 );
 
 const ViewQuizResult = React.lazy(() =>
-import(/* webpackChunkName: "views-error" */ './views/app/Quiz/SummaryPage')
+  import(/* webpackChunkName: "views-error" */ './views/app/Quiz/SummaryPage')
 );
 
 
@@ -67,13 +67,13 @@ class App extends Component {
             <NotificationContainer />
             {isMultiColorActive && <ColorSwitcher />}
             <Suspense fallback={<div className="loading" />}>
-              <Router history={history}>
+              <Router forceRefresh={true} history={history} >
                 <Switch>
                   <Route
                     path="/app"
                     render={props => <ViewApp {...props} />}
                   />
-                  
+
                   <Route
                     path="/error"
                     exact
@@ -85,24 +85,24 @@ class App extends Component {
                     render={props => <ViewAuth {...props} />}
                   />
                   <Route
-                  path="/calendar"
-                  exact
-                  render={props => <ViewCalendar {...props} />}
-                />
+                    path="/calendar"
+                    exact
+                    render={props => <ViewCalendar {...props} />}
+                  />
 
-              
-                <Route
-                path="/playQuiz"
-                exact
-                render={props => <ViewQuizPaly {...props} />}
-              />
 
-              <Route
-                path="/ResultQuiz"
-                exact
-                render={props => <ViewQuizResult {...props} />}
-              />
-                  
+                  <Route
+                    path="/playQuiz"
+                    exact
+                    render={props => <ViewQuizPaly {...props} />}
+                  />
+
+                  <Route
+                    path="/ResultQuiz"
+                    exact
+                    render={props => <ViewQuizResult {...props} />}
+                  />
+
                   <Route
                     path="/"
                     exact
@@ -125,5 +125,5 @@ const mapStateToProps = ({ settings }) => {
 };
 const mapActionsToProps = {};
 
-export default connect(mapStateToProps,mapActionsToProps)(App);
+export default connect(mapStateToProps, mapActionsToProps)(App);
 

@@ -21,10 +21,10 @@ export default {
     },
 
     Mutation: {
-        addWorkShop: (root, args, context, info) => {
+        addWorkShop: async (root, args, context, info) => {
             //  console.log(dayjs(args.date).format("YYYY-MM-DD"))
             console.log(args)
-            return WorkShop.create(args)
+            return await WorkShop.create(args)
 
 
         },

@@ -6,6 +6,11 @@ export function loadWorkShopSuccess(workShop) {
     return { type: types.LOAD_WORKSHOP_SUCCESS, workShop }
   }
 
+  export function updateSuccess(workShop) {
+    debugger
+    return { type: types.ADD_WORKSHOP_SUCCESS, workShop }
+  }
+
   export function getAll() {
     return function (dispatch) {
       debugger
@@ -19,6 +24,22 @@ export function loadWorkShopSuccess(workShop) {
         });
     }
 }
+
+
+export function addWorkShop(workShopName, workShop_description ,workShop_Requirments, workShop_Certification, workShop_startTime, workShop_endTime, workShop_goals) {
+  return function (dispatch) {
+    debugger
+    return workShopApi
+      .addWorkshop(workShopName, workShop_description ,workShop_Requirments, workShop_Certification, workShop_startTime, workShop_endTime, workShop_goals)
+      .then(workShop => {
+        dispatch(updateSuccess(workShop));
+      })
+      .catch(error => {
+        throw error();
+      });
+  }
+}
+
 
 
 

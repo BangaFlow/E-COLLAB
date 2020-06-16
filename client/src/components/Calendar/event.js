@@ -60,6 +60,7 @@ export class Event extends Component {
 
 
   handleDelete = () => {
+  
     this.props.actions.deleteEvent(this.props.event.id).catch((err) => {
       console.log(err);
     });
@@ -70,7 +71,7 @@ export class Event extends Component {
 
 
   render() {
-
+   
     return (
       <Fragment>
 
@@ -88,7 +89,7 @@ export class Event extends Component {
                    
 
                     <div className="position-absolute card-top-buttons">
-                      <Button outline color={"white"} className="icon-button" onClick={this.toggleModal}>
+                      <Button outline color={"white"} className="icon-button"   onClick={this.toggleModal}>
                         <i className="simple-icon-pencil" />
                         
                       </Button>
@@ -119,19 +120,27 @@ export class Event extends Component {
                         {this.props.event.eventType}
                       </p>
                       <p className="text-muted text-small mb-2">
-                      <IntlMessages id="Event Creator" />
+                      <IntlMessages id="Organiser" />
                     </p>
                     <p className="mb-3">
-                      {this.props.event.eventCreator}
+                      {this.props.event.eventOrganizer}
                     </p>
 
                       <p className="text-muted text-small mb-2">
-                        <IntlMessages id="Organizers" />
+                        <IntlMessages id="Place" />
                       </p>
                       <p className="mb-3">
-                        {this.props.event.eventOrganizers}
-                      </p>
+                      {this.props.event.place}
+                    </p>
+                      
+                      <p className="text-muted text-small mb-2">
+                      <IntlMessages id="Date" />
+                    </p>
+                    <p className="mb-3">
+                      {(new Date(this.props.event.Date)).toDateString()}
+                    </p>
 
+                     
 
                       <p className="text-muted text-small mb-2">
                         <IntlMessages id="Description" />
@@ -139,34 +148,10 @@ export class Event extends Component {
                       <p className="mb-3">
                         {this.props.event.description}
                       </p>
-                      <p className="text-muted text-small mb-2">
-                        <IntlMessages id="Start" />
-                      </p>
-                      <p className="mb-3">
-                        {this.props.event.startDate}
-                      </p>
-                      <p className="text-muted text-small mb-2">
-                        <IntlMessages id="End" />
-                      </p>
-                      <p className="mb-3">
-                        {this.props.event.endDate}
-                      </p>
-
-                      <p className="text-muted text-small mb-2">
-                        <IntlMessages id="Key Words" />
-                      </p>
-                      <div className="mb-3">
-                        <p className="d-sm-inline-block mb-1">
-
-                          {this.props.event.keyWords.map(key => (
-
-
-                            <Badge color="outline-secondary mb-1 mr-1" pill key={key}>
-                              {key}
-                            </Badge>
-                          ))}
-                        </p>
-                      </div>
+                      <Badge color="outline-secondary mb-1 mr-1" className="text-center" pill >
+                      Participate
+                     </Badge>
+                      
 
                       
                     </CardBody>

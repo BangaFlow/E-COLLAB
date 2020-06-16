@@ -11,16 +11,24 @@ export default gql`
     }
 
     extend type Mutation {
-        addEvent( eventName :String,
+        addEvent(
+        eventName :String,
         eventType:String,
         description : String,
-        keyWords: [String],
-        eventCreator:String,
-        eventOrganizers:String
-        startDate: Date,
-        endDate : Date):Event 
-        updateEvent(id:String,eventName :String,eventType:String, description : String, date: String,  startTime : String,endTime : String ) :Event 
+        place:String,
+        eventOrganizer:String,
+        Date: Date):Event 
+
+        updateEvent(id:String,
+        eventName :String,
+        eventType:String,
+        description : String,
+        place:String,
+        eventOrganizer:String,
+        Date: Date ) :Event 
+
         deleteEvent(id: String): Event
+
         participantsAssignment(participant:String,id:ID!): Event
        
     }
@@ -31,11 +39,9 @@ export default gql`
         eventName :String,
         eventType:String,
         description : String,
-        keyWords: [String],
-        eventCreator:String,
-        eventOrganizers:String
-        startDate: Date,
-        endDate : Date,   
+        place:String,
+        eventOrganizer:String
+        Date: Date,   
         participants:[User]
     
          

@@ -85,10 +85,11 @@ export function deletequiz(id) {
 
 export function deletequestion(id) {
   return function (dispatch) {
-    debugger
+    
     return quizApi.
       deleteQuestion(id)
       .then((quiz) => {
+        debugger
         dispatch(deleteQuestionSuccess(quiz));
       })
       .catch((err) => {

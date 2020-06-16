@@ -5,13 +5,12 @@ const GET_EVENT = gql`
   query{ allEvents {
     id
   eventName
-  eventCreator
+
   eventType
-  eventOrganizers
+  eventOrganizer
   description
-  keyWords
-  startDate
-  endDate
+  place
+   Date
         
     }}
 
@@ -19,14 +18,17 @@ const GET_EVENT = gql`
 
 const CREATE_EVENT = gql`
   mutation
-  addEvent($eventName: String,$eventType: String,$description: String,$date: String,$startTime: String,$endTime: String){
+  addEvent($eventName :String, $eventType:String, $description : String, $place:String, $eventOrganizer:String, $Date: Date){
 
-  addEvent(eventName: $eventName,eventType: $eventType,description: $description,date: $date,startTime: $startTime,endTime: $endTime){
+  addEvent(eventName :$eventName, eventType:$eventType, description : $description, place:$place, eventOrganizer:$eventOrganizer, Date: $Date){
 
   id
   eventName
+  eventType
+  eventOrganizer
   description
-
+  place
+   Date
   }
   
 }
@@ -46,10 +48,12 @@ async function getEvents() {
 };
 
 
-async function addEvent(eventName, eventType, description, date, startTime, endTime) {
-  const variables = { eventName, eventType, description, date, startTime, endTime };
+async function addEvent(eventName,eventType, description, date,eventOrganizer,place) {
+  debugger
+  const variables = { eventName,eventType, description, date,eventOrganizer,place };
   console.log(variables)
   var data = await client.mutate({ mutation: CREATE_EVENT, variables });
+  debugger
   return data.data.addEvent;
 };
 
@@ -85,20 +89,21 @@ const DELETE_EVENT = gql`
 
 const UPDATE_EVENT = gql`
   mutation
-  updateEvent($id:String,$eventName:String){
-    updateEvent(id :$id ,eventName:$eventName) {
 
-      id
+  updateEvent($id:String,$eventName :String, $eventType:String, $description : String, $place:String, $eventOrganizer:String, $Date: Date){
+
+  updateEvent(id:$id,eventName :$eventName, eventType:$eventType, description : $description, place:$place, eventOrganizer:$eventOrganizer, Date: $Date){
+
+  id
   eventName
-  eventCreator
   eventType
-  eventOrganizers
+  eventOrganizer
   description
-  keyWords
-  startDate
-  endDate
+  place
+   Date
   }
-  }
+  
+}
 
 `
 
@@ -114,12 +119,12 @@ async function getUserCalendar(id) {
 
 
 
-async function updateEvent(id, eventName) {
+async function updateEvent(id,eventName,eventType, description, date,eventOrganizer,place) {
   debugger
-  const variables = { id, eventName };
+  const variables = {id,eventName,eventType, description, date,eventOrganizer,place };
   var data = await client.mutate({ mutation: UPDATE_EVENT, variables });
   console.log(data)
-
+  debugger
   return data.data.updateEvent;
 };
 

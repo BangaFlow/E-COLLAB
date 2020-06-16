@@ -13,36 +13,28 @@ const eventSchema = new mongoose.Schema({
         type: String,
 
     },
-    keyWords: {
-
-        type: [String],
-
-    },
     description: {
 
         type: String,
 
     },
-    eventCreator: {
+    eventOrganizer: {
 
         type: String,
 
     },
-    eventOrganizers :{
-
-        type: String
-
-    },
-    startDate: {
+    
+    Date: {
 
         type: Date,
 
     },
-    endDate: {
+    place: {
 
-        type: Date,
+        type: String,
 
     },
+    
     participants: [{
 
         type:

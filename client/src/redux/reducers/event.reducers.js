@@ -10,7 +10,7 @@ export default function eventReducer ( event = [] , action ){
            return action.event
 
         case "ADD_EVENT_SUCCESS" :
-
+        debugger
             return [...event, { ...action.event }]
 
         case "UPDATE_USER_EVENT_SUCCESS" :

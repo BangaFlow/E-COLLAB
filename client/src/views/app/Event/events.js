@@ -83,7 +83,7 @@ export class Calendar extends Component {
 
         <AddNewModal
         modalOpen={this.state.modalOpen}
-        toggleModal={this.toggleModal} />
+        toggleModal={this.toggleModal}   />
       
       </Fragment>
     )

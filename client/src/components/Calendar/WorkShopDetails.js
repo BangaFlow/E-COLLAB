@@ -5,37 +5,29 @@ import { Row, Button, CardBody, Card, Modal,
   ModalFooter, InputGroup,
   InputGroupAddon,
   Input, } from "reactstrap";
-import IntlMessages from "../../../helpers/IntlMessages";
-import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
-import Breadcrumb from "../../../containers/navs/Breadcrumb";
+import IntlMessages from "../../helpers/IntlMessages";
+import { Colxx, Separator } from "../../components/common/CustomBootstrap";
+import Breadcrumb from "../../containers/navs/Breadcrumb";
 import PropTypes from 'prop-types'
 import { connect } from "react-redux";
-import * as workShopAction from "../../../redux/actions/workShopActions"
+import * as workShopAction from "../../redux/actions/workShopActions"
 import { bindActionCreators } from "redux"
-import WorkShopAdd from "../../../components/Calendar/workshopAdd"
+import AvailityBasic from "../../components/Calendar/workshopAdd"
 
 
 
 
-export class WorkShops extends Component {
+export class WorkShopDetails extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       modalOpen: false,
-
+    work:this.props.workShop
     }
   }
-  componentDidMount() {
-    this.props.actions.getAll().catch(e => {
-      alert(e)
-    })
-  }
   
-  toggle = () => {
-    this.setState(prevState => ({
-        modal: !prevState.modal
-    }));
-};
+  
+ 
 
   render() {
 
@@ -46,31 +38,13 @@ export class WorkShops extends Component {
 
 
 
-
-        <Row className="app-row survey-app">
-          <Colxx xxs="12">
-            <Breadcrumb heading="menu.workshops" match={this.props.match} />
-            <div className="float-sm-right">
-              <Button color="primary" size="lg" onClick={this.toggle}>
-                Add WorkShop
-            </Button>
-            </div>
-            <Separator className="mb-5" />
-          </Colxx>
-        </Row>
-        
-        {
-
-
-          this.props.workShop.map(workShop => (
-
            
 
           
           <Colxx >
           <Row>
             <Colxx xxs="12" className="mb-4">
-
+                    <p>bbb{this.props.workShop.id}</p>
               <div
                 className="content"
                 dangerouslySetInnerHTML={{
@@ -82,27 +56,27 @@ export class WorkShops extends Component {
                         <tbody>
                             <tr>
                                 <td align="left" valign="center" style="padding-bottom:40px;border-top:0;height:100% !important;width:100% !important;">
-                                <h3 style="color:#303030; font-size:18px; line-height: 1.6; font-weight:500;">${workShop.workShopName}
+                                <h3 style="color:#303030; font-size:18px; line-height: 1.6; font-weight:500;">${this.props.workShop.workShopName}
                                 </h3>
                                 </td>
                                 <td align="right" valign="center" style="padding-bottom:40px;border-top:0;height:100% !important;width:100% !important;">
-                                    <span style="color: #8f8f8f; font-weight: normal; line-height: 2; font-size: 14px;">${workShop.workShop_startTime}</span>
+                                    <span style="color: #8f8f8f; font-weight: normal; line-height: 2; font-size: 14px;">${this.props.workShop.workShop_startTime}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td colSpan="2" style="padding-top:10px;border-top:1px solid #e4e2e2">
                                     <h3 style="color:#303030; font-size:18px; line-height: 1.6; font-weight:500;">Description</h3>
                                     <p style="color:#8f8f8f; font-size: 14px; padding-bottom: 20px; line-height: 1.4;">
-                                    ${workShop.workShop_description}
+                                    ${this.props.workShop.workShop_description}
                                     </p>
                                     <h3 style="color:#303030; font-size:18px; line-height: 1.6; font-weight:500;">Requirments</h3>
                                     <p style="color:#8f8f8f; font-size: 14px; padding-bottom: 20px; line-height: 1.4;">
-                                    ${workShop.workShop_Requirments}
+                                    ${this.props.workShop.workShop_Requirments}
                                     </p>
         
                                     <h3 style="color:#303030; font-size:18px; line-height: 1.6; font-weight:500;">Goals</h3>
                                     <ol style="color:#8f8f8f; font-size: 14px; padding-bottom: 20px; padding-left:20px; line-height: 1.6">
-                                        <li>${workShop.workShop_goals}</li>
+                                        <li>${this.props.workShop.workShop_goals}</li>
                                         
                                     </ol>
                                 </td>
@@ -140,31 +114,7 @@ export class WorkShops extends Component {
 
 
         </Colxx>
-        ))}
        
-
-
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
-        <ModalHeader toggle={this.toggle}>
-            <IntlMessages id="Add New WorkShop" />
-        </ModalHeader>
-        <ModalBody>
-            <WorkShopAdd />
-        </ModalBody>
-        <ModalFooter>
-            
-            <Button color="secondary" onClick={this.toggle}>
-                Close
-            </Button>
-        </ModalFooter>
-    </Modal>
-
-
-
-
-
-
-
 
 
    
@@ -173,7 +123,7 @@ export class WorkShops extends Component {
     )
   }
 }
-WorkShops.propType = {
+WorkShopDetails.propType = {
   dispatch: PropTypes.func.isRequired,
   actions: PropTypes.array.isRequired
 };
@@ -190,4 +140,4 @@ function mapStateToProps(state) {
 function mapDispatchtoProps(dispatch) {
   return { actions: bindActionCreators(workShopAction, dispatch) }
 }
-export default connect(mapStateToProps, mapDispatchtoProps)(WorkShops);
+export default connect(mapStateToProps, mapDispatchtoProps)(WorkShopDetails);

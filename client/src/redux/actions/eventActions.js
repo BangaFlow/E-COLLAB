@@ -71,11 +71,11 @@ export function getAllUserEvent(id) {
 
 }
 
-export function updateEvent(id,eventName) {
+export function updateEvent(id,eventName,eventType, description, date,eventOrganizer,place) {
   return function (dispatch) {
     debugger
     return eventApi
-      .updateEvent(id,eventName)
+      .updateEvent(id,eventName,eventType, description, date,eventOrganizer,place)
       .then(event => {
         dispatch(updateEventSuccess(event));
       })
@@ -106,10 +106,11 @@ export function deleteEvent(id) {
 
 
 
-export function addEvent(eventName, eventType, description, date, startTime, endTime) {
+export function addEvent(eventName,eventType, description, date,eventOrganizer,place) {
   return function (dispatch) {
+    debugger
     return eventApi.
-      addEvent(eventName, eventType, description, date, startTime, endTime)
+      addEvent(eventName,eventType, description, date,eventOrganizer,place)
       .then((event) => {
         dispatch(addEventSuccess(event));
       })

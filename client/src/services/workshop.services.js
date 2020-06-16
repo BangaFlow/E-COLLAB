@@ -16,6 +16,29 @@ const GET_WORKSHOPS = gql`
 
 `
 
+
+
+
+const ADD_WORKSHOP = gql`
+  mutation 
+  
+  addWorkShop($workShopName:String,$workShop_description:String,$workShop_startTime:Date,$workShop_endTime:Date,$workShop_Requirments:String,$workShop_goals:String){
+  addWorkShop(workShopName:$workShopName,workShop_description:$workShop_description,workShop_startTime:$workShop_startTime,workShop_endTime:$workShop_endTime,workShop_Requirments:$workShop_Requirments ,workShop_goals:$workShop_goals) {
+    
+    id
+    workShopName
+    workShop_description
+    workShop_Requirments
+    workShop_startTime
+    workShop_endTime
+    workShop_goals
+    workShop_Certification
+
+
+}}
+
+`
+
 async function getWorkshops() {
     debugger
     var data = await client.query({ query:  GET_WORKSHOPS });
@@ -23,6 +46,18 @@ async function getWorkshops() {
     console.log(data)
     return data.data.allworkShops;
   };
+
+
+
+  async function addWorkshop(workShopName, workShop_description ,workShop_Requirments, workShop_Certification, workShop_startTime, workShop_endTime, workShop_goals) {
+    debugger
+    const variables = { workShopName, workShop_description ,workShop_Requirments, workShop_Certification, workShop_startTime, workShop_endTime, workShop_goals };
+    
+    var data = await client.mutate({ mutation: ADD_WORKSHOP, variables });
+    console.log(data)
+    debugger
+    return data.data.addWorkShop;
+  };
   
 
-export { getWorkshops }
+export { getWorkshops,addWorkshop }

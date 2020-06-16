@@ -11,15 +11,7 @@ export default gql`
     }
 
     extend type Mutation {
-        addWorkShop(
-        workShopName :String,
-        workShop_description : String,
-        workShop_startTime : Date,
-        workShop_endTime : Date ,
-        workShop_Requirments :String ,
-        workShop_goals :String,
-        workShop_Certification: Boolean
-        ):WorkShop 
+        addWorkShop( workShopName :String, workShop_description : String, workShop_startTime : Date, workShop_endTime : Date , workShop_Requirments :String , workShop_goals :String, workShop_Certification: Boolean ):WorkShop
         updateWorkShop(id:String,  workShopName :String,workShop_description : String, workShop_startTime : Date,workShop_endTime : Date ,workShop_Requirments :String ,workShop_goals :String, workShop_Certification: Boolean) :WorkShop 
         deleteWorkShop(id: String): WorkShop
         AssignmentGroupToWorkShops(id_workShop:String,emails:[String]):WorkShop

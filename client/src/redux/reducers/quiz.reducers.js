@@ -13,7 +13,7 @@ export default function quizReducer ( quiz = [] , action ){
             debugger
             return [...quiz, { ...action.quiz}]
 
-            case "ADD_QUIZ_SUCCESS" : 
+            case "ADD_QUIZ_SUCCESS" :
 
             debugger
             
@@ -26,6 +26,7 @@ export default function quizReducer ( quiz = [] , action ){
             case "DELETE_QUIZ_QUESTION_SUCCESS" :
             debugger
            
+            
             return quiz.filter((item) => item.id !== action.quiz.id);
 
             case "LOAD_QUIZ_SUCCESS" :

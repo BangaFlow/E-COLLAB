@@ -8,11 +8,11 @@ import {
     InputGroupText, Label,
     FormGroup, FormText, TabContent,
     TabPane,
-    Badge, Card,Container
+    Badge, Card, Container
 } from "reactstrap";
 
 import { AvForm, AvField, AvRadioGroup, AvRadio } from 'availity-reactstrap-validation';
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import IntlMessages from "../../helpers/IntlMessages";
 import { Colxx, Separator } from "../../components/common/CustomBootstrap";
 import Breadcrumb from "../../containers/navs/Breadcrumb";
@@ -25,40 +25,40 @@ import UpdateQuiz from "./UpdateQuiz";
 
 
 
+
 export class QuestionDetails extends Component {
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            modalOpen :false,
+            modalOpen: false,
             collapse: false,
             accordion: [true, false, false],
+            redirect: false,
 
         }
     }
 
     toggleModal = () => {
         this.setState({
-          modalOpen: !this.state.modalOpen
+            modalOpen: !this.state.modalOpen
         });
-      };
+    };
 
-      componentDidMount(){
-        this.forceUpdate()
+    componentDidMount() {
 
-
-      }
+    }
 
     handleDelete = (event) => {
-
-        this.props.actions.deletequestion(this.props.question.id).catch((err) => {
-          console.log(err);
+        event.preventDefault()
+        const id = this.props.question.id
+        this.props.actions.deletequestion(id).then(res => this.props.history.push(`app/questions/${id}`)).catch((err) => {
+            console.log(err);
         });
-      
-        this.setState({ state: this.state });
-        this.forceUpdate()
-       
-      };
+
+        this.setState({ redirect: true });
+
+    };
 
 
 
@@ -67,64 +67,63 @@ export class QuestionDetails extends Component {
 
 
     render() {
-
         return (
-        
-            <Fragment>
+            this.state.redirect ? <Redirect to={"app/questions/" + this.props.question.id} />
+                : <Fragment>
 
-                <br></br>
-               
-                <Container >
-                    <Col sm={{ size: 8, order: 2, offset: 2 }}>
+                    <br></br>
 
-                        <CardBody className="center-block  ">
+                    <Container >
+                        <Col sm={{ size: 8, order: 2, offset: 2 }}>
 
-                        <CardTitle className="mb-4 text-left" >
-                        <div className="position-absolute card-top-buttons">
-                        <Button outline color="primary" className="icon-button" onClick={this.toggleModal}>
-                          <i className="simple-icon-pencil" />
-                          
-                        </Button>
-                        <Button outline color="primary" className="icon-button" onClick={this.handleDelete}>
-                          <i className="simple-icon-trash"  />
-                          
-                        </Button>
-                      </div>
-                      </CardTitle>
-                      <br></br>
-                      
+                            <CardBody className="center-block  ">
 
-                            <CardTitle className="mb-4 text-center" >
+                                <CardTitle className="mb-4 text-left" >
+                                    <div className="position-absolute card-top-buttons">
+                                        <Button outline color="primary" className="icon-button" onClick={this.toggleModal}>
+                                            <i className="simple-icon-pencil" />
 
-                                {this.props.question.question}
-                            </CardTitle>
-                            
-                            
+                                        </Button>
+                                        <Button outline color="primary" className="icon-button" onClick={this.handleDelete}>
+                                            <i className="simple-icon-trash" />
 
-                            <Button color="primary" size="lg"  disabled hidden={this.props.question.optionA === ""} block outline={this.props.question.answer != 'optionA' ? true :false} value={this.props.question.optionA}>{this.props.question.optionA} </Button>
-                            <Button color="primary" size="lg" disabled   hidden={this.props.question.optionB === ""} block outline={this.props.question.answer != 'optionB' ? true :false}  value={this.props.question.optionB}>{this.props.question.optionB}  </Button>
-                            <Button color="primary" size="lg" disabled   hidden={this.props.question.optionC === ""} block outline={this.props.question.answer != 'optionC' ? true :false} value={this.props.question.optionA}>{this.props.question.optionC} </Button>
-                            <Button color="primary" size="lg" disabled   hidden={this.props.question.optionD === ""} block outline={this.props.question.answer != 'optionD' ? true :false} value={this.props.question.optionD}>{this.props.question.optionD} </Button>
-                        
-
-                            <br></br>
-                       
-                           
+                                        </Button>
+                                    </div>
+                                </CardTitle>
+                                <br></br>
 
 
-                        </CardBody>
-                    </Col>
-                
-                </Container>
-                <br></br>
-                <Separator className="mb-5" />
+                                <CardTitle className="mb-4 text-center" >
+
+                                    {this.props.question.question}
+                                </CardTitle>
 
 
-                <UpdateQuiz
-                modalOpen={this.state.modalOpen}
-                toggleModal={this.toggleModal} question={this.props.question}/>
-    
-            </Fragment>
+
+                                <Button color="primary" size="lg" disabled hidden={this.props.question.optionA === ""} block outline={this.props.question.answer != 'optionA' ? true : false} value={this.props.question.optionA}>{this.props.question.optionA} </Button>
+                                <Button color="primary" size="lg" disabled hidden={this.props.question.optionB === ""} block outline={this.props.question.answer != 'optionB' ? true : false} value={this.props.question.optionB}>{this.props.question.optionB}  </Button>
+                                <Button color="primary" size="lg" disabled hidden={this.props.question.optionC === ""} block outline={this.props.question.answer != 'optionC' ? true : false} value={this.props.question.optionA}>{this.props.question.optionC} </Button>
+                                <Button color="primary" size="lg" disabled hidden={this.props.question.optionD === ""} block outline={this.props.question.answer != 'optionD' ? true : false} value={this.props.question.optionD}>{this.props.question.optionD} </Button>
+
+
+                                <br></br>
+
+
+
+
+                            </CardBody>
+                        </Col>
+
+                    </Container>
+                    <br></br>
+                    <Separator className="mb-5" />
+
+
+                    <UpdateQuiz
+                        modalOpen={this.state.modalOpen}
+                        toggleModal={this.toggleModal} question={this.props.question} />
+
+                </Fragment>
         )
     }
 }

@@ -10,6 +10,7 @@ import {
   Input,
   Label
 } from "reactstrap";
+import { AvForm, AvField ,AvRadioGroup,AvRadio } from 'availity-reactstrap-validation';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import IntlMessages from "../../helpers/IntlMessages";
@@ -24,29 +25,37 @@ class UpdateModal extends React.Component  {
     super(props);
    
     this.state={
+      
       eventName: this.props.currentEvent.eventName,
-      description: "",
-      eventType: "",
-      date:""
+      description: this.props.currentEvent.description,
+      eventType: this.props.currentEvent.eventType,
+      date:this.props.currentEvent.date,
+      place:this.props.currentEvent.place,
+      eventOrganizer: this.props.currentEvent.eventOrganizer,
     };
   }
 
       save= (event)=>{
         event.preventDefault();
-      let eventName = this.state.eventName
-      let description= this.state.description
-      let eventType= this.state.eventType
-      let date=this.state.date
-      this.props.actions.updateEvent(this.props.currentEvent.id,eventName).catch((err) => {
+        let eventName = this.state.eventName
+        let description= this.state.description
+        let eventType= this.state.eventType
+        let date=this.state.date
+        let place =this.state.place
+        let eventOrganizer =this.state.eventOrganizer
+        console.log("the event"+this.props.currentEvent.id,eventName,eventType, description, date,eventOrganizer,place)
+              this.props.actions.updateEvent(this.props.currentEvent.id,eventName,eventType, description, date,eventOrganizer,place).catch((err) => {
         console.log(err);
       });
   
       this.props.toggleModal();
       this.setState({
-       eventName: "",
-      description: "",
-      eventType: "",
-      date:""
+        eventName: "",
+        description: "",
+        eventType: "",
+        date:"",
+        place:"",
+        eventOrganizer: "",
       });
 
     };
@@ -62,48 +71,87 @@ class UpdateModal extends React.Component  {
         <IntlMessages id="Update EVENT" />
       </ModalHeader>
       <ModalBody>
-        <Label>
+        
+      <AvForm  id="form" onSubmit={this.save}>      
 
-          <IntlMessages id="Event Name" />
-        </Label>
-        {console.log()}
-        <Input defaultValue={this.state.eventName}
+      <AvField  label="Event Name" name="eventName" defaultValue={this.state.eventName}
+      onChange={(event) => {
+        this.setState({ eventName: event.target.value}); 
+      }}        validate={{
+        required: {value: true, errorMessage: 'the name is required'}}} />
+
+        <AvField  label="Organizer" name="eventOrganizer" defaultValue={this.state.eventOrganizer}
         onChange={(event) => {
-          this.setState({ eventName: event.target.value }); 
-        }}/>
+          this.setState({ eventOrganizer: event.target.value}); 
+        }}        validate={{
+          required: {value: true, errorMessage: 'the Organizer is required'}}} />
 
 
 
-        <Label className="mt-4">
-          <IntlMessages id="Event Type" />
-          
-        </Label>
-        <Input /> 
-        <Label className="mt-4">
-          <IntlMessages id=" Description" />
-        </Label>
-        <Input type="textarea" name="text" id="exampleText" />
-        <Label className="mt-4">
-          <IntlMessages id=" Date" />
-        </Label>
-        <div className="form-group has-float-label">
-        <DatePicker />
-        <IntlMessages id="date" />
-      </div>
+       <AvField  label="Description" type="textarea" name="description" defaultValue={this.state.description}
+      onChange={(event) => {
+        this.setState({ description: event.target.value}); 
+      }}        validate={{
+        required: {value: true, errorMessage: 'the description is required'}}} /> 
 
 
-        
-        
-        
-      </ModalBody>
-      <ModalFooter>
-        <Button color="secondary" outline onClick={this.props.toggleModal}>
-          <IntlMessages id="cancel" />
-        </Button>
-        <Button color="primary" onClick={this.save}>
+        <Label >Type</Label>
+        <Input type="select" name="eventType" defaultValue={this.state.eventType}
+        onChange={(event) => {
+          this.setState({ eventType: event.target.value}); 
+        }}        validate={{
+          required: {value: true, errorMessage: 'the eventType is required'}}}
+        >
+        <option>Event</option>
+        <option>WorkShop</option>
+        <option>Forum</option>
+        <option>Compition</option>
+        <option>Hackathon</option>
+        <option>otheres</option>
+      </Input>
+
+      <Label >Date</Label>
+
+      
+     
+
+      <Input onChange={(event) => {
+        this.setState({ date: event.target.value}); 
+      }}    
+      type="date"
+      name="date"
+      id="exampleDate" 
+      placeholder="date placeholder"
+    />
+   
+      
+      <AvField  label="Place" type="text" name="place" defaultValue={this.state.place}
+      onChange={(event) => {
+        this.setState({ place: event.target.value}); 
+      }}        validate={{
+        required: {value: true, errorMessage: 'the palce is required'}}} /> 
+
+
+      <Button color="primary" type="submit">
           <IntlMessages id="submit" />
         </Button>{" "}
-      </ModalFooter>
+
+        </AvForm>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </ModalBody>
+      
     </Modal>
   );
       }

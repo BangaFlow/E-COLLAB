@@ -30,7 +30,7 @@ export default {
 
 
         },
-        updateEvent: async (root, { id, eventName, eventType, description, date, startTime, endTime }, context, info) => {
+        updateEvent: async (root, {id, eventName,eventType, description, date,eventOrganizer,place }, context, info) => {
             if (!id) return;
             return await Event.findOneAndUpdate(
                 {
@@ -42,8 +42,8 @@ export default {
                         eventType: eventType,
                         description: description,
                         date: date,
-                        startTime: startTime,
-                        endTime: endTime,
+                        eventOrganizer: eventOrganizer,
+                        place: place,
 
                     }
                 }, { new: true }, (err, Event) => {
