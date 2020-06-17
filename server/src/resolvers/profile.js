@@ -51,13 +51,13 @@ export default {
         let user_teams = [];
         let index = 0;
         teams.forEach((team) => {
-          if (team.members.indexOf(id) > -1) {
+          if (team.members.indexOf(user_id) > -1) {
             user_teams[index] = team;
             index++;
           }
         });
         teams.forEach((team) => {
-          if (team.tutors.indexOf(id) > -1) {
+          if (team.tutors.indexOf(user_id) > -1) {
             user_teams[index] = team;
             index++;
           }

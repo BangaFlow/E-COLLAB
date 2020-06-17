@@ -8,6 +8,8 @@ import Breadcrumb from "../../containers/navs/Breadcrumb";
 import * as skillsActions from "../../redux/actions/skills.actions";
 import Skill from "../../components/skills/skillCard";
 import SkillForm from "../../components/skills/skillForm";
+import { history } from "../../helpers/history";
+
 import SkillMenu from "../../components/skills/skillMenu";
 
 class Skills extends Component {
@@ -18,6 +20,9 @@ class Skills extends Component {
     };
   }
   componentDidMount() {
+    if (JSON.parse(localStorage.getItem("user")) == null) {
+      history.push("/auth");
+    }
     this.props.actions.loadSkills().catch((err) => {
       alert(`error ${err}`);
     });

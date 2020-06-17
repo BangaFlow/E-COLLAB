@@ -6,6 +6,7 @@ import classNames from "classnames";
 import Loader from "../../helpers/loader";
 
 const Skill = ({ skill }) => {
+
   return (
     <Card className="border w-100">
       <CardBody>
@@ -170,8 +171,8 @@ const Skills = ({ owned_skills }) => {
     </React.Fragment>
   ) : (
     <React.Fragment>
-      <br/>
-       <Alert color="warning"> You don't have any skill !!</Alert>
+      <br />
+      <Alert color="warning"> You don't have any skill !!</Alert>
     </React.Fragment>
   );
 };

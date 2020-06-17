@@ -40,6 +40,9 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
+    if (JSON.parse(localStorage.getItem("user")) == null) {
+      history.push("/auth");
+    }
     if (!Array.isArray(props.profile) && props.profile != null) {
       // console.log("profile 1");
       Rep(props.profile.github_username);
