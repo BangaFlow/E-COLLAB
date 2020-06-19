@@ -17,6 +17,42 @@ const Gogo = React.lazy(() =>
 const SecondMenu = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
 );
+
+const BlankPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
+
+);
+
+const QuizPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Quiz')
+
+);
+const PlayQuiz = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Quiz/quizPage')
+
+);
+const SummaryPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Quiz/SummaryPage')
+
+);
+
+const EventPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Event/index')
+);
+
+const QuestionPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Quiz/questions')
+);
+
+const AddQuestionPage = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Quiz/questionsPage')
+);
+
+
+const MyCalendar = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './Event/myCalendar')
+);
+
 const Profile = React.lazy(() =>
   import(/* webpackChunkName: "viwes-profile" */ './profile')
 );
@@ -34,6 +70,7 @@ const Authorize = React.lazy(() =>
 const NotFound = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ '../notfound')
 );
+
 
 class App extends Component {
   render() {
@@ -120,7 +157,44 @@ class App extends Component {
               roles={[Role.Student]}
               component={RoadMap}
               />
+
+              <Route
+                path={`${match.url}/questions/:id`}
+                render={props => <QuestionPage {...props} />}
+              />
+
+              <Route
+                path={`${match.url}/play/:id`}
+                render={props => <PlayQuiz {...props} />}
+              />
+
+              <Route
+              path={`${match.url}/result`}
+              render={props => <SummaryPage {...props} />}
+              />
+        
+              <Route
+              path={`${match.url}/questionPageAdd`}
+              render={props => <AddQuestionPage {...props} />}
+              />
+
+              <Route
+                path={`${match.url}/Event`}
+                render={props => <EventPage {...props} />}
+              />
+      
+              <Route
+                path={`${match.url}/Quiz`}
+                render={props => <QuizPage {...props} />}
+              />
+      
+              <Route
+              path={`${match.url}/myCalendar`}
+              render={props => <MyCalendar {...props} />}
+              />
+              
               <Redirect to={`${match.url}/404`} />
+      
             </Switch>
           </Suspense>
         </div>

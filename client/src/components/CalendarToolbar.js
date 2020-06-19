@@ -48,4 +48,4 @@ export const CalendarToolbar = toolbar => {
       </div>
     );
   };
-  
+  export default CalendarToolbar;

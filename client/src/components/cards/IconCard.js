@@ -6,6 +6,7 @@ const IconCard = ({className="mb-4", icon, title, value }) => {
   return (
     <div className={`icon-row-item ${className}`}>
       <Card >
+      
         <CardBody className="text-center">
           <i className={icon} />
           <p className="card-text font-weight-semibold mb-0">
