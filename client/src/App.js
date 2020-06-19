@@ -11,8 +11,12 @@ import AppLocale from './lang';
 import ColorSwitcher from './components/common/ColorSwitcher';
 import NotificationContainer from './components/common/react-notifications/NotificationContainer';
 import { isMultiColorActive } from './constants/defaultValues';
+import { PrivateRoute } from './helpers/PrivateRoute'
 import { getDirection } from './helpers/Utils';
 import { history } from './helpers/history'
+import SingUp from './components/authentication/SingUp';
+import ResetPassword from './components/authentication/ResetPassword';
+import ChangePassword from './components/authentication/ChangePassword';
 
 const ViewMain = React.lazy(() =>
   import(/* webpackChunkName: "views" */ './views')
@@ -38,7 +42,9 @@ const ViewQuizResult = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/app/Quiz/SummaryPage')
 );
 
-
+const ViewCreateProfile = React.lazy(() =>
+  import(/* webpackChunkName: "views" */ './views/create-profile')
+);
 
 class App extends Component {
   constructor(props) {
@@ -69,9 +75,22 @@ class App extends Component {
             <Suspense fallback={<div className="loading" />}>
               <Router forceRefresh={true} history={history} >
                 <Switch>
-                  <Route
+                  <PrivateRoute
                     path="/app"
-                    render={props => <ViewApp {...props} />}
+                    // roles={[Role.Student]}
+                    component={ViewApp}
+                  />
+                  <Route
+                  path="/signup"
+                  component={SingUp}
+                  />
+                  <Route
+                  path="/reset-password"
+                  component={ResetPassword}
+                  />
+                  <Route
+                  path="/change-password/:token"
+                  component={ChangePassword}
                   />
 
                   <Route
@@ -82,7 +101,12 @@ class App extends Component {
                   <Route
                     path="/auth"
                     exact
-                    render={props => <ViewAuth {...props} />}
+                    render={localStorage.getItem('user') ? props => <ViewMain {...props} /> : props => <ViewAuth {...props} />}
+                  />
+                  <Route
+                    path="/create-profile"
+                    exact
+                    render={props => <ViewCreateProfile {...props} />}
                   />
                   <Route
                     path="/calendar"

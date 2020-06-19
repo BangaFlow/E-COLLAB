@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import GoogleLogin from 'react-google-login'
 import { userActions, alertActions } from '../../redux/actions/index'
 import '../../assets/scss/style.scss'
-import { useSelector, useDispatch } from 'react-redux'
 import { history } from '../../helpers/history'
+import { googleAuth } from '../../services/user.services'
 
 const SignIn = function () {
 
@@ -11,6 +14,7 @@ const SignIn = function () {
         email:'',
         password:''
     })
+    const [googleError, setGoogleError] = useState({message: "", type: ""})
     const [submitted, setSubmitted] = useState(false)
     //destructurinn varibales from input
     const { email, password } = inputs
@@ -29,7 +33,6 @@ const SignIn = function () {
 
     //Handle change in inputs
     function handleChange(e) {
-        
         const { name, value } = e.target
         setInputs(inputs => ({ ...inputs, [name]: value }))
     }
@@ -42,6 +45,31 @@ const SignIn = function () {
             dispatch(userActions.login(email, password))
         }
     }
+
+    const responseGoogle = (authResult) => {
+        try {
+          if (authResult['code']) {
+            googleAuth(authResult['code'])
+            .then(data => {
+                const user = data.data.google
+                user ? console.log("logged in successfully!") : console.log("Error!")
+                localStorage.setItem('user', JSON.stringify(user))
+                history.push('/')
+            })
+            .catch( err => {
+                console.log(err.graphQLErrors[0].message)
+                setGoogleError({message: "You don't have access to the platform, A different domain is required to access this application.", type: "alert-danger"})
+                setTimeout(() => setGoogleError({message: "", type: ""}), 15000)
+            })
+          } else {
+            throw new Error(authResult.error)
+            // Sweet Alert better handling
+          }
+        } catch (e) {
+          console.log(e.message)
+          window.alert(e.message)
+        }
+      }
 
     
 
@@ -58,6 +86,9 @@ const SignIn = function () {
                     {alert.message &&
                         <div className={`alert ${alert.type}`}>{alert.message}</div>
                     }
+                    {googleError.message &&
+                        <div className={`alert ${googleError.type}`}>{googleError.message}</div>
+                    }
                 </div>
                 <div className="card">
                     <form name="form" onSubmit={handleSubmit} autoComplete="on">
@@ -73,10 +104,10 @@ const SignIn = function () {
                             value={email} 
                             onChange={handleChange} 
                             className={'form-control' + (submitted && !email ? ' is-invalid' : '')} 
-                            placeholder="email" 
+                            placeholder="E-mail" 
                             />
                             {submitted && !email &&
-                                <div style={{top: "+4.5em", right: "-10em", color: '#9b45d1'}} className="invalid-feedback">Email is required</div>
+                                <div style={{top: "+4.5em", right: "-10em", color: '#9b45d1', border: '1px solid #9b45d1'}} className="invalid-feedback">Email is required</div>
                             }
                         </div>
                         <div className="input-group mb-4">
@@ -86,10 +117,10 @@ const SignIn = function () {
                             value={password} 
                             onChange={handleChange} 
                             className={'form-control' + (submitted && !password ? ' is-invalid' : '')} 
-                            placeholder="password" 
+                            placeholder="Password" 
                             />
                             {submitted && !password &&
-                                <div style={{top: "+4.5em", right: "-10em", color: '#9b45d1'}} className="invalid-feedback">Password is required</div>
+                                <div style={{top: "+4.5em", right: "-10em", color: '#9b45d1', border: '1px solid #9b45d1'}} className="invalid-feedback">Password is required</div>
                             }
                         </div>
                         <div className="form-group text-left">
@@ -103,8 +134,27 @@ const SignIn = function () {
                                 {loggingIn ? <span className="spinner-border spinner-border-sm mr-1">Loading ... </span> : 'Sign In'}
                             </button>
                         </div>
-                        <p className="mb-2 text-muted">Forgot password?</p>
-                        <p className="mb-0 text-muted">Don’t have an account?</p>
+                        <GoogleLogin
+                            // use your client id here
+                            clientId={'249588691331-bmubp1an7198lf7jo9pfjcjvbredi9ca.apps.googleusercontent.com'}
+                            buttonText="Login with google"
+                            responseType="code"
+                            /**
+                             * To get access_token and refresh_token in server side,
+                             * the data for redirect_uri should be postmessage.
+                             * postmessage is magic value for redirect_uri to get credentials without actual redirect uri.
+                             */
+                            redirectUri="postmessage"
+                            theme="dark"
+                            prompt="select_account"
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                            cookiePolicy={'single_host_origin'}
+                        />
+                        <br/>
+                        <br/>
+                        <p className="mb-2 text-muted"><NavLink to="/reset-password">Forgot password?</NavLink></p>
+                        <p className="mb-0 text-muted"><NavLink to="/signup">Don’t have an account?</NavLink></p>
                     </div>
                     </form>
                 </div>

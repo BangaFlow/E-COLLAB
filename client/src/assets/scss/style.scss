@@ -22,7 +22,7 @@ File: style.css
 =================================================================================== */
 // General theme contents
 @import "partials/variables";
-@import "partials/general";
+// @import "partials/general";
 @import "partials/generic";
 @import "partials/mixins/function";
 
@@ -36,8 +36,8 @@ File: style.css
 // @import "partials/theme-elements/labels-badges";
 // @import "partials/theme-elements/data-tables";
 @import "partials/theme-elements/authentication";
-@import "partials/theme-elements/button";
 @import "quizStyle"
+// @import "partials/theme-elements/button";
 // @import "partials/theme-elements/alert";
 // @import "partials/theme-elements/breadcrumb-pagination";
 // @import "partials/theme-elements/progress";

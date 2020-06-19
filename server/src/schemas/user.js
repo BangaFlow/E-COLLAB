@@ -1,6 +1,14 @@
 import Joi from 'joi'
 
-const email = Joi.string().email().required().label('Email')
+const email = Joi.string().regex(/^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(esprit)\.tn$/).required().label('Email').options({
+    language: {
+        string: {
+            regex: {
+                base: "Your E-mail doesn't have the required domain, esprit.tn."
+            }
+        }
+    }
+})
 
 const username = Joi.string().alphanum().min(4).max(30).required().label('Username')
 
@@ -21,5 +29,6 @@ export const signUp = Joi.object().keys({
 })
 
 export const signIn = Joi.object().keys({
-    email, password
+    email: Joi.string().email().required().label('Email'),
+    password: Joi.string().required().label('Password')
 })

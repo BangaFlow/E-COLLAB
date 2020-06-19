@@ -1,11 +1,12 @@
 import { userConstants } from '../constants'
-import { signIn }  from '../../services/user.services'
+import { signUp, signIn, signOut }  from '../../services/user.services'
 import { alertActions } from './alert.actions'
 import { history } from '../../helpers/history'
 
 
 export const userActions = {
-    login
+    register,
+    login,
 }
 
 function login(email, password) {
@@ -24,7 +25,7 @@ function login(email, password) {
                 },
                 error => {
                     dispatch(failure(error.toString()))
-                    dispatch(alertActions.error(error.toString()))
+                    dispatch(alertActions.error(error.message.replace('GraphQL error:', '').trim()))
                 }
             )
     }
@@ -32,4 +33,36 @@ function login(email, password) {
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+}
+//TODO: handle signout graphql error 'You must be signed in!'
+export function logout() {
+    signOut()
+    localStorage.removeItem('user')
+    const user = {}
+    return { type: userConstants.LOGOUT, user }
+}
+
+function register(user) {
+    return dispatch => {
+        dispatch(request(user))
+
+        signUp(user)
+            .then(
+                data => { 
+                    const user = data.data.signUp
+                    dispatch(success())
+                    localStorage.setItem('user', JSON.stringify(user))
+                    history.push('/')
+                    dispatch(alertActions.success('Registration successful'))
+                },
+                error => {
+                    dispatch(failure(error.toString()))
+                    dispatch(alertActions.error(error.toString()))
+                }
+            )
+    }
+
+    function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
+    function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }

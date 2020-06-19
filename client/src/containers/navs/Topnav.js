@@ -17,7 +17,7 @@ import {
   clickOnMobileMenu,
   changeLocale
 } from "../../redux/actions";
-
+import { logout } from '../../redux/actions/user.actions'
 import {
   menuHiddenBreakpoint,
   searchPath,
@@ -31,6 +31,10 @@ import TopnavNotifications from "./Topnav.Notifications";
 import TopnavDarkSwitch from "./Topnav.DarkSwitch";
 
 import { getDirection, setDirection } from "../../helpers/Utils";
+import { history } from '../../helpers/history'
+
+
+// const dispatch = useDispatch();
 
 class TopNav extends Component {
   constructor(props) {
@@ -40,7 +44,9 @@ class TopNav extends Component {
       isInFullScreen: false,
       searchKeyword: ""
     };
+    this.user = JSON.parse(localStorage.getItem('user'))
   }
+
 
   handleChangeLocale = (locale, direction) => {
     this.props.changeLocale(locale);
@@ -174,7 +180,12 @@ class TopNav extends Component {
   };
 
   handleLogout = () => {
-    //logout
+    this.props.logout()
+    window.location.pathname = '/auth'
+  };
+
+  handleProfile = () => {
+    history.push('/app/profile/me');
   };
 
   menuButtonClick = (e, menuClickCount, containerClassnames) => {
@@ -236,7 +247,7 @@ class TopNav extends Component {
             </span>
           </div>
 
-          <div className="d-inline-block">
+          {/* <div className="d-inline-block">
             <UncontrolledDropdown className="ml-2">
               <DropdownToggle
                 caret
@@ -259,8 +270,8 @@ class TopNav extends Component {
                 })}
               </DropdownMenu>
             </UncontrolledDropdown>
-          </div>
-          <div className="position-relative d-none d-none d-lg-inline-block">
+          </div> */}
+          {/* <div className="position-relative d-none d-none d-lg-inline-block">
             <a
               className="btn btn-outline-primary btn-sm ml-2"
               target="_top"
@@ -268,7 +279,7 @@ class TopNav extends Component {
             >
               <IntlMessages id="user.buy" />
             </a>
-          </div>
+          </div> */}
         </div>
         <a className="navbar-logo" href="/">
           <span className="logo d-none d-xs-block" />
@@ -279,7 +290,7 @@ class TopNav extends Component {
 
           <div className="header-icons d-inline-block align-middle">
 
-            <TopnavEasyAccess />
+            {/* <TopnavEasyAccess /> */}
             <TopnavNotifications />
             <button
               className="header-icon btn btn-empty d-none d-sm-inline-block"
@@ -297,18 +308,18 @@ class TopNav extends Component {
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span className="name mr-1">Sarah Kortney</span>
+                <span className="name mr-1">{this.user.name}</span>
                 <span>
-                  <img alt="Profile" src="/assets/img/profile-pic-l.jpg" />
+                  <img alt="Profile" src={this.user.avatarUrl? this.user.avatarUrl :"/assets/img/avatar-2.jpg"} />
                 </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
-                <DropdownItem>Account</DropdownItem>
+                <DropdownItem onClick={() => this.handleProfile()}>Account</DropdownItem>
                 <DropdownItem>Features</DropdownItem>
                 <DropdownItem>History</DropdownItem>
                 <DropdownItem>Support</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={() => this.handleLogout()}>
+                <DropdownItem onClick={(e) => this.handleLogout()}>
                   Sign out
                 </DropdownItem>
               </DropdownMenu>
@@ -333,6 +344,6 @@ const mapStateToProps = ({ menu, settings }) => {
 export default injectIntl(
   connect(
     mapStateToProps,
-    { setContainerClassnames, clickOnMobileMenu, changeLocale }
+    { setContainerClassnames, clickOnMobileMenu, changeLocale, logout }
   )(TopNav)
 );
