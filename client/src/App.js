@@ -14,7 +14,6 @@ import { isMultiColorActive } from './constants/defaultValues';
 import { PrivateRoute } from './helpers/PrivateRoute'
 import { getDirection } from './helpers/Utils';
 import { history } from './helpers/history'
-import { Role } from './helpers/role'
 import SingUp from './components/authentication/SingUp';
 import ResetPassword from './components/authentication/ResetPassword';
 import ChangePassword from './components/authentication/ChangePassword';
@@ -63,7 +62,7 @@ class App extends Component {
                 <Switch>
                   <PrivateRoute
                     path="/app"
-                    roles={[Role.Coach]}
+                    // roles={[Role.Student]}
                     component={ViewApp}
                   />
                   <Route

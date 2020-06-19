@@ -54,7 +54,7 @@ function ListUsers() {
       openNotificationWithIcon('success', 'The user was deleted successuflly')
     }
     const cancelDeleteUSer = () => {
-      openNotificationWithIcon('error', 'The process of deletion was canceled!')
+      openNotificationWithIcon('info', 'The process of deletion was canceled!')
     }
 
     // Fetch users at first render & on users list change
@@ -127,9 +127,10 @@ function ListUsers() {
     const columns = [
         {
           width: 40,
+          dataIndex: 'avatarUrl',
           key: 'avatarUrl',
           align: 'center',
-          render: () => <Avatar shape="square" style={{ color: '#f56a00', backgroundColor: '#fde3cf', verticalAlign: 'middle'}} icon={<UserOutlined />}/>,
+          render: (avatarUrl) =>avatarUrl ? <Avatar shape="square" src={avatarUrl} style={{verticalAlign: 'middle'}} />:<Avatar shape="square" style={{ color: '#f56a00', backgroundColor: '#fde3cf', verticalAlign: 'middle'}} icon={<UserOutlined />}/>,
         },
         {
           title: 'Name',
@@ -202,7 +203,7 @@ function ListUsers() {
               <PageHeader
                 title="Users List"
                 className="site-page-header"
-                subTitle="This is a subtitle"
+                subTitle="You can check the list of users here."
                 tags={<Tag color="blue">Running</Tag>}
                 extra={[
                   <Button
@@ -234,7 +235,7 @@ function ListUsers() {
             <PageHeader
                 title="Users List"
                 className="site-page-header"
-                subTitle="This is a subtitle"
+                subTitle="There is no users at the moment."
                 tags={<Tag color="blue">Running</Tag>}
                 extra={[
                   <Button

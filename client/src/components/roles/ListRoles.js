@@ -9,7 +9,10 @@ import {
   Input,
   Form,
   Typography,
+  message,
+  Alert
 } from "antd"
+import TextLoop from 'react-text-loop'
 import getRolesFetch from "./getRoles_fetch"
 import createRoleFetch from "./creatRole_fetch"
 import deleteRoleFetch from "./deleteRole_fetch"
@@ -20,6 +23,13 @@ import {
   ExclamationCircleOutlined,
 } from "@ant-design/icons"
 import { Link } from "react-router-dom"
+
+// Notification Message Global config
+message.config({
+  top: 120,
+  duration: 2,
+  maxCount: 3,
+})
 
 // Breadcrumb routes
 const routes = [
@@ -51,6 +61,7 @@ function ListRoles() {
   const [form] = Form.useForm()
   const [roles, setRoles] = useState([])
   const [visible, setVisible] = useState(false)
+  const [alert, setAlert] = useState(false)
 
   const showModal = () => {
     setVisible(true)
@@ -62,6 +73,7 @@ function ListRoles() {
 
   const handleCancel = () => {
     setVisible(false)
+    setAlert(false)
   }
   // For update method
   const onEdit = (id, input, name) => {
@@ -70,6 +82,7 @@ function ListRoles() {
       let arr = [...roles]
       arr.forEach((role) => (role.id === id ? (role.name = input) : role))
       setRoles(arr)
+      message.success({ content: 'Role updated successfuly!'});
     }
   }
   // For the form inside the create modal
@@ -77,25 +90,30 @@ function ListRoles() {
     console.log("These are form values :", values)
     createRoleFetch(values.name)
     form.resetFields()
-    setTimeout(() => setVisible(false), 1000)
+    setAlert(true)
   }
   // for deletion button
   const showDeleteConfirm = (id) => {
     confirm({
       centered: true,
-      title: "Are you sure delete this task?",
+      title: "Confirmation",
       icon: <ExclamationCircleOutlined />,
-      content: "Some descriptions",
-      okText: "Yes",
+      content: "Are you sure delete this task?",
+      okText: "Yes, Delete it.",
       okType: "danger",
-      cancelText: "No",
+      cancelText: "No, Keep it.",
       onOk() {
         console.log("OK")
         deleteRoleFetch(id)
         setRoles(roles.filter((role) => role.id !== id))
+        message.loading({ content: 'Deleting Role...', key: 'updatable' });
+        setTimeout(() => {
+        message.success({ content: 'Role deleted successfuly!', key: 'updatable', duration: 3 });
+      }, 400)
       },
       onCancel() {
         console.log("Cancel")
+        message.info({ content: 'Role deletion canceled!'});
       },
     })
   }
@@ -110,7 +128,7 @@ function ListRoles() {
       <PageHeader
         title="Roles List"
         className="site-page-header"
-        subTitle="This is a subtitle"
+        subTitle="You have everything related to roles here."
         tags={<Tag color="blue">Running</Tag>}
         extra={[
           <Button
@@ -183,6 +201,14 @@ function ListRoles() {
             <Input />
           </Form.Item>
         </Form>
+        {alert && <Alert message={
+        <TextLoop interval={2000} mask>
+          <div>Role created successufly.</div>
+          <div>No further inserts?</div>
+          <div>Click the X icon to close this window.</div>
+        </TextLoop>
+        }
+        type="success" banner />}
       </Modal>
     </Fragment>
   )

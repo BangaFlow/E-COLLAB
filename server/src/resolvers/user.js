@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import randomBytes from 'randombytes'
 import nodemailer from 'nodemailer'
 import { promisify } from 'util'
-import { UserInputError } from 'apollo-server-express'
+import { UserInputError, AuthenticationError } from 'apollo-server-express'
 import { signUp, signIn } from '../schemas'
 import { User, Role } from '../models'
 import { attemptSignIn, signOut} from '../auth'
@@ -45,25 +45,29 @@ export default {
             
             const profile = await getProfileInfo(code)
             console.log(profile)
-            const args = {
-                googleId: profile.sub,
-                name: profile.name,
-                username: profile.given_name,
-                email: profile.email,
+            if(profile.hd && profile.hd === "esprit.tn") {
+                const args = {
+                    googleId: profile.sub,
+                    avatarUrl: profile.picture,
+                    name: profile.name,
+                    username: profile.given_name,
+                    email: profile.email,
+                }
+    
+                const user = await User.findOne({googleId: args.googleId})
+                
+                if(user) {
+                req.session.userId = user.id
+                
+                return user
+                } else {
+                const user = await User.create(args)
+                req.session.userId = user.id
+    
+                return user
+                }
             }
-
-            const user = await User.findOne({googleId: args.googleId})
-            
-            if(user) {
-            req.session.userId = user.id
-            
-            return user
-            } else {
-            const user = await User.create(args)
-            req.session.userId = user.id
-
-            return user
-            }
+            throw new AuthenticationError("You don't have the required domain: esprit.tn .")
         },
         updateMe: async (root, arg, { req }, info) => {
 

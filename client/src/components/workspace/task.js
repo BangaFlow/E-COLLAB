@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import TextLoop from 'react-text-loop'
 import { Avatar, Card, List, Tag, Typography, Dropdown, Menu, Button,Form, Modal, Radio, Select, Input, Alert, message } from 'antd'
-import { FileTextOutlined, EllipsisOutlined, DeleteOutlined, CloseOutlined, ExclamationCircleOutlined, BugFilled, FireFilled, ToolFilled} from '@ant-design/icons'
+import { FileTextOutlined, EllipsisOutlined, DeleteOutlined, EditOutlined, ExclamationCircleOutlined, BugFilled, FireFilled, ToolFilled} from '@ant-design/icons'
 import { Draggable } from 'react-beautiful-dnd'
 import getUsersFetch from '../users/getUsers_fetch'
 import updateTaskFetch from './updateTask_fetch'
@@ -75,7 +75,6 @@ function Task({deleteTask, updateParents, task, index}) {
         return
       }
       if(JSON.stringify(oldValues)!==JSON.stringify(newValues)) {
-        window.alert('Some changes are made!')
         await updateTaskFetch(task.id, newValues.title, newValues.type, JSON.stringify(newValues.doers)).then( () => {
         updateParents(task.id, newValues)
         setAlert({visible: true, message: "Task has been updated successfuly!", type: "success" })
@@ -109,7 +108,7 @@ function Task({deleteTask, updateParents, task, index}) {
     const menu = (
       <Menu>
         <Menu.Item onClick={showModal} style={{color: "MEDIUMAQUAMARINE"}}>
-        <CloseOutlined style={{color: "MEDIUMAQUAMARINE"}} />
+        <EditOutlined style={{color: "MEDIUMAQUAMARINE"}} />
           Edit
         </Menu.Item>
         <Menu.Item onClick={showDeleteConfirm} style={{color: "salmon"}}>
@@ -170,7 +169,7 @@ function Task({deleteTask, updateParents, task, index}) {
                 dataSource={task.doers}
                 renderItem={(item) => (
                   <List.Item>
-                   <Avatar size={24} src="https://images.unsplash.com/photo-1548544149-4835e62ee5b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" style={{marginRight: "0.4rem"}} />
+                   <Avatar size={24} src={item.avatarUrl ? item.avatarUrl : "https://images.unsplash.com/photo-1548544149-4835e62ee5b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"} style={{marginRight: "0.4rem"}} />
                    <Text style={{fontWeight: "bold"}}>{item.name}</Text>
                   </List.Item>
                 )}

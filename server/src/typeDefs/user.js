@@ -22,6 +22,7 @@ export default gql`
 
     type User {
         id: ID!
+        avatarUrl: String
         email: String!
         username: String!
         name: String!

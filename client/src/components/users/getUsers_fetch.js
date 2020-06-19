@@ -2,6 +2,7 @@ const getUsersFetch = async () => {
     const query = JSON.stringify({
       query: `{
         users {
+        avatarUrl
         name
         id
         email

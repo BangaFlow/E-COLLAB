@@ -11,7 +11,7 @@ export const PrivateRoute = ({ component: Component, roles, ...rest }) => (
         // check if route is restricted by role
         // roles.indexOf(currentUser.role) === -1
         if(roles && roles.some(role => currentUser.roles.findIndex(userRole => userRole.name===role) === -1)) {
-            return <Redirect to={{ pathname: '/error'}} />
+            return <Redirect to={{ pathname: '/app/notauthorized'}} />
         }
         
         // authorzied so return component

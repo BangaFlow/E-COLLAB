@@ -9,7 +9,9 @@ import {
   notification,
   Radio,
   Select,
-  Spin
+  Spin,
+  PageHeader,
+  Tag
 } from 'antd'
 import moment from 'moment'
 import { Link, useParams } from 'react-router-dom'
@@ -41,7 +43,29 @@ const tailFormItemLayout = {
     },
   },
 }
-
+// Breadcrumb routes
+const routes = [
+  {
+    path: "",
+    breadcrumbName: "Home",
+  },
+  {
+    path: "users",
+    breadcrumbName: "Users",
+  },
+  {
+    breadcrumbName: "Single",
+  },
+]
+// For the breadcrumb routes
+function itemRender(route, params, routes, paths) {
+  const last = routes.indexOf(route) === routes.length - 1
+  return last ? (
+    <span>{route.breadcrumbName}</span>
+  ) : (
+    <Link to={paths.join("/")}>{route.breadcrumbName}</Link>
+  )
+}
 const CreateUser = () => {
 
   const [form] = Form.useForm()
@@ -114,9 +138,21 @@ const CreateUser = () => {
   
 
   return (
-    !loading ?
+    <>
+    <PageHeader
+    title={Object.entries(user).length === 0 ? "Create User" : "Update User"}
+    className="site-page-header"
+    subTitle={Object.entries(user).length === 0 ? "You can create a new user here." : "You can modify user data here."}
+    tags={<Tag color="blue">Running</Tag>}
+    avatar={{
+      src: "https://avatars1.githubusercontent.com/u/8186664?s=460&v=4",
+    }}
+    style={{ marginBottom: "2em" }}
+    breadcrumb={{ routes, itemRender }}
+    ></PageHeader>
+    {!loading ?
     <Form
-      style={{marginRight: '30%', marginTop: '20%'}}
+      style={{marginRight: '30%'}}
       {...formItemLayout}
       form={form}
       name="register"
@@ -277,7 +313,8 @@ const CreateUser = () => {
     </Form>
     :
     <Spin style={{position:"absolute", left: "50%", top: "50%"}} size="large" />
-
+    }
+    </>        
   )
 }
 

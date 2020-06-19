@@ -38,7 +38,7 @@ function ResetPassword() {
             setLoading(true)
             resetPassword(email)
             .then( data => {
-                data.data.requestReset ? history.push('/change-password', {email}) : console.log("Email doesn't exist!")
+                data.data.requestReset ? setLoading(false) : console.log("Email doesn't exist!")
             })
             .catch( err => {
                 console.log(err.graphQLErrors[0].message)
