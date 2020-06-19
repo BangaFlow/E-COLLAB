@@ -17,7 +17,7 @@ import {
   clickOnMobileMenu,
   changeLocale
 } from "../../redux/actions";
-import { userActions } from '../../redux/actions/index'
+import { logout } from '../../redux/actions/user.actions'
 import {
   menuHiddenBreakpoint,
   searchPath,
@@ -180,7 +180,8 @@ class TopNav extends Component {
   };
 
   handleLogout = () => {
-    userActions.logout()
+    this.props.logout()
+    window.location.pathname = '/auth'
   };
 
   handleProfile = () => {
@@ -318,7 +319,7 @@ class TopNav extends Component {
                 <DropdownItem>History</DropdownItem>
                 <DropdownItem>Support</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={() => this.handleLogout()}>
+                <DropdownItem onClick={(e) => this.handleLogout()}>
                   Sign out
                 </DropdownItem>
               </DropdownMenu>
@@ -343,6 +344,6 @@ const mapStateToProps = ({ menu, settings }) => {
 export default injectIntl(
   connect(
     mapStateToProps,
-    { setContainerClassnames, clickOnMobileMenu, changeLocale }
+    { setContainerClassnames, clickOnMobileMenu, changeLocale, logout }
   )(TopNav)
 );

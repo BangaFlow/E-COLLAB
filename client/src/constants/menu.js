@@ -63,6 +63,7 @@ const Standard = [
     to: "/app/blank-page"
   },
 ]
+console.log(currentUser)
 const data = currentUser.roles.some(role => role.name === "Admin") ? Admin : currentUser.roles.some(role => role.name === "Student") ? Student : Standard
 
 export default data;
