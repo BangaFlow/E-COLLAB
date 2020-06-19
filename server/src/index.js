@@ -5,6 +5,7 @@ import redis from 'redis'
 import connectRedis from 'connect-redis'
 import mongoose from 'mongoose'
 import cors from 'cors'
+import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 
 import typeDefs from './typeDefs'
 import resolvers from './resolvers'
@@ -23,6 +24,8 @@ mongoose.connect(`mongodb://localhost:${DB_PORT}/${DB_NAME}`, {useNewUrlParser: 
 mongoose.set('useFindAndModify', false);
 
 const app = express()
+
+app.use(express.json())
 
 app.disable('x-powered-by')
 
@@ -66,13 +69,15 @@ const server = new ApolloServer({
 })
 
 const corsOptions = {
-    origin: ['http://localhost:3000', `http://localhost:${APP_PORT}${server.graphqlPath}`],
+    origin: ['http://localhost:3000', `http://localhost:${APP_PORT}${server.graphqlPath}`, 'chrome-extension://flnheeellpciglgpaodhkhmapeljopja'],
     credentials: true
 }
 
 app.use(cors(corsOptions))
 
 server.applyMiddleware({ app, cors: false })
+
+app.use('/voyager', voyagerMiddleware({ endpointUrl: '/graphql' }))
 
 app.listen({ port: APP_PORT }, () => 
     console.log(`Server ready at http://localhost:${APP_PORT}${server.graphqlPath}`)

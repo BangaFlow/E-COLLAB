@@ -41,6 +41,9 @@ module.exports = {
   "menu.search": "Search",
   "menu.docs": "Docs",
   "menu.blank-page": "Blank Page",
+  "menu.users": "Users",
+  "menu.roles": "Roles",
+  "menu.workspace": "My Workspace",
 
   /* 04.Error Page */
   "pages.error-title": "Ooops... looks like an error occurred!",

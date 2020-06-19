@@ -34,6 +34,8 @@ import { getDirection, setDirection } from "../../helpers/Utils";
 import { history } from '../../helpers/history'
 
 
+// const dispatch = useDispatch();
+
 class TopNav extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +44,9 @@ class TopNav extends Component {
       isInFullScreen: false,
       searchKeyword: ""
     };
+    this.user = JSON.parse(localStorage.getItem('user'))
   }
+
 
   handleChangeLocale = (locale, direction) => {
     this.props.changeLocale(locale);

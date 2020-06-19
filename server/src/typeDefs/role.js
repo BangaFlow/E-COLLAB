@@ -7,7 +7,9 @@ export default gql`
     }
 
     extend type Mutation {
-        addRole(name: String!, permissions: [String!]!): Role
+        addRole(name: String!, permissions: [String]): Role
+        updateRole(id: String!, name: String!): Role
+        deleteRole(id: String!): Role
     }
 
     type Role {

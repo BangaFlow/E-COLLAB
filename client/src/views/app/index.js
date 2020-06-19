@@ -3,6 +3,13 @@ import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import AppLayout from '../../layout/AppLayout';
+import ListUsers from '../../components/users/ListUsers';
+import CreateUser from '../../components/users/CreateUser';
+import ListRoles from '../../components/roles/ListRoles';
+import RoadMap from '../../components/workspace/RoadMap';
+
+import { Role } from '../../helpers/role'
+import { PrivateRoute } from '../../helpers/PrivateRoute'
 
 const Gogo = React.lazy(() =>
   import(/* webpackChunkName: "viwes-gogo" */ './gogo')
@@ -20,6 +27,12 @@ const Skills = React.lazy(() =>
 
 const Teams = React.lazy(() =>
   import(/* webpackChunkName: "viwes-teams" */ './teams')
+);
+const Authorize = React.lazy(() =>
+  import(/* webpackChunkName: "views-error" */ '../authorize')
+);
+const NotFound = React.lazy(() =>
+  import(/* webpackChunkName: "views-error" */ '../notfound')
 );
 
 class App extends Component {
@@ -52,7 +65,62 @@ class App extends Component {
                 path={`${match.url}/profile/me`}
                 render={props => <Profile {...props} />}
               />
-              <Redirect to="/error" />
+              <Route
+                path={`${match.url}/notauthorized`}
+                exact
+                render={props => <Authorize {...props} />}
+              />
+              <Route
+                path={`${match.url}/404`}
+                exact
+                render={props => <NotFound {...props} />}
+              />
+              {/* <Route
+                path={`${match.url}/users`}
+                render={props => <ListUsers {...props} />}
+              /> */}
+              <PrivateRoute
+              path={`${match.url}/users`}
+              roles={[Role.Admin]}
+              component={ListUsers}
+              />
+              {/* <Route
+                path={`${match.url}/adduser`}
+                render={props => <CreateUser {...props} />}
+              /> */}
+              <PrivateRoute
+              path={`${match.url}/adduser`}
+              roles={[Role.Admin]}
+              component={CreateUser}
+              />
+              {/* <Route
+                path={`${match.url}/moduser/:id`}
+                render={props => <CreateUser {...props} />}
+              /> */}
+              <PrivateRoute
+              path={`${match.url}/moduser/:id`}
+              roles={[Role.Admin]}
+              component={CreateUser}
+              />
+              {/* <Route
+                path={`${match.url}/roles`}
+                render={props => <ListRoles {...props} />}
+              /> */}
+              <PrivateRoute
+              path={`${match.url}/roles`}
+              roles={[Role.Admin]}
+              component={ListRoles}
+              />
+              {/* <Route
+                path={`${match.url}/workspace`}
+                render={props => <RoadMap {...props} />}
+              /> */}
+              <PrivateRoute
+              path={`${match.url}/workspace`}
+              roles={[Role.Student]}
+              component={RoadMap}
+              />
+              <Redirect to={`${match.url}/404`} />
             </Switch>
           </Suspense>
         </div>

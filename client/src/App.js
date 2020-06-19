@@ -14,6 +14,9 @@ import { isMultiColorActive } from './constants/defaultValues';
 import { PrivateRoute } from './helpers/PrivateRoute'
 import { getDirection } from './helpers/Utils';
 import { history } from './helpers/history'
+import SingUp from './components/authentication/SingUp';
+import ResetPassword from './components/authentication/ResetPassword';
+import ChangePassword from './components/authentication/ChangePassword';
 
 const ViewMain = React.lazy(() =>
   import(/* webpackChunkName: "views" */ './views')
@@ -63,7 +66,20 @@ class App extends Component {
                 <Switch>
                   <PrivateRoute
                     path="/app"
+                    // roles={[Role.Student]}
                     component={ViewApp}
+                  />
+                  <Route
+                  path="/signup"
+                  component={SingUp}
+                  />
+                  <Route
+                  path="/reset-password"
+                  component={ResetPassword}
+                  />
+                  <Route
+                  path="/change-password/:token"
+                  component={ChangePassword}
                   />
                   <Route
                     path="/error"
@@ -73,7 +89,7 @@ class App extends Component {
                   <Route
                     path="/auth"
                     exact
-                    render={props => <ViewAuth {...props} />}
+                    render={localStorage.getItem('user') ? props => <ViewMain {...props} /> : props => <ViewAuth {...props} />}
                   />
                   <Route
                     path="/create-profile"

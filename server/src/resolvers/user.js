@@ -3,10 +3,11 @@ import mongoose from 'mongoose'
 import randomBytes from 'randombytes'
 import nodemailer from 'nodemailer'
 import { promisify } from 'util'
-import { UserInputError } from 'apollo-server-express'
+import { UserInputError, AuthenticationError } from 'apollo-server-express'
 import { signUp, signIn } from '../schemas'
 import { User, Role } from '../models'
 import { attemptSignIn, signOut} from '../auth'
+import getProfileInfo from '../helpers/GoogleAuth'
 
 export default {
     Query: {
@@ -40,6 +41,34 @@ export default {
 
             return user
         },
+        google: async (root, { code }, { req }, info) => {
+            
+            const profile = await getProfileInfo(code)
+            console.log(profile)
+            if(profile.hd && profile.hd === "esprit.tn") {
+                const args = {
+                    googleId: profile.sub,
+                    avatarUrl: profile.picture,
+                    name: profile.name,
+                    username: profile.given_name,
+                    email: profile.email,
+                }
+    
+                const user = await User.findOne({googleId: args.googleId})
+                
+                if(user) {
+                req.session.userId = user.id
+                
+                return user
+                } else {
+                const user = await User.create(args)
+                req.session.userId = user.id
+    
+                return user
+                }
+            }
+            throw new AuthenticationError("You don't have the required domain: esprit.tn .")
+        },
         updateMe: async (root, arg, { req }, info) => {
 
             // await Joi.validate(arg, signUp, { abortEarly: false })
@@ -55,6 +84,27 @@ export default {
 
             return user
         },
+        createUser: async (root, args, context, info) => {
+            
+            // console.log(args.roles)
+            const user = await User.create(args)
+            
+            return user
+        },
+        updateUser: async (root, args, context, info) => {
+            console.log(args)
+            const result = await User.findOneAndUpdate({_id: args._id},
+                { $set: args },
+                { runValidators: true},
+                (err, doc) => {
+                    if (err) {
+                        console.log(err.message)
+                    }
+                    console.log(doc)
+                })
+
+            return result
+        },
         deleteUser: async (root, arg, { req }, info) => {
             
             const user = await User.findByIdAndDelete(arg.id)
@@ -68,7 +118,7 @@ export default {
             const user = await attemptSignIn(arg.email, arg.password)
 
             const roles = await Role.findById(user.roles[0])
-
+            
             req.session.userId = user.id
             req.session.roles = roles
 
@@ -110,14 +160,12 @@ export default {
                 from: 'khaled.saidi@esprit.tn',
                 to: user.email,
                 subject: 'Your Password Reset Token',
-                html: `<h1>Welcome</h1> <p>Here is your token: ${resetToken}</p>`
+                text: `Hi ${user.name}\nPlease click on the following link http://localhost:3000/change-password/${resetToken} to reset your password.\nIf you did not request this, please ignore this email and your password will remain unchanged.`
               })
 
             return true
         },
-        resetPassword: async (root, { email, password, confirmPassword, resetToken }, context, info) => {
-            
-            email = email.toLowerCase()
+        resetPassword: async (root, { password, confirmPassword, resetToken }, {req}, info) => {
 
             // check if passwords match
             if (password !== confirmPassword) throw new Error(`Your passwords don't match`)
@@ -131,7 +179,7 @@ export default {
             // throw error if user doesn't exist
             if (!user) throw new Error('Your password reset token is either invalid or expired.')
 
-            const result = await User.findOneAndUpdate({email},
+            const result = await User.findOneAndUpdate({email: user.email},
                                                 { password, resetToken: null, resetTokenExpiry: null },
                                                 {new: true},
                                                 (err, doc) => {
@@ -140,6 +188,7 @@ export default {
                                                     }
                                                     console.log(doc)
                                                 })
+            req.session.userId = result.id
             return result
       }
     },

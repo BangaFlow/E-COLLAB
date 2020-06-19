@@ -3,6 +3,8 @@ import { hash, compare } from 'bcryptjs'
 import user from '../resolvers/user'
 
 const userSchema = new mongoose.Schema({
+    googleId: String,
+    avatarUrl: String,
     email: {
         type: String,
         validate: {
@@ -18,11 +20,16 @@ const userSchema = new mongoose.Schema({
         }
     },
     name: String,
+    birthDate: Date,
+    gender: String,
     password: String,
-    roles: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Role'
-    }],
+    roles: {
+        type: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Role'
+        }],
+        default: ['5e95ed2eb628cc55f0c07784']
+    },
     resetToken: String,
     resetTokenExpiry: Date
 }, {
