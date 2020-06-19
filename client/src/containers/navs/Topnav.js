@@ -308,9 +308,9 @@ class TopNav extends Component {
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span className="name mr-1">{JSON.parse(localStorage.getItem("user")).name}</span>
+                <span className="name mr-1">{this.user.name}</span>
                 <span>
-                  {/* <img alt="Profile" src="/assets/img/avatar-2.jpg" /> */}
+                  <img alt="Profile" src={this.user.avatarUrl? this.user.avatarUrl :"/assets/img/avatar-2.jpg"} />
                 </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>

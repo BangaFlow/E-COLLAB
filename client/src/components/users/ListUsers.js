@@ -226,7 +226,7 @@ function ListUsers() {
               dataSource={users} 
               rowKey={record => record.id} 
               expandable={{
-                expandedRowRender: record => <p style={{ margin: 0, paddingLeft: "1rem" }}>{`${record.name} is a  ${record.gender}, who is ${getAge(record.birthDate)} years old.`}</p>
+                expandedRowRender: record => <p style={{ margin: 0, paddingLeft: "1rem" }}>{`${record.name} is  ${record.gender ? record.gender  : 'of unkown gender'}, who is ${record.birthDate ? getAge(record.birthDate) + ' years old.' : 'of unkown age.'}`}</p>
               }}        
             />
             </>
