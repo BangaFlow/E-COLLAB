@@ -31,6 +31,10 @@ const ViewError = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/error')
 );
 
+const ViewCreateProfile = React.lazy(() =>
+  import(/* webpackChunkName: "views" */ './views/create-profile')
+);
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -86,6 +90,11 @@ class App extends Component {
                     path="/auth"
                     exact
                     render={localStorage.getItem('user') ? props => <ViewMain {...props} /> : props => <ViewAuth {...props} />}
+                  />
+                  <Route
+                    path="/create-profile"
+                    exact
+                    render={props => <ViewCreateProfile {...props} />}
                   />
                   <Route
                     path="/"

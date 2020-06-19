@@ -12,41 +12,28 @@
 //       }     
 //     ]
 //   },
-//   {
-//     id: "secondmenu",
-//     icon: "iconsminds-three-arrow-fork",
-//     label: "menu.second-menu",
-//     to: "/app/second-menu",
-//     subs: [
-//       {
-//         icon: "simple-icon-paper-plane",
-//         label: "menu.second",
-//         to: "/app/second-menu/second"
-//       }
-//     ]
-//   },
-//   {
-//     id: "blankpage",
-//     icon: "iconsminds-bucket",
-//     label: "menu.blank-page",
-//     to: "/app/blank-page"
-//   },
-//   {
-//     id: "users",
-//     icon: "iconsminds-bucket",
-//     label: "menu.users",
-//     to: "/app/users"
-//   },
-//   {
-//     id: "docs",
-//     icon: "iconsminds-library",
-//     label: "menu.docs",
-//     to: "https://gogo-react-docs.coloredstrategies.com/",
-//     newWindow:true
-//   }
 // ];
 const currentUser = JSON.parse(localStorage.getItem('user'))
 const Admin = [
+  {
+    id: "skills_page",
+    icon: "iconsminds-three-arrow-fork",
+    label: "menu.skills",
+    to: "/app/skills",
+  },
+  {
+    id: "teams_page",
+    icon: "iconsminds-library",
+    label: "menu.teams",
+    to: "/app/teams/all",
+
+  },
+  {
+    id: "blankpage",
+    icon: "iconsminds-bucket",
+    label: "menu.profile",
+    to: "/app/profile/me",
+  },
   {
     id: "users",
     icon: "iconsminds-bucket",
@@ -77,4 +64,5 @@ const Standard = [
   },
 ]
 const data = currentUser.roles.some(role => role.name === "Admin") ? Admin : currentUser.roles.some(role => role.name === "Student") ? Student : Standard
+
 export default data;

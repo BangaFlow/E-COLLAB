@@ -2,8 +2,9 @@ import user from './user'
 import role from './role'
 import task from './task'
 import column from './column'
-import profile from "./profile";
+import profile from './profile';
 import skill from './skill';
+import team from './team';
 
 export default [
     user,
@@ -11,5 +12,6 @@ export default [
     column,
     task,
     profile,
-    skill
+    skill,
+    team
 ]

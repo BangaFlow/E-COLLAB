@@ -8,7 +8,6 @@ Table of Contents
 04.Error Page
 */
 
-
 module.exports = {
   /* 01.General */
   "general.copyright": "Gogo React © 2018 All Rights Reserved.",
@@ -39,15 +38,50 @@ module.exports = {
   "menu.chat": "Chat",
   "menu.survey": "Survey",
   "menu.todo": "Todo",
-  "menu.search" :"Search",
+  "menu.search": "Search",
   "menu.docs": "Docs",
   "menu.blank-page": "Blank Page",
   "menu.users": "Users",
   "menu.roles": "Roles",
   "menu.workspace": "My Workspace",
 
- /* 04.Error Page */
- "pages.error-title": "Ooops... looks like an error occurred!",
- "pages.error-code": "Error code",
- "pages.go-back-home": "GO BACK HOME",
+  /* 04.Error Page */
+  "pages.error-title": "Ooops... looks like an error occurred!",
+  "pages.error-code": "Error code",
+  "pages.go-back-home": "GO BACK HOME",
+
+  /* skills */
+  "menu.skills": "Skills",
+
+  /* teams */
+  "menu.teams": "Teams",
+  "menu.teams.all" : "All teams",
+  "menu.all" : "All teams",
+  "menu.team.create": "Create Team",
+  "menu.create": "Create Team",
+  "menu.team.members.swap":"Swap Members",
+  "menu.members-swap":"Swap Members",
+
+  "menu.team.members.transfer":"Transfer Member",
+  "menu.members-transfer":"Transfer Member",
+
+  "menu.team.subject.assign":"Assign Subject",
+  "menu.subject-assign":"Assign Subject",
+
+  "menu.team.subject.change":"Change Subject",
+  "menu.subject-change":"Change Subject",
+
+  "menu.team.tutors.assign":"Assign Tutors",
+  "menu.tutors-assign":"Assign Tutors",
+
+  "menu.team.tutors.change":"Change Tutor",
+  "menu.tutors-change":"Change Tutor",
+
+  "menu.team.generate.random":"Generate Random Teams",
+  "menu.generate-random":"Generate Random Teams",
+
+  "menu.team" : "Team Details",
+
+  /* profile */
+  "menu.profile" : "Profile"
 };

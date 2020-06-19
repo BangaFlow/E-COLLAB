@@ -17,8 +17,16 @@ const Gogo = React.lazy(() =>
 const SecondMenu = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
 );
-const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
+const Profile = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-profile" */ './profile')
+);
+
+const Skills = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-skills" */ './skills')
+);
+
+const Teams = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-teams" */ './teams')
 );
 const Authorize = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ '../authorize')
@@ -38,6 +46,14 @@ class App extends Component {
             <Switch>
               <Redirect exact from={`${match.url}/`} to={`${match.url}/gogo`} />
               <Route
+                path={`${match.url}/skills`}
+                render={props => <Skills {...props} />}
+              />
+              <Route
+                path={`${match.url}/teams`}
+                render={props => <Teams {...props} />}
+              />
+              <Route
                 path={`${match.url}/gogo`}
                 render={props => <Gogo {...props} />}
               />
@@ -46,8 +62,8 @@ class App extends Component {
                 render={props => <SecondMenu {...props} />}
               />
               <Route
-                path={`${match.url}/blank-page`}
-                render={props => <BlankPage {...props} />}
+                path={`${match.url}/profile/me`}
+                render={props => <Profile {...props} />}
               />
               <Route
                 path={`${match.url}/notauthorized`}

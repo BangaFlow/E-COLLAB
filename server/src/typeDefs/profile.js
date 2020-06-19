@@ -1,40 +1,48 @@
-import { gql } from 'apollo-server-express'
+import { gql } from "apollo-server-express";
 
 export default gql`
-    extend type Query{
-        getMyProfile: Profile,
-        getProfile(id: String): Profile
-    }
+  extend type Query {
+    getMyProfile: Profile
+    getProfile(id: ID!): Profile
+  }
 
-    extend type Mutation {
-        createProfile(
-            image: String, 
-            title: String, 
-            location: String,
-            phone: String, 
-            about: String, 
-            github_username: String
-        ): Profile,
-        
-        updateMyProfile(
-            image: String, 
-            title: String, 
-            location: String,
-            phone: String, 
-            about: String, 
-            github_username: String,
-            profile_id: String
-        ): Profile
-    }
+  extend type Mutation {
+    createProfile(
+      image: String
+      title: String
+      location: String
+      phone: String
+      about: String
+      github_username: String
+      user_id: ID!
+    ): Profile
 
-    type Profile {
-        id: ID!
-        user : User!
-        image: String
-        title: String
-        location: String
-        phone: String
-        about: String
-        skills: [Skill]
-        github_username: String   
-    }`
+    updateMyProfile(
+      image: String
+      title: String
+      location: String
+      phone: String
+      about: String
+      github_username: String
+      profile_id: String
+    ): Profile
+  }
+
+  type Owned_skill {
+    skill : Skill
+    grade : String
+  }
+
+  type Profile {
+    id: ID!
+    user: User!
+    image: String
+    title: String
+    location: String
+    phone: String
+    about: String
+    skills: [Owned_skill]
+    github_username: String
+    teams: [Team]
+  }
+`;

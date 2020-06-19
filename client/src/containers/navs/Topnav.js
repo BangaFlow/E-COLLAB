@@ -31,6 +31,8 @@ import TopnavNotifications from "./Topnav.Notifications";
 import TopnavDarkSwitch from "./Topnav.DarkSwitch";
 
 import { getDirection, setDirection } from "../../helpers/Utils";
+import { history } from '../../helpers/history'
+
 
 // const dispatch = useDispatch();
 
@@ -181,6 +183,10 @@ class TopNav extends Component {
     userActions.logout()
   };
 
+  handleProfile = () => {
+    history.push('/app/profile/me');
+  };
+
   menuButtonClick = (e, menuClickCount, containerClassnames) => {
     e.preventDefault();
 
@@ -240,7 +246,7 @@ class TopNav extends Component {
             </span>
           </div>
 
-          <div className="d-inline-block">
+          {/* <div className="d-inline-block">
             <UncontrolledDropdown className="ml-2">
               <DropdownToggle
                 caret
@@ -263,8 +269,8 @@ class TopNav extends Component {
                 })}
               </DropdownMenu>
             </UncontrolledDropdown>
-          </div>
-          <div className="position-relative d-none d-none d-lg-inline-block">
+          </div> */}
+          {/* <div className="position-relative d-none d-none d-lg-inline-block">
             <a
               className="btn btn-outline-primary btn-sm ml-2"
               target="_top"
@@ -272,7 +278,7 @@ class TopNav extends Component {
             >
               <IntlMessages id="user.buy" />
             </a>
-          </div>
+          </div> */}
         </div>
         <a className="navbar-logo" href="/">
           <span className="logo d-none d-xs-block" />
@@ -283,7 +289,7 @@ class TopNav extends Component {
 
           <div className="header-icons d-inline-block align-middle">
 
-            <TopnavEasyAccess />
+            {/* <TopnavEasyAccess /> */}
             <TopnavNotifications />
             <button
               className="header-icon btn btn-empty d-none d-sm-inline-block"
@@ -301,13 +307,13 @@ class TopNav extends Component {
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span className="name mr-1">{this.user? this.user.name : 'Sarah Korteny'}</span>
+                <span className="name mr-1">{JSON.parse(localStorage.getItem("user")).name}</span>
                 <span>
-                  <img alt="Profile" src="/assets/img/profile-pic-l.jpg" />
+                  {/* <img alt="Profile" src="/assets/img/avatar-2.jpg" /> */}
                 </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
-                <DropdownItem>Account</DropdownItem>
+                <DropdownItem onClick={() => this.handleProfile()}>Account</DropdownItem>
                 <DropdownItem>Features</DropdownItem>
                 <DropdownItem>History</DropdownItem>
                 <DropdownItem>Support</DropdownItem>
