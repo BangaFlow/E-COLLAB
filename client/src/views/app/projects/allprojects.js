@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Row, Button } from "reactstrap";
+import { Badge,Row, Button } from "reactstrap";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
 
@@ -52,10 +52,12 @@ class allprojects extends Component {
         <Row className="app-row survey-app">
           <Colxx xxs="12" className="mb-4">
             <div>
-              {this.props.location.id}
+              
               {projects?
                  projects.map((project) =><Project key={project.id} item={project} />
-                ):"loading"
+                ): <Badge color="warning" pill className="mb-1">
+                    No projects yet
+                </Badge>
                 }
             </div>
           </Colxx>

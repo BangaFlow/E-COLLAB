@@ -10,8 +10,6 @@ type Typeproject {
         methodology:String,
         Projects:[Project]
         
-     
-    
     }
     extend type Query{
      gettype_project(id:String):Typeproject

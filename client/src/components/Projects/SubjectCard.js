@@ -56,6 +56,7 @@ const Category = ({ item, ...props }) => {
       console.log(err);
     });
     toggleDel();
+    window.location.reload(false);
   };
 
   return (
@@ -64,8 +65,11 @@ const Category = ({ item, ...props }) => {
         <div className="d-flex flex-grow-1 min-width-zero">
           <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
             <span className="align-middle d-inline-block list-item-heading mb-0 truncate w-40 w-xs-100  mb-1 mt-1">
-              
-              {item.title} <br></br>
+            <p className="font-weight-bold">Title :</p>
+
+              {item.title} <br />
+              <p className="font-weight-bold">Description :</p>
+
               {item.description}
               
                 
@@ -95,13 +99,8 @@ const Category = ({ item, ...props }) => {
 
             <i className="iconsminds-file-edit" />
           </Button>
-          <Button
-            color="primary"
-            
-            size="xs"
-            className="float-sm-right"
-            title="View projects"
-          >
+          <Button color="success"   className="float-sm-right">
+          
              <Link
                 to={{
               pathname: "/app/projects/Subjectdetail",

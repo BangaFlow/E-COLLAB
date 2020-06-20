@@ -3,6 +3,7 @@ import { project } from '../models'
 
 import { Typeproject } from '../models'
 
+
 import { User } from '../models'
 export default {
     Query: {
@@ -54,10 +55,15 @@ export default {
             
          },
          add_project: async (root, args, context, info) => {
-
+            //let u=[];
             let tp = await Typeproject.findById(args.id);
             let p = await project.create(args);
 
+            //u= await User.find({});
+            //console.log(u);
+            
+            //p.learners_involved.push(u.id);
+            
             tp.Projects.push(p);
              await Typeproject.findByIdAndUpdate(
                 args.id,

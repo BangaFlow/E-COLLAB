@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Row, Button } from "reactstrap";
+import { Row, Button,Input } from "reactstrap";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
 
 import * as ProjectsActions from "../../../redux/actions/Projects.actions";
 import Subject from "../../../components/Projects/SubjectCard";
 import ProjectForm from "../../../components/Projects/ProjectForm";
-import ProjectMenu from "../../../components/Projects/ProjectMenu";
+import SubjectMenu from "../../../components/Projects/SubjectMenu";
 
 import * as subjectActions from "../../../redux/actions/subjects.actions";
 
@@ -17,6 +17,7 @@ class Subjects extends Component {
     super(props, context);
     this.state = {
       modalOpen: false,
+      
     };
   }
   componentDidMount() {
@@ -24,6 +25,7 @@ class Subjects extends Component {
       alert(`error ${err}`);
     });
   }
+  
 
   toggleModal = () => {
     this.setState({
@@ -34,7 +36,7 @@ class Subjects extends Component {
   render() {
     //const { p } = this.props;
     const { modalOpen } = this.state;
-
+    let filteredSubjects=this.props.subjects;
     return (
       <Fragment>
         <Row className="app-row survey-app">
@@ -44,21 +46,24 @@ class Subjects extends Component {
              
             </div>
             <Separator className="mb-5" />
+           
+                
+
           </Colxx>
         </Row>
         
         <Row className="app-row survey-app">
           <Colxx xxs="12" className="mb-4">
             <div>
-              {this.props.subjects?
-                 this.props.subjects.map((subject) =><Subject key={subject.id} item={subject} />
+              {filteredSubjects?
+                 filteredSubjects.map((subject) =><Subject key={subject.id} item={subject} />
                 ):"loading"
                 }
             </div>
           </Colxx>
         </Row>
        
-        
+        <SubjectMenu />
       
       </Fragment>
     );

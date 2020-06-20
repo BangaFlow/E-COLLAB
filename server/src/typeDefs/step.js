@@ -12,7 +12,8 @@ export default gql`
     }
     extend type Query{
         
-        getTasks:[Step]
+        
+        getSteps:[Step]
     
     }
     extend type Mutation {
@@ -20,6 +21,8 @@ export default gql`
         end_date: String
         description: String
         goal: String ):Step 
+        deletestep(id: String):Step
+
       
         
     }

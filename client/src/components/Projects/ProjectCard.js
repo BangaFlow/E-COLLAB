@@ -49,12 +49,15 @@ const Project = ({ item, ...props }) => {
     toggle();
   };
 
+ 
+
   const handleDelete = () => {
     console.log(item.id);
     props.actions.deleteProject(item.id).catch((err) => {
       console.log(err);
     });
     toggleDel();
+    window.location.reload(false);
   };
 
   return (
@@ -63,6 +66,8 @@ const Project = ({ item, ...props }) => {
         <div className="d-flex flex-grow-1 min-width-zero">
           <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
             <span className="align-middle d-inline-block list-item-heading mb-0 truncate w-40 w-xs-100  mb-1 mt-1">
+            <p className="font-weight-bold">Title :</p>
+
               {item.title}
                 
               
@@ -91,13 +96,7 @@ const Project = ({ item, ...props }) => {
           >
             <i className="iconsminds-file-edit" />
           </Button>
-          <Button
-            color="primary"
-           
-            size="xs"
-            className="float-sm-right"
-            title="Details"
-          >
+          <Button color="success"   className="float-sm-right">
              <Link
                 to={{
               pathname: "/app/projects/details",
@@ -113,7 +112,7 @@ const Project = ({ item, ...props }) => {
             <Card>
               <CardBody>
                 Are you sure you want to delete this item?
-                <Button color="danger" size="xs" onClick={handleDelete}>
+                <Button color="danger" size="xs" onClick={handleDelete} >
                   Delete
                 </Button>
                 <Button color="info" size="xs" onClick={toggleDel}>

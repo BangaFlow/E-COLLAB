@@ -23,10 +23,10 @@ const Task = ({ product, handleCheckChange,isSelected }) => {
               <span className="align-middle d-inline-block">{product.goal}</span>
             </NavLink>
             <p className="mb-1 text-muted text-small w-15 w-xs-100">
-              {product.start_date}
+              {product.start_date.substring(0,10)}
             </p>
             <p className="mb-1 text-muted text-small w-15 w-xs-100">
-              {product.end_date}
+              {product.end_date.substring(0,10)}
             </p>
            
           </CardBody>

@@ -47,4 +47,14 @@ module.exports = {
  "pages.error-title": "Ooops... looks like an error occurred!",
  "pages.error-code": "Error code",
  "pages.go-back-home": "GO BACK HOME",
+
+ /*Project*/
+
+ "menu.projects":"Projects",
+ "menu.categories":"Categories",
+ "menu.Projects":"Projects",
+ "menu.Subjects":"Subjects",
+ "menu.Subjectdetail":"Subject Details",
+ "menu.details":"Details",
+ "menu.allprojects":"All projects"
 };

@@ -11,6 +11,7 @@ import {
   Input,
   Label,
 } from "reactstrap";
+import { history } from "../../helpers/history";
 import "react-datepicker/dist/react-datepicker.css";
 
 import DatePicker from "react-datepicker";
@@ -55,6 +56,8 @@ class TaskForm extends Component {
         goal:""
     
     });
+
+    setTimeout(() => { history.push("/app/projects/Subjects"); }, 1000);
   };
 
   render() {
@@ -63,6 +66,7 @@ class TaskForm extends Component {
     //const [selectedDate, setSelectedDate]=useState(null)  
 
     return (
+      
       <Modal
         isOpen={modalOpen}
         toggle={toggleModal}
@@ -113,6 +117,7 @@ class TaskForm extends Component {
           
         <Label className="mt-4">Start Date</Label>
       <DatePicker
+      
       selected={this.state.start_date} 
       onChange={date => {
         this.setState({ start_date: date });
@@ -123,6 +128,7 @@ class TaskForm extends Component {
 
             <Label className="mt-4">End Date</Label>
       <DatePicker
+      
       selected={this.state.end_date} 
       onChange={date => {
         this.setState({ end_date: date });

@@ -98,6 +98,21 @@ class App extends Component {
                     exact
                     render={props => <Details {...props} />}
                   />
+                     <Route
+                    path="/app/projects/categories"
+                    exact
+                    render={props => <Categories {...props} />}
+                  />
+                  <Route
+                    path="/app/projects/Projects"
+                    exact
+                    render={props => <Projects {...props} />}
+                  />
+                  <Route
+                    path="/app/projects/Subjects"
+                    exact
+                    render={props => <Subjects {...props} />}
+                  />
                   <Redirect to="/error" />
                 </Switch>
               </Router>

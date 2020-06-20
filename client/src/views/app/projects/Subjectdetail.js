@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 
 import {
+  
   Row,
   Card,
   CardTitle,
@@ -114,19 +115,8 @@ class Subjectdetail extends Component {
                   <CardBody>
                    
                     <p className="mb-3">
-                      Vivamus ultricies augue vitae commodo condimentum. Nullam faucibus eros eu mauris feugiat, eget consectetur tortor tempus.
-                      <br /><br />
-                      Sed volutpat mollis dui eget fringilla. Vestibulum blandit urna ut tellus lobortis tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque quis cursus mauris.
-                      <br /><br />
-                      Nulla non purus fermentum, pulvinar dui condimentum, malesuada nibh. Sed viverra quam urna, at condimentum ante viverra non. Mauris posuere erat sapien, a convallis libero lobortis sit amet. Suspendisse in orci tellus.
-                    </p>
-                    <p className="text-muted text-small mb-2">{messages["forms.tags"]}</p>
-                    <p className="mb-3">
-                      <Badge color="outline-secondary" className="mb-1 mr-1" pill>FRONTEND</Badge>
-                      <Badge color="outline-secondary" className="mb-1 mr-1" pill>JAVASCRIPT</Badge>
-                      <Badge color="outline-secondary" className="mb-1 mr-1" pill>SECURITY</Badge>
-                      <Badge color="outline-secondary" className="mb-1 mr-1" pill>DESIGN</Badge>
-                    </p>
+                    {this.props.location.subjects.description}                    </p>
+                   
 
                     <div className="mb-3">
                       <div className="post-icon mr-3 d-inline-block">
@@ -169,7 +159,9 @@ class Subjectdetail extends Component {
   
 />
 
-    )):"nothing"
+    )):<Badge color="warning" pill className="mb-1">
+    No Task yet
+</Badge>
 
           }
              
@@ -181,7 +173,7 @@ class Subjectdetail extends Component {
           id={this.props.location.subjects.id}
           toggleModal={this.toggleModal}
           modalOpen={modalOpen}
-          title="Add new Subject"
+          title="Add new Task"
         />
 
       </Fragment>

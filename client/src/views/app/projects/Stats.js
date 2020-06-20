@@ -14,24 +14,51 @@ class Stats extends Component {
     super(props, context);
     this.state = {
       modalOpen: false,
+      
     };
   }
+  
   componentDidMount() {
-    this.props.actions.loadtypeProjects().catch((err) => {
+    
+     this.props.actions.loadtypeProjects().catch((err) => {
       alert(`error ${err}`);
     });
+    
+    let categories=[];
+    let ps=[];
+    let count=0;
+    let i=0;
+    console.log(this.props.location.c);
+    
+    this.props.location.c.forEach(element => {
+      categories[i]=element.title;
+      element.Projects.map((number) =>
+      <li key={number.id}>
+        {count=count+1}
+      </li>
+    );
+      ps[i]=count;
+      count=0;
+      i=i+1;
+      console.log(count);
+    });
 
-  let label=['imene','hela'];
- let data=[60,40];
- let color=['#49A9EA','#36CAAB']
-  let myChart= document.getElementById("myChart");
-  let chart= new Chart(myChart, {
-    type: 'doughnut',
-    data: {
-      labels: label,
-      datasets: [{
-        data: data,
-        backgroundColor: color
+    console.log(categories);
+    console.log(ps);
+      //let label=['categories','hhh'];
+      //let data=[20,80];
+      let label=categories;
+      let data=ps;
+
+      let color=['#49A9EA','#36CAAB','#800080','#FF00FF']
+      let myChart= document.getElementById("myChart");
+      let chart= new Chart(myChart, {
+            type: 'doughnut',
+            data: {
+            labels: label,
+            datasets: [{
+            data: data,
+            backgroundColor: color
       }]
     },
     options: {
@@ -42,9 +69,36 @@ class Stats extends Component {
     }
   });
   }
+
+  statistics =() =>{
+    let categories=[];
+    let ps=[];
+    let count=0;
+    let i=0;
+    console.log(this.props.categories);
+    
+    this.props.categories.forEach(element => {
+      categories[i]=element.title;
+      element.Projects.map((number) =>
+      <li key={number.id}>
+        {count=count+1}
+      </li>
+    );
+      ps[i]=count;
+      i=i+1;
+      console.log(count);
+    });
+
+    console.log(categories);
+    console.log(ps);
+
+    
+    
+  };
  
 
 render(){
+
   return (
 
     <Fragment>
@@ -55,13 +109,17 @@ render(){
                 <Separator className="mb-5" />
               </Colxx>
             </Row>
+           
             <Row>
               <Colxx xxs="12" className="mb-4">
+              <canvas id="myChart" width="100" height="50"></canvas>
               </Colxx>  
               
-              <center>
-              <canvas id="myChart"></canvas>
-                </center>
+          
+             
+            
+
+                
             </Row>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>

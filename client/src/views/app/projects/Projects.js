@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Row, Button } from "reactstrap";
+import { Badge,Row, Button,Input } from "reactstrap";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
 
@@ -15,6 +15,7 @@ class Projects extends Component {
     super(props, context);
     this.state = {
       modalOpen: false,
+      search:''
     };
   }
   componentDidMount() {
@@ -22,7 +23,9 @@ class Projects extends Component {
       alert(`error ${err}`);
     });
   }
-
+  updatesearch(event){
+    this.setState({search: event.target.value.substr(0,20)});
+  }
   toggleModal = () => {
     this.setState({
       modalOpen: !this.state.modalOpen,
@@ -32,28 +35,47 @@ class Projects extends Component {
   render() {
     //const { p } = this.props;
     const { modalOpen } = this.state;
-
+    let filteredProjects=this.props.projects.filter((p)=>{
+      return p.title.indexOf(this.state.search) !=-1;
+    });
     return (
+
       <Fragment>
         <Row className="app-row survey-app">
           <Colxx xxs="12">
             <Breadcrumb heading="Projects" match={this.props.match} />
             <div className="float-sm-right">
-              <Button color="primary" size="lg" onClick={this.toggleModal}>
-                Add Project
-              </Button>
+              
           
             </div>
             <Separator className="mb-5" />
+            <Colxx xxs="12">
+            <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
+                  <Input
+                    type="text"
+                    name="keyword"
+                    value={this.state.search}
+                    onChange={this.updatesearch.bind(this)}
+                    id="search"
+                    placeholder="search ..."
+                   
+                  ></Input>
+                </div>
+                </Colxx>
+
+            
           </Colxx>
         </Row>
         
         <Row className="app-row survey-app">
           <Colxx xxs="12" className="mb-4">
             <div>
-              {this.props.projects?
-                 this.props.projects.map((project) =><Project key={project.id} item={project} />
-                ):"loading"
+              {filteredProjects?
+                 filteredProjects.map((project) =><Project key={project.id} item={project} />
+                ):
+                <Badge color="warning" pill className="mb-1">
+               
+              </Badge>
                 }
             </div>
           </Colxx>
@@ -64,6 +86,7 @@ class Projects extends Component {
           modalOpen={modalOpen}
           title="Add new Project"
         />
+        
       
       </Fragment>
     );

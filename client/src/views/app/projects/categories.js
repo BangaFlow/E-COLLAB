@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Row, Button } from "reactstrap";
+import { Row, Button,Input } from "reactstrap";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
+import { Link } from 'react-router-dom'
+import IntlMessages from "../../../helpers/IntlMessages";
 
 import * as CategoriesActions from "../../../redux/actions/categories.actions";
 import Category from "../../../components/Projects/CategoryCard";
@@ -16,6 +18,7 @@ class Categories extends Component {
     super(props, context);
     this.state = {
       modalOpen: false,
+      
     };
   }
   componentDidMount() {
@@ -23,6 +26,7 @@ class Categories extends Component {
       alert(`error ${err}`);
     });
   }
+  
 
   toggleModal = () => {
     this.setState({
@@ -56,31 +60,53 @@ class Categories extends Component {
   render() {
     //const { c } = this.props;
     const { modalOpen } = this.state;
-
+    //let filteredCategories=this.props.categories;
+    
     return (
       <Fragment>
         <Row className="app-row survey-app">
           <Colxx xxs="12">
             <Breadcrumb heading="Categories" match={this.props.match} />
             <div className="float-sm-right">
-              <Button color="primary" size="lg" onClick={this.toggleModal}>
+
+              <Button color="primary" size="xs" onClick={this.toggleModal}>
                 Add Category
               </Button>
+              <Button color="warning" className="mb-2">
+              <Link
+              
+                to={{
+              pathname: "/app/projects/Stats",
+              c:this.props.categories
+              
+                      }}
+                      >  Statistics</Link>
+                 
+                </Button>
+         
+            
+
             </div>
+            
             <Separator className="mb-5" />
+            
+                
+
           </Colxx>
         </Row>
         
         <Row className="app-row survey-app">
           <Colxx xxs="12" className="mb-4">
             <div>
-              {
-                 this.props.categories.map((category) =>
+              {this.props.categories?
+                this.props.categories.map((category) =>
             <Category key={category.id} item={category} />                
-                )
+                ):"loading"
                 }
             </div>
           </Colxx>
+
+         
         </Row>
         <ProjectMenu />
         <CategoryForm

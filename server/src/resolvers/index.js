@@ -5,6 +5,7 @@ import skill from './skill';
 import project from './project'
 import subject from './subject'
 import Typeproject from './Typeproject'
+import Step from './step'
 
 export default [
     user,
@@ -14,5 +15,6 @@ export default [
     project,
     subject,
     Typeproject,
+    Step
     
 ]

@@ -19,32 +19,35 @@ const data = [
   },
   {
     id: "projects",
-    icon: "iconsminds-air-balloon-1",
+    icon: "iconsminds-library",
     label: "projects",
     to: "/app/projects",
     subs: [
       {
-        icon: "simple-icon-paper-plane",
+        icon: "simple-icon-list",
         label: "Categories",
         to: "/app/projects/categories"
       } ,
       {
-        icon: "simple-icon-paper-plane",
+        icon: "simple-icon-check",
         label: "Projects",
         to: "/app/projects/Projects"
       } ,
       {
-        icon: "simple-icon-paper-plane",
+        icon: "simple-icon-control-play",
         label: "Subjects",
         to: "/app/projects/Subjects"
       } ,
-      {
-        icon: "simple-icon-paper-plane",
-        label: "Chart",
-        to: "/app/projects/Stats"
-      }
+     
         
     ]
+  },
+  {
+    id: "Files",
+    icon: "iconsminds-three-arrow-fork",
+    label: "File Management",
+    to: "/app/FileManagement/Files",
+    
   },
   {
     id: "secondmenu",

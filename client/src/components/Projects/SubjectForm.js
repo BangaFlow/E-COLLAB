@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Select from "react-select";
@@ -10,10 +10,15 @@ import {
   ModalFooter,
   Input,
   Label,
+  Row,
+  FormGroup,
 } from "reactstrap";
+import { Colxx } from "../../components/common/CustomBootstrap";
 
 import CustomSelectInput from "../../components/common/CustomSelectInput";
 import * as subjectActions from "../../redux/actions/subjects.actions";
+import { history } from "../../helpers/history";
+import { AvForm, AvField, AvGroup } from "availity-reactstrap-validation";
 
 class SubjectForm extends Component {
   constructor(props) {
@@ -40,6 +45,8 @@ class SubjectForm extends Component {
       title: "",
       description:""
     });
+
+    setTimeout(() => { history.push("/app/projects/Projects"); }, 1000);
   };
 
   render() {
@@ -47,7 +54,112 @@ class SubjectForm extends Component {
     const { modalOpen, toggleModal } = this.props;  
 
     return (
-      <Modal
+
+
+        
+      
+<Modal
+        isOpen={modalOpen}
+        toggle={toggleModal}
+        wrapClassName="modal-right"
+        backdrop="static"
+      >
+        <ModalHeader toggle={toggleModal}>{this.props.title}</ModalHeader>
+        <ModalBody>
+     
+        <Fragment>
+          <Row className="mb-4">
+            <Colxx xxs="12">
+            
+
+                  <AvForm
+                    className="av-tooltip tooltip-label-right"
+                    
+                  >
+                    
+                    <FormGroup row>
+                      <Colxx sm={12}>
+                        <AvGroup className="error-t-negative">
+                          <Label>Title *</Label>
+                          <AvField
+                            name="title"
+                            type="text"
+                            value={this.state.title}
+                            onChange={(event) => {
+                              this.setState({ title: event.target.value });
+                            }}
+                            validate={{
+                              required: {
+                                value: true,
+                                errorMessage: "This field is required",
+                              },
+                            }}
+                          />
+                        </AvGroup>
+                    </Colxx>
+                    <Colxx sm={12}>
+                        <AvGroup className="error-t-negative">
+                          <Label>Description *</Label>
+                          <AvField
+                            name="title"
+                            type="text"
+                            value={this.state.description}
+                            onChange={(event) => {
+                              this.setState({ description: event.target.value });
+                            }}
+                            validate={{
+                              required: {
+                                value: true,
+                                errorMessage: "This field is required",
+                              },
+                            }}
+                          />
+                        </AvGroup>
+                    </Colxx>
+                   
+                   
+                    </FormGroup>
+                   
+                     
+                    <ModalFooter>
+                    <Button color="secondary" outline onClick={toggleModal}>Cancel</Button>
+                    <Button color="primary" onClick={() => this.addNetItem()}>Submit</Button>
+                    </ModalFooter>
+                   
+                  </AvForm>
+                
+            </Colxx>
+          </Row>
+        </Fragment>
+      
+
+
+      </ModalBody>
+        
+      </Modal>
+
+
+
+    
+    );
+  }
+}
+
+const mapStateToProps = (state, ownProps) => ({ subject: state.subject});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(subjectActions, dispatch),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubjectForm);
+
+
+
+/*
+
+  <Modal
         isOpen={modalOpen}
         toggle={toggleModal}
         wrapClassName="modal-right"
@@ -93,16 +205,7 @@ class SubjectForm extends Component {
           </Button>
         </ModalFooter>
       </Modal>
-    );
-  }
-}
 
-const mapStateToProps = (state, ownProps) => ({ subject: state.subject});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(subjectActions, dispatch),
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubjectForm);
+*/

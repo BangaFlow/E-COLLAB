@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Select from "react-select";
@@ -10,11 +10,15 @@ import {
   ModalFooter,
   Input,
   Label,
+  Row,
+  FormGroup
 } from "reactstrap";
-
+import { history } from "../../helpers/history";
+import { Colxx } from "../../components/common/CustomBootstrap";
 import CustomSelectInput from "../../components/common/CustomSelectInput";
 import * as projectActions from "../../redux/actions/Projects.actions";
 import * as CategoriesActions from "../../redux/actions/categories.actions";
+import { AvForm, AvField, AvGroup } from "availity-reactstrap-validation";
 
 class ProjectForm extends Component {
   constructor(props) {
@@ -23,6 +27,7 @@ class ProjectForm extends Component {
      title: "",
      school_year:"",
      class_involved:"",
+    
      number_of_teams:"",
      number_of_members:"",
      number_of_tutors_per_team:""
@@ -34,6 +39,8 @@ class ProjectForm extends Component {
     let title = this.state.title;
     let school_year= this.state.school_year;
     let class_involved= this.state.class_involved.value;
+    //let start_date= this.state.start_date.value;
+    //let end_date= this.state.end_date.value;
     let number_of_teams= this.state.number_of_teams;
     let number_of_members= this.state.number_of_members;
     let number_of_tutors_per_team= this.state.number_of_tutors_per_team;
@@ -52,6 +59,8 @@ class ProjectForm extends Component {
      number_of_members:"",
      number_of_tutors_per_team:""
     });
+
+    setTimeout(() => { history.push("/app/projects/categories"); }, 1000);
   };
 
   render() {
@@ -59,6 +68,196 @@ class ProjectForm extends Component {
     const { modalOpen, toggleModal } = this.props;  
 
     return (
+
+      
+      
+<Modal
+        isOpen={modalOpen}
+        toggle={toggleModal}
+        wrapClassName="modal-right"
+        backdrop="static"
+      >
+        <ModalHeader toggle={toggleModal}>{this.props.title}</ModalHeader>
+        <ModalBody>
+     
+        <Fragment>
+          <Row className="mb-4">
+            <Colxx xxs="12">
+            
+
+                  <AvForm
+                    className="av-tooltip tooltip-label-right"
+                    
+                  >
+                    
+                    <FormGroup row>
+                      <Colxx sm={12}>
+                        <AvGroup className="error-t-negative">
+                          <Label>Title *</Label>
+                          <AvField
+                            name="title"
+                            type="text"
+                            value={this.state.title}
+                            onChange={(event) => {
+                              this.setState({ title: event.target.value });
+                            }}
+                            validate={{
+                              required: {
+                                value: true,
+                                errorMessage: "This field is required",
+                              },
+                            }}
+                          />
+                        </AvGroup>
+                    </Colxx>
+                    <Colxx sm={12}>
+                        <AvGroup className="error-t-negative">
+                          <Label>School Year *</Label>
+                          <AvField
+                            name="title"
+                            type="text"
+                            value={this.state.school_year}
+                            onChange={(event) => {
+                              this.setState({ school_year: event.target.value });
+                            }}
+                            validate={{
+                              required: {
+                                value: true,
+                                errorMessage: "This field is required",
+                              },
+                            }}
+                          />
+                        </AvGroup>
+                    </Colxx>
+                    <Colxx sm={12}>
+                    <Label className="mt-4">Class involved</Label>
+          <Select
+            components={{ Input: CustomSelectInput }}
+            className="react-select"
+            classNamePrefix="react-select"
+            name="form-field-name"
+            options={classes.map((x, i) => {
+              return { label: x, value: x, key: i };
+            })}
+            value={this.state.class_involved}
+            onChange={(val) => {              
+              this.setState({ class_involved: val });
+            }}
+          />
+          </Colxx>
+          <Colxx sm={12}>
+                        <AvGroup className="error-t-negative">
+                          <Label>Number of Teams *</Label>
+                          <AvField
+                            name="title"
+                            type="text"
+                            value={this.state.number_of_teams}
+                            onChange={(event) => {
+                              this.setState({ number_of_teams: event.target.value });
+                            }}
+                            validate={{
+                              number: {
+                                value: true,
+                                errorMessage: "Value must be a number",
+                              },
+                              required: {
+                                value: true,
+                                errorMessage: "This field is required",
+                              },
+                            }}
+                          />
+                        </AvGroup>
+                    </Colxx>
+                    <Colxx sm={12}>
+                        <AvGroup className="error-t-negative">
+                          <Label>Number of Memebers Per Teams *</Label>
+                          <AvField
+                            name="title"
+                            type="text"
+                            value={this.state.number_of_members}
+                            onChange={(event) => {
+                              this.setState({ number_of_members: event.target.value });
+                            }}
+                            validate={{
+                              number: {
+                                value: true,
+                                errorMessage: "Value must be a number",
+                              },
+                              required: {
+                                value: true,
+                                errorMessage: "This field is required",
+                              },
+                            }}
+                          />
+                        </AvGroup>
+                    </Colxx>
+
+                    <Colxx sm={12}>
+                        <AvGroup className="error-t-negative">
+                          <Label>Number of Tutors Per Teams *</Label>
+                          <AvField
+                            name="title"
+                            type="text"
+                            value={this.state.number_of_tutors_per_team}
+                            onChange={(event) => {
+                              this.setState({ number_of_tutors_per_team: event.target.value });
+                            }}
+                            validate={{
+                              number: {
+                                value: true,
+                                errorMessage: "Value must be a number",
+                              },
+                              required: {
+                                value: true,
+                                errorMessage: "This field is required",
+                              },
+                            }}
+                          />
+                        </AvGroup>
+                    </Colxx>
+
+                    </FormGroup>
+                   
+                     
+                    <ModalFooter>
+                    <Button color="secondary" outline onClick={toggleModal}>Cancel</Button>
+                    <Button color="primary" onClick={() => this.addNetItem()}>Submit</Button>
+                    </ModalFooter>
+                   
+                  </AvForm>
+                
+            </Colxx>
+          </Row>
+        </Fragment>
+      
+
+
+      </ModalBody>
+        
+      </Modal>
+
+
+    );
+  }
+}
+
+const mapStateToProps = (state, ownProps) => ({ category: state.category});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(CategoriesActions, dispatch),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
+
+
+
+
+/*
+
+
+
+
       <Modal
         isOpen={modalOpen}
         toggle={toggleModal}
@@ -118,6 +317,7 @@ class ProjectForm extends Component {
             }}
           />
 
+     
 
 
            <Label className="mt-4">number of teams</Label>
@@ -188,15 +388,6 @@ class ProjectForm extends Component {
           </Button>
         </ModalFooter>
       </Modal>
-    );
-  }
-}
 
-const mapStateToProps = (state, ownProps) => ({ category: state.category});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(CategoriesActions, dispatch),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
+*/

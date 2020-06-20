@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 
 import {
+  
   Row,
   Card,
   CardTitle,
@@ -76,38 +77,18 @@ class DetailsPages extends Component {
           <Colxx xxs="12">
             <h1>{this.props.location.pj.title}</h1>
             <div className="text-zero top-right-button-container">
-              <UncontrolledDropdown>
-                <DropdownToggle
-                  caret
-                  color="primary"
-                  size="lg"
-                  outline
-                  className="top-right-button top-right-button-single">
-                  <IntlMessages id="pages.actions" />
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem header>
-                    <IntlMessages id="pages.header" />
-                  </DropdownItem>
-                  <DropdownItem disabled>
-                    <IntlMessages id="pages.delete" />
-                  </DropdownItem>
-                  <DropdownItem>
-                    <IntlMessages id="pages.another-action" />
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    <IntlMessages id="pages.another-action" />
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+
+            <Button color="primary" size="lg" onClick={this.toggleModal}>
+                Add Subject
+              </Button>
+              
             </div>
 
             <Breadcrumb match={this.props.match} />
             <Separator className="mb-5" />
 
             <Row>
-              <Colxx xxs="12" xl="8" className="col-left">
+              <Colxx xxs="12" xl="12" className="col-left">
                 <Card className="mb-4">
                   <CardBody>
                {this.props.location.pj.title}
@@ -118,34 +99,13 @@ class DetailsPages extends Component {
                   <CardHeader>
                     <Nav tabs className="card-header-tabs ">
                       <NavItem>
-                        <NavLink
-                          className={classnames({
-                            active: this.state.activeFirstTab === "1",
-                            "nav-link": true
-                          })}
-                          onClick={() => { this.toggleTab("1"); }} to="#" >
-                          <IntlMessages id="pages.details-title" />
-                        </NavLink>
+                      
                       </NavItem>
                       <NavItem>
-                        <NavLink
-                          className={classnames({
-                            active: this.state.activeFirstTab === "2",
-                            "nav-link": true
-                          })}
-                          onClick={() => { this.toggleTab("2"); }} to="#" >
-                          <IntlMessages id="pages.comments-title" />(19)
-                      </NavLink>
+                       
                       </NavItem>
                       <NavItem>
-                        <NavLink
-                          className={classnames({
-                            active: this.state.activeFirstTab === "3",
-                            "nav-link": true
-                          })}
-                          onClick={() => { this.toggleTab("3"); }} to="#" >
-                          <IntlMessages id="pages.questions-title" />(6)
-                      </NavLink>
+                        
                       </NavItem>
                     </Nav>
                   </CardHeader>
@@ -155,22 +115,14 @@ class DetailsPages extends Component {
                       <Row>
                         <Colxx sm="12">
                           <CardBody>
-                            <p className="font-weight-bold">Description</p>
-                            <p>
-                              Vivamus ultricies augue vitae commodo condimentum. Nullamfaucibus eros eu mauris feugiat, eget consectetur tortor tempus. Sed volutpatmollis dui eget fringilla. Vestibulum blandit urna ut tellus lobortis tristique.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubiliaCurae; Pellentesque quis cursus mauris. Nam in ornare erat. Vestibulum convallisenim ac massa dapibus consectetur. Maecenas facilisis eros ac felis mattis, egetauctor sapien varius.                              <br />
-                              <br />
-                              Nulla non purus fermentum, pulvinar dui condimentum, malesuada nibh. Sed viverra quam urna, at condimentum ante viverra non. Mauris posuere erat sapien, a convallis libero lobortis sit amet. Suspendisse in orci tellus.
-                            </p>
-                            <br />
                            
-                            <br />
-                            <p className="font-weight-bold">More</p>
+                            <p className="font-weight-bold">Details</p>
                             <Table borderless>
                               <thead>
                                 <tr>
-                                  <th scope="col">number of teams</th>
-                                  <th scope="col">number of members</th>
-                                  <th scope="col">number of tutors</th>
+                                  <th scope="col">number of teams :</th>
+                                  <th scope="col">number of members :</th>
+                                  <th scope="col">number of tutors :</th>
                                   
                                 </tr>
                               </thead>
@@ -182,17 +134,17 @@ class DetailsPages extends Component {
                                   
                                 </tr>
                                 <tr>
-                                  <th scope="row">Start date</th>
+                                  <th scope="row">Start date :</th>
                                   <td>{this.props.location.pj.start_date}</td>
                                   
                                 </tr>
                                 <tr>
-                                  <th scope="row">End date</th>
+                                  <th scope="row">End date :</th>
                                   <td colSpan="2">{this.props.location.pj.end_date}</td>
                                  
                                 </tr>
                                 <tr>
-                                  <th scope="row">school year</th>
+                                  <th scope="row">School year :</th>
                                   <td colSpan="2">{this.props.location.pj.school_year}</td>
                                  
                                 </tr>
@@ -241,7 +193,67 @@ class DetailsPages extends Component {
 
               </Colxx>
 
-              <Colxx xxs="12" xl="4" className="col-right">
+            
+             <Colxx xxs="12" xl="12" className="col-left">
+             
+                <Card>
+                  <CardBody>
+              <p className="font-weight-bold">Subjects:</p>
+               
+                  </CardBody>
+                </Card>
+
+                </Colxx>
+           
+                
+                                
+                { this.props.location.pj.subjects?
+
+
+        this.props.location.pj.subjects.map(project => (
+
+  <DataListView
+  key={project.id}
+  product={project}
+ 
+  onCheckItem={this.onCheckItem}
+  
+/>
+
+    )):<Badge color="warning" pill className="mb-1">
+    No subjects yet
+</Badge>
+
+          }
+               
+              
+            </Row>
+          </Colxx>
+        </Row>
+
+        <SubjectForm
+          id={this.props.location.pj.id}
+          toggleModal={this.toggleModal}
+          modalOpen={modalOpen}
+          title="Add new Subject"
+        />
+
+      </Fragment>
+    );
+  }
+}
+export default injectIntl(DetailsPages);
+
+
+
+
+/*
+
+
+
+
+
+ <Colxx xxs="12" xl="4" className="col-right">
                 <Card className="mb-4">
                   <CardBody>
                     <div className="mb-3">
@@ -275,41 +287,8 @@ class DetailsPages extends Component {
                     </p>
                   </CardBody>
                 </Card>
-                <Button color="primary" size="lg" onClick={this.toggleModal}>
-                Add Subject
-              </Button>
-                                <h3>Subjects:</h3>
-                { this.props.location.pj.subjects?
+                </Colxx>
 
 
-        this.props.location.pj.subjects.map(project => (
 
-  <DataListView
-  key={project.id}
-  product={project}
- 
-  onCheckItem={this.onCheckItem}
-  
-/>
-
-    )):"nothing"
-
-          }
-               
-              </Colxx>
-            </Row>
-          </Colxx>
-        </Row>
-
-        <SubjectForm
-          id={this.props.location.pj.id}
-          toggleModal={this.toggleModal}
-          modalOpen={modalOpen}
-          title="Add new Subject"
-        />
-
-      </Fragment>
-    );
-  }
-}
-export default injectIntl(DetailsPages);
+                */
