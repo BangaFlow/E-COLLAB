@@ -14,6 +14,16 @@ import { PrivateRoute } from '../../helpers/PrivateRoute'
 const Gogo = React.lazy(() =>
   import(/* webpackChunkName: "viwes-gogo" */ './gogo')
 );
+
+const Projects = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-gogo" */ './projects')
+);
+
+
+
+const FileManagement = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-gogo" */ './FileManagement')
+);
 const SecondMenu = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
 );
@@ -88,6 +98,14 @@ class App extends Component {
               <Route
                 path={`${match.url}/gogo`}
                 render={props => <Gogo {...props} />}
+              />
+                 <Route
+                path={`${match.url}/projects`}
+                render={props => <Projects {...props} />}
+              />
+               <Route
+                path={`${match.url}/FileManagement`}
+                render={props => <FileManagement {...props} />}
               />
               <Route
                 path={`${match.url}/second-menu`}

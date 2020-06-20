@@ -14,7 +14,8 @@ const SkillSchema = new mongoose.Schema({
     },
     type :{
         type : String
-    }
+    },
+   
 });
 
 SkillSchema.statics.doesntExist = async function (params) {

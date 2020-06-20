@@ -1,18 +1,3 @@
-// const data = [
-//   {
-//     id: "gogo",
-//     icon: "iconsminds-air-balloon-1",
-//     label: "menu.gogo",
-//     to: "/app/gogo",
-//     subs: [
-//       {
-//         icon: "simple-icon-paper-plane",
-//         label: "menu.start",
-//         to: "/app/gogo/start"
-//       }     
-//     ]
-//   },
-// ];
 const currentUser = JSON.parse(localStorage.getItem('user'))
 const Admin = [
   {
@@ -25,8 +10,44 @@ const Admin = [
         icon: "simple-icon-paper-plane",
         label: "menu.start",
         to: "/app/gogo/start"
+      }  ,{
+        icon: "simple-icon-paper-plane",
+        label: "menu.start",
+        to: "/app/gogo/Projects"
       }     
     ]
+  },
+  {
+    id: "projects",
+    icon: "iconsminds-library",
+    label: "projects",
+    to: "/app/projects",
+    subs: [
+      {
+        icon: "simple-icon-list",
+        label: "Categories",
+        to: "/app/projects/categories"
+      } ,
+      {
+        icon: "simple-icon-check",
+        label: "Projects",
+        to: "/app/projects/Projects"
+      } ,
+      {
+        icon: "simple-icon-control-play",
+        label: "Subjects",
+        to: "/app/projects/Subjects"
+      } ,
+     
+        
+    ]
+  },
+  {
+    id: "Files",
+    icon: "iconsminds-three-arrow-fork",
+    label: "File Management",
+    to: "/app/FileManagement/Files",
+    
   },
   {
   id: "Quiz",
@@ -41,7 +62,6 @@ const Admin = [
       }     
     ]
   },
-  
   {
     id: "event",
     icon: "iconsminds-calendar-1",

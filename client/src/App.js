@@ -34,6 +34,10 @@ const ViewError = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/error')
 );
 
+const Details = React.lazy(() =>
+  import(/* webpackChunkName: "views-error" */ './views/app/projects/details')
+);
+
 const ViewQuizPaly = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/app/Quiz/quizPage')
 );
@@ -131,6 +135,26 @@ class App extends Component {
                     path="/"
                     exact
                     render={props => <ViewMain {...props} />}
+                  />
+                    <Route
+                    path="/app/projects/details"
+                    exact
+                    render={props => <Details {...props} />}
+                  />
+                     <Route
+                    path="/app/projects/categories"
+                    exact
+                    render={props => <Categories {...props} />}
+                  />
+                  <Route
+                    path="/app/projects/Projects"
+                    exact
+                    render={props => <Projects {...props} />}
+                  />
+                  <Route
+                    path="/app/projects/Subjects"
+                    exact
+                    render={props => <Subjects {...props} />}
                   />
                   <Redirect to="/error" />
                 </Switch>

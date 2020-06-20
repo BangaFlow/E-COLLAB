@@ -1,6 +1,8 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose'
+import { hash, compare } from 'bcryptjs'
 
-const ProjectSchema = new mongoose.Schema({
+const ProjectSchema = new mongoose.Schema(
+  {
   title: {
     type: String,
   },
@@ -60,6 +62,20 @@ const ProjectSchema = new mongoose.Schema({
       type: Date,
     },
   },
+    category:{
+        type:String
+    },
+    school_year:{
+        type:String
+    },
+    class_involved:{
+        type:String
+    },
+    methodology:{
+        type:String
+    }, 
+    {
+    timestamps: true
 });
 
 module.exports = Project = mongoose.model("project", ProjectSchema);

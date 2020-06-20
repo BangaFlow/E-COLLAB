@@ -4,6 +4,9 @@ import { alert } from './reducers/alert.reducers'
 import courses from './reducers/coursesReducer'
 import settings from './settings/reducer';
 import menu from './menu/reducer';
+import  projects  from './reducers/Projects.reducers'
+import  categories  from './reducers/categories.reducers'
+import subjects from './reducers/subjects.reducers'
 import  event   from './reducers/event.reducers'
 import  workShop   from './reducers/workShop.reducers'
 import  meeting   from './reducers/meeting.reducers'
@@ -20,6 +23,9 @@ const reducers = combineReducers({
   authentication,
   menu,
   settings,
+  projects,
+  categories,
+  subjects,
   courses,
   event,
   workShop,
