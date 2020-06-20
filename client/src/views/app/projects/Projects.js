@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Badge,Row, Button,Input } from "reactstrap";
+import { Badge,Row,Input } from "reactstrap";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
 
@@ -36,7 +36,7 @@ class Projects extends Component {
     //const { p } = this.props;
     const { modalOpen } = this.state;
     let filteredProjects=this.props.projects.filter((p)=>{
-      return p.title.indexOf(this.state.search) !=-1;
+      return p.title.indexOf(this.state.search) !== -1;
     });
     return (
 

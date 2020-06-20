@@ -24,12 +24,12 @@ const Skill = ({ item, ...props }) => {
   const [description, setDescription] = useState(item.description);
 
   const toggle = () => {
-    if (isOpenDel == true) toggleDel();
+    if (isOpenDel === true) toggleDel();
     setIsOpen(!isOpen);
   };
 
   const toggleDel = () => {
-    if (isOpen == true) toggle();
+    if (isOpen === true) toggle();
     setIsOpenDel(!isOpenDel);
   };
 

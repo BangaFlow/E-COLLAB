@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable */
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as teamsAction from "../../redux/actions/teams.actions";
@@ -18,7 +19,7 @@ import {
 } from "reactstrap";
 
 const AddTutorModal = (props) => {
-  const { modal, toggle, team, setTeam } = props;
+  const { modal, toggle, team } = props;
   const { tutors_involved } = props.teams.selectedTeam.project;
 
   const [isLoading, setLoading] = useState(false);
@@ -27,9 +28,8 @@ const AddTutorModal = (props) => {
   const [selected, setselected] = useState();
 
   const handleTutorChange = (selected) => {
-    const p = selected.value;
     tutors_involved.forEach((element) => {
-      if (element.id == selected.value) {
+      if (element.id === selected.value) {
         setTutor(element);
       }
     });
@@ -39,7 +39,7 @@ const AddTutorModal = (props) => {
   const isAlreadyATutor = (tutor) => {
     let no = true;
     team.tutors.forEach((exTutor) => {
-      if (tutor.id == exTutor.id) no = false;
+      if (tutor.id === exTutor.id) no = false;
     });
 
     return no;

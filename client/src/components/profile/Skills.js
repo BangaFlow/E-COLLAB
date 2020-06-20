@@ -1,12 +1,11 @@
 // @flow
-import React, { useState } from "react";
-import { Row, Col, Card, CardBody, Button, Alert } from "reactstrap";
-import "../../assets/scss/custom-profile-style/style.scss";
-import classNames from "classnames";
-import Loader from "../../helpers/loader";
+import React, { useState } from "react"
+import { Row, Col, Card, CardBody, Button, Alert } from "reactstrap"
+import "../../assets/scss/custom-profile-style/style.scss"
+import classNames from "classnames"
+import Loader from "../../helpers/loader"
 
 const Skill = ({ skill }) => {
-
   return (
     <Card className="border w-100">
       <CardBody>
@@ -36,19 +35,19 @@ const Skill = ({ skill }) => {
         <p className="text-muted mb-4">{skill.skill.description}</p>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
 const Skills = ({ owned_skills }) => {
   const [state, setstate] = useState({
     limit: 5,
-  });
+  })
 
-  const [All, setAll] = useState(true);
-  const [Obtained, setObtained] = useState(false);
-  const [NotObtained, setNotObtained] = useState(false);
-  const [Tech, setTech] = useState(false);
-  const [Soft, setSoft] = useState(false);
+  const [All, setAll] = useState(true)
+  const [Obtained, setObtained] = useState(false)
+  const [NotObtained, setNotObtained] = useState(false)
+  const [Tech, setTech] = useState(false)
+  const [Soft, setSoft] = useState(false)
 
   const Owned = ({ owned_skills }) => {
     return (
@@ -71,69 +70,69 @@ const Skills = ({ owned_skills }) => {
               </Row>
             ) : null
           ) : Tech ? (
-            item.skill.type == "Technical skill" ? (
+            item.skill.type === "Technical skill" ? (
               <Row key={idx} className="mt-3">
                 <Skill skill={item} />
               </Row>
             ) : null
           ) : Soft ? (
-            item.skill.type == "Soft skill" ? (
+            item.skill.type === "Soft skill" ? (
               <Row key={idx} className="mt-3">
                 <Skill skill={item} />
               </Row>
             ) : null
-          ) : null;
+          ) : null
         })}
       </React.Fragment>
-    );
-  };
+    )
+  }
 
   const LoadMore = () => {
     setstate({
       limit: state.limit + 5,
-    });
-  };
+    })
+  }
 
-  showAll = showAll.bind(this);
-  showObtained = showObtained.bind(this);
-  showNotObtained = showNotObtained.bind(this);
-  showTech = showTech.bind(this);
-  showSoft = showSoft.bind(this);
+  // showAll = showAll.bind(this)
+  // showObtained = showObtained.bind(this)
+  // showNotObtained = showNotObtained.bind(this)
+  // showTech = showTech.bind(this)
+  // showSoft = showSoft.bind(this)
 
   function showAll() {
-    setAll(true);
-    setObtained(false);
-    setNotObtained(false);
-    setSoft(false);
-    setTech(false);
+    setAll(true)
+    setObtained(false)
+    setNotObtained(false)
+    setSoft(false)
+    setTech(false)
   }
   function showObtained() {
-    setAll(false);
-    setObtained(true);
-    setNotObtained(false);
-    setSoft(false);
-    setTech(false);
+    setAll(false)
+    setObtained(true)
+    setNotObtained(false)
+    setSoft(false)
+    setTech(false)
   }
   function showNotObtained() {
-    setAll(false);
-    setObtained(false);
-    setNotObtained(true);
-    setSoft(false);
-    setTech(false);
+    setAll(false)
+    setObtained(false)
+    setNotObtained(true)
+    setSoft(false)
+    setTech(false)
   }
   function showTech() {
-    setAll(false);
-    setObtained(false);
-    setNotObtained(false);
-    setSoft(false);
-    setTech(true);
+    setAll(false)
+    setObtained(false)
+    setNotObtained(false)
+    setSoft(false)
+    setTech(true)
   }
   function showSoft() {
-    setAll(false);
-    setObtained(false);
-    setNotObtained(false);
-    setSoft(true);
-    setTech(false);
+    setAll(false)
+    setObtained(false)
+    setNotObtained(false)
+    setSoft(true)
+    setTech(false)
   }
 
   return owned_skills && owned_skills.length > 0 ? (
@@ -174,7 +173,7 @@ const Skills = ({ owned_skills }) => {
       <br />
       <Alert color="warning"> You don't have any skill !!</Alert>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default Skills;
+export default Skills

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Row, Card, CardTitle, CardBody, CardText, Table } from "reactstrap";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import { bindActionCreators } from "redux";
@@ -261,7 +261,7 @@ const Team = (props) => {
                     <CardTitle>
                       <h3>Tutors</h3>
                       <p color="muted">
-                        {!team.tutors || team.tutors.length == 0
+                        {!team.tutors || team.tutors.length === 0
                           ? "this team has no tutors, please add.."
                           : null}
                       </p>

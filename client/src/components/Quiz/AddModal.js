@@ -1,49 +1,38 @@
-import React from "react";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Input,
-  Label
-} from "reactstrap";
-import "react-datepicker/dist/react-datepicker.css";
-import DatePicker from "react-datepicker";
-import IntlMessages from "../../helpers/IntlMessages";
-import PropTypes from 'prop-types'
-import { connect } from "react-redux";
+import React from "react"
+import { Button, Modal, ModalHeader, ModalBody, Label } from "reactstrap"
+import "react-datepicker/dist/react-datepicker.css"
+import IntlMessages from "../../helpers/IntlMessages"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
 import * as quizAction from "../../redux/actions/quiz.actions"
 import { bindActionCreators } from "redux"
-import { AvForm, AvField, AvRadioGroup, AvRadio } from 'availity-reactstrap-validation';
-
+import { AvForm, AvField } from "availity-reactstrap-validation"
 
 class AddModal extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       labl: "",
       time: "",
-    };
+    }
   }
 
   save = (event) => {
-    event.preventDefault();
-    let label = this.state.label
-    let time = this.state.time
-    this.props.actions.addquiz(this.state.label, parseInt(this.state.time)).catch((err) => {
-      console.log(err);
-    })
+    event.preventDefault()
+    this.props.actions
+      .addquiz(this.state.label, parseInt(this.state.time))
+      .catch((err) => {
+        console.log(err)
+      })
     console.log("quia" + this.props.quiz)
 
     this.setState({
       label: "",
       time: "",
+    })
 
-    });
-
-    this.props.toggleModal();
-  };
+    this.props.toggleModal()
+  }
   render() {
     return (
       <Modal
@@ -61,58 +50,61 @@ class AddModal extends React.Component {
           </Label>
 
           <AvForm id="form" onSubmit={this.save}>
-
-            <AvField label="Question" name="label" defaultValue={this.state.label}
+            <AvField
+              label="Question"
+              name="label"
+              defaultValue={this.state.label}
               onChange={(event) => {
-                this.setState({ label: event.target.value });
-              }} validate={{
-                required: { value: true, errorMessage: 'the Question is required' }
-              }} />
-
-
-
-            <AvField label="Time" name="time" type="number" placeholder="by minutes"
-              min="5" defaultValue={this.state.time}
+                this.setState({ label: event.target.value })
+              }}
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "the Question is required",
+                },
+              }}
+            />
+            <AvField
+              label="Time"
+              name="time"
+              type="number"
+              placeholder="by minutes"
+              min="5"
+              defaultValue={this.state.time}
               onChange={(event) => {
-                this.setState({ time: event.target.value });
-              }} validate={{
-                required: { value: true, errorMessage: 'the time is required in minutes' }
-              }} />
-
-
+                this.setState({ time: event.target.value })
+              }}
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "the time is required in minutes",
+                },
+              }}
+            />
             <Button color="secondary" outline onClick={this.props.toggleModal}>
               <IntlMessages id="cancel" />
             </Button>
-            <Button color="primary" type="submit"  >
+            <Button color="primary" type="submit">
               <IntlMessages id="submit" />
             </Button>{" "}
-
-
           </AvForm>
-
-
         </ModalBody>
-
       </Modal>
-    );
+    )
   }
-};
+}
 AddModal.propType = {
   dispatch: PropTypes.func.isRequired,
-  actions: PropTypes.array.isRequired
-};
+  actions: PropTypes.array.isRequired,
+}
 
 function mapStateToProps(state) {
-  
   return {
-    quiz: state.quiz
+    quiz: state.quiz,
   }
-
-
-};
+}
 
 function mapDispatchtoProps(dispatch) {
   return { actions: bindActionCreators(quizAction, dispatch) }
 }
-export default connect(mapStateToProps, mapDispatchtoProps)(AddModal);
-
+export default connect(mapStateToProps, mapDispatchtoProps)(AddModal)

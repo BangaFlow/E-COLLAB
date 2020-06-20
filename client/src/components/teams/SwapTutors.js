@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable */
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as teamsAction from "../../redux/actions/teams.actions";
@@ -26,7 +27,7 @@ const SwapTutors = (props) => {
 
   const handleTutorChange = (selected) => {
     tutors_involved.forEach((element) => {
-      if (element.id == selected.value) {
+      if (element.id === selected.value) {
         setTutor(element);
       }
     });
@@ -36,7 +37,7 @@ const SwapTutors = (props) => {
   const isAlreadyATutor = (tutor) => {
     let no = true;
     team.tutors.forEach((exTutor) => {
-      if (tutor.id == exTutor.id) no = false;
+      if (tutor.id === exTutor.id) no = false;
     });
 
     return no;

@@ -1,20 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 
 import {
   AvForm,
-  AvField,
   AvGroup,
   AvInput,
   AvFeedback,
   AvRadioGroup,
   AvRadio,
-  AvCheckboxGroup,
-  AvCheckbox,
 } from "availity-reactstrap-validation";
 import {
-  Button, Label, Card, CardBody, Input, Modal, CardTitle,
-  ModalHeader,
-  ModalBody,
+  Button, Label, Input
 } from "reactstrap";
 import PropTypes from 'prop-types'
 import { connect } from "react-redux";

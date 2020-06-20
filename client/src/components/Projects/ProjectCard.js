@@ -4,7 +4,6 @@ import { bindActionCreators } from "redux";
 import {
   Card,
   CardBody,
-  Badge,
   Button,
   Collapse,
   Form,
@@ -30,12 +29,12 @@ const Project = ({ item, ...props }) => {
   //school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team
 
   const toggle = () => {
-    if (isOpenDel == true) toggleDel();
+    if (isOpenDel === true) toggleDel();
     setIsOpen(!isOpen);
   };
 
   const toggleDel = () => {
-    if (isOpen == true) toggle();
+    if (isOpen === true) toggle();
     setIsOpenDel(!isOpenDel);
   };
 

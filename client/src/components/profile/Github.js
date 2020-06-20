@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 
 import { Media, UncontrolledTooltip, Alert, Button } from "reactstrap";
@@ -26,7 +27,7 @@ const Repo = (item) => {
       <div className="mr-3"></div>
       <Media body className="overflow-hidden">
         <h5 className="font-size-15 mt-2 mb-1">
-          <a href={item.html_url} className="text-dark" target="_blank">
+          <a href={item.html_url} className="text-dark" rel="noopener noreferrer" target="_blank">
             {item.name}
           </a>
         </h5>
@@ -86,7 +87,7 @@ const Github = ({ repos, username }) => {
         )}
       </div>
     </React.Fragment>
-  ) : username == "" ? (
+  ) : username === "" ? (
     <React.Fragment>
       <br />
       <Alert color="danger">Please enter you github username !!</Alert>

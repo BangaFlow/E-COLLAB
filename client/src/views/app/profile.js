@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Suspense } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+/* eslint-disable */
+import React, { useState, useEffect, Suspense } from "react"
+import { connect } from "react-redux"
 import {
   Row,
   Col,
@@ -11,68 +11,67 @@ import {
   NavLink,
   TabContent,
   TabPane,
-} from "reactstrap";
-import classNames from "classnames";
+} from "reactstrap"
+import classNames from "classnames"
 
-import * as profileActions from "../../redux/actions/profile.actions";
-import * as githubActions from "../../redux/actions/github.actions";
-import * as teamsAction from "../../redux/actions/teams.actions";
+import * as profileActions from "../../redux/actions/profile.actions"
+import * as githubActions from "../../redux/actions/github.actions"
 
-import UserBox from "../../components/profile/UserBox";
-import Files from "../../components/profile/Files";
-import Github from "../../components/profile/Github";
-import Messages from "../../components/profile/Messages";
-import Projects from "../../components/profile/Projects";
-import Tasks from "../../components/profile/Tasks";
-import Skills from "../../components/profile/Skills";
-import { history } from "../../helpers/history";
+import UserBox from "../../components/profile/UserBox"
+import Files from "../../components/profile/Files"
+import Github from "../../components/profile/Github"
+import Messages from "../../components/profile/Messages"
+import Projects from "../../components/profile/Projects"
+import Tasks from "../../components/profile/Tasks"
+import Skills from "../../components/profile/Skills"
+import { history } from "../../helpers/history"
 
 const Profile = (props) => {
-  let connected_user = JSON.parse(localStorage.getItem("user"));
+  let connected_user = JSON.parse(localStorage.getItem("user"))
   const [state, setState] = useState({
     activeTab: "0",
-  });
+  })
 
   const Rep = (username) => {
     // console.log(username);
-    props.selectUser(username);
-    props.fetchUserAndRepos(username);
-  };
+    props.selectUser(username)
+    props.fetchUserAndRepos(username)
+  }
 
+  
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem("user")) == null) {
-      history.push("/auth");
+    if (JSON.parse(localStorage.getItem("user")) === null) {
+      history.push("/auth")
     }
-    if (!Array.isArray(props.profile) && props.profile != null) {
+    if (!Array.isArray(props.profile) && props.profile !== null) {
       // console.log("profile 1");
-      Rep(props.profile.github_username);
+      Rep(props.profile.github_username)
     } else if (
-      (Array.isArray(props.profile) && props.profile.length == 0) ||
-      props.profile == null
+      (Array.isArray(props.profile) && props.profile.length === 0) ||
+      props.profile === null
     ) {
-     // console.log("profile 2");
-      history.push("/create-profile");
+      // console.log("profile 2");
+      history.push("/create-profile")
     } else {
-     // console.log("profile 3");
-      props.mappedfetchProfileById(connected_user.id);
-      Rep(props.profile.github_username);
+      // console.log("profile 3");
+      props.mappedfetchProfileById(connected_user.id)
+      Rep(props.profile.github_username)
     }
-  }, []);
+  }, [])
 
-  toggleTab = toggleTab.bind(this);
+  toggleTab = toggleTab.bind(this)
 
   function toggleTab(tab) {
     if (state.activeTab !== tab) {
       setState({
         activeTab: tab,
-      });
+      })
     }
   }
 
-  const repos = props.userRepos.repos;
-  const profile = props.profile;
-  const img = props.currentUserData.userData.avatar_url;
-  
+  const repos = props.userRepos.repos
+  const profile = props.profile
+  const img = props.currentUserData.userData.avatar_url
 
   return profile != null ? (
     <Suspense fallback={<h1>Loading profile...</h1>}>
@@ -97,7 +96,7 @@ const Profile = (props) => {
                         active: state.activeTab === "0",
                       })}
                       onClick={() => {
-                        toggleTab("0");
+                        toggleTab("0")
                       }}
                     >
                       Projects
@@ -110,7 +109,7 @@ const Profile = (props) => {
                         active: state.activeTab === "1",
                       })}
                       onClick={() => {
-                        toggleTab("1");
+                        toggleTab("1")
                       }}
                     >
                       Skills
@@ -123,7 +122,7 @@ const Profile = (props) => {
                         active: state.activeTab === "2",
                       })}
                       onClick={() => {
-                        toggleTab("2");
+                        toggleTab("2")
                       }}
                     >
                       Github
@@ -197,17 +196,17 @@ const Profile = (props) => {
     </Suspense>
   ) : (
     "loading"
-  );
-};
+  )
+}
 
 function mapStateToProps(state) {
-  const { profile, currentUser, currentUserData, userRepos } = state;
+  const { profile, currentUser, currentUserData, userRepos } = state
   return {
     profile,
     currentUser,
     currentUserData,
     userRepos,
-  };
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -216,7 +215,7 @@ const mapDispatchToProps = (dispatch) => {
     selectUser: (username) => dispatch(githubActions.selectUser(username)),
     fetchUserAndRepos: (username) =>
       dispatch(githubActions.fetchUserAndRepos(username)),
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

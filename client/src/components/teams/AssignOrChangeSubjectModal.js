@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable */
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as teamsAction from "../../redux/actions/teams.actions";
@@ -28,9 +29,8 @@ const AssignOrChangeSubjectModal = (props) => {
   const [selected, setselected] = useState();
 
   const handleSubjectChange = (selected) => {
-    const p = selected.value;
     subjects.forEach((element) => {
-      if (element.id == selected.value) {
+      if (element.id === selected.value) {
         setSubject(element);
       }
     });

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import ApplicationMenu from "../common/ApplicationMenu";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { NavLink } from "react-router-dom";
-import { NavItem, Badge } from "reactstrap";
 
 export default class skillMenu extends Component {
   render() {

@@ -20,12 +20,12 @@ const Team = (props) => {
   const isWhat = () => {
     let index = 0;
     team.members.forEach((member) => {
-      if (member.id == connected_user.id) {
+      if (member.id === connected_user.id) {
         index++;
       }
     });
 
-    return index != 0 ? "Member" : "Tutor";
+    return index !== 0 ? "Member" : "Tutor";
   };
 
   const today = new Date();
@@ -66,15 +66,15 @@ const Team = (props) => {
 
         {team.subject && (
           <h5>
-            <a href="#" className="text-dark">
-              {team.subject.name}
+            <a href="/todo" className="text-dark">
+              {team.subject.title}
             </a>
           </h5>
         )}
 
         <p className="text-muted mb-4">
           {team.project.short_desc}...
-          <a href="#" className="font-weight-bold text-muted ml-2">
+          <a href="/todo" className="font-weight-bold text-muted ml-2">
             view more
           </a>
         </p>
@@ -119,7 +119,7 @@ const Team = (props) => {
               </li>
               <li className="list-inline-item pr-2">
                 <a
-                  href="#"
+                  href="/todo"
                   className="text-muted d-inline-block"
                   id={`noTasks-${team.project.id}`}
                 >

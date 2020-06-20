@@ -1,8 +1,6 @@
-import React, { Component } from "react";
-import ApplicationMenu from "../common/ApplicationMenu";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import { NavLink } from "react-router-dom";
-import { NavItem, Badge } from "reactstrap";
+import React, { Component } from "react"
+import ApplicationMenu from "../common/ApplicationMenu"
+import PerfectScrollbar from "react-perfect-scrollbar"
 
 export default class ProjectMenu extends Component {
   render() {
@@ -46,6 +44,6 @@ export default class ProjectMenu extends Component {
           </div>
         </PerfectScrollbar>
       </ApplicationMenu>
-    );
+    )
   }
 }

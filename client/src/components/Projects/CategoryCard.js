@@ -4,7 +4,6 @@ import { bindActionCreators } from "redux";
 import {
   Card,
   CardBody,
-  Badge,
   Button,
   Collapse,
   Form,
@@ -29,12 +28,12 @@ const Category = ({ item, ...props }) => {
   const [methodology, setMethodology] = useState(item.methodology);
 
   const toggle = () => {
-    if (isOpenDel == true) toggleDel();
+    if (isOpenDel === true) toggleDel();
     setIsOpen(!isOpen);
   };
 
   const toggleDel = () => {
-    if (isOpen == true) toggle();
+    if (isOpen === true) toggle();
     setIsOpenDel(!isOpenDel);
   };
 

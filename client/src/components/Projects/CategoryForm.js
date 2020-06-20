@@ -8,13 +8,9 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Input,
   Label,
   Row,
   FormGroup,
-  Card,
-  CardBody,
-  CardTitle,
 } from "reactstrap";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import * as CategoriesActions from "../../redux/actions/categories.actions";

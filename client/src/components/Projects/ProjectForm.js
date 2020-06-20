@@ -8,7 +8,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Input,
   Label,
   Row,
   FormGroup
@@ -16,12 +15,10 @@ import {
 import { history } from "../../helpers/history";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import CustomSelectInput from "../../components/common/CustomSelectInput";
-import * as projectActions from "../../redux/actions/Projects.actions";
 import * as CategoriesActions from "../../redux/actions/categories.actions";
 import { AvForm, AvField, AvGroup } from "availity-reactstrap-validation";
 import "react-datepicker/dist/react-datepicker.css";
 
-import DatePicker from "react-datepicker";
 class ProjectForm extends Component {
   constructor(props) {
     super(props);

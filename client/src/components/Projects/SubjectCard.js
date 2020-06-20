@@ -1,63 +1,56 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { useState } from "react"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
 import {
   Card,
   CardBody,
-  Badge,
   Button,
   Collapse,
   Form,
   FormGroup,
   Label,
   Input,
-} from "reactstrap";
+} from "reactstrap"
 
-import { Colxx } from "../../components/common/CustomBootstrap";
+import { Colxx } from "../../components/common/CustomBootstrap"
 //import * as CategoriesActions from "../../redux/actions/categories.actions";
-import Project from "../../components/Projects/ProjectCard";
-import { Link } from 'react-router-dom'
-import * as subjectActions from "../../redux/actions/subjects.actions";
+import { Link } from "react-router-dom"
+import * as subjectActions from "../../redux/actions/subjects.actions"
 
 const Category = ({ item, ...props }) => {
+  //const {p} = this.props.location;{this.props.location.p.id}
 
-    //const {p} = this.props.location;{this.props.location.p.id}
-  
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenDel, setIsOpenDel] = useState(false);
-  
-  const [title, setTitle] = useState(item.title);
-  const [description, setDescription] = useState(item.description);
+  const [isOpen, setIsOpen] = useState(false)
+  const [isOpenDel, setIsOpenDel] = useState(false)
 
-  
+  const [title, setTitle] = useState(item.title)
+  const [description, setDescription] = useState(item.description)
 
   const toggle = () => {
-    if (isOpenDel == true) toggleDel();
-    setIsOpen(!isOpen);
-  };
+    if (isOpenDel === true) toggleDel()
+    setIsOpen(!isOpen)
+  }
 
   const toggleDel = () => {
-    if (isOpen == true) toggle();
-    setIsOpenDel(!isOpenDel);
-  };
+    if (isOpen === true) toggle()
+    setIsOpenDel(!isOpenDel)
+  }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    props.actions
-      .update_Subject(item.id, title,description)
-      .catch((err) => {
-        console.log(err);
-      });
-    toggle();
-  };
+    event.preventDefault()
+    props.actions.update_Subject(item.id, title, description).catch((err) => {
+      console.log(err)
+    })
+    toggle()
+  }
 
   const handleDelete = () => {
     props.actions.delete_Subject(item.id).catch((err) => {
-      console.log(err);
-    });
-    toggleDel();
-    window.location.reload(false);
-  };
+      console.log(err)
+    })
+    toggleDel()
+    window.location.reload(false)
+  }
 
   return (
     <Colxx xs="12">
@@ -65,17 +58,11 @@ const Category = ({ item, ...props }) => {
         <div className="d-flex flex-grow-1 min-width-zero">
           <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
             <span className="align-middle d-inline-block list-item-heading mb-0 truncate w-40 w-xs-100  mb-1 mt-1">
-            <p className="font-weight-bold">Title :</p>
-
+              <p className="font-weight-bold">Title :</p>
               {item.title} <br />
               <p className="font-weight-bold">Description :</p>
-
               {item.description}
-              
-                
-              
             </span>
-            
           </CardBody>
         </div>
 
@@ -96,21 +83,18 @@ const Category = ({ item, ...props }) => {
             className="float-sm-right"
             title="Update"
           >
-
             <i className="iconsminds-file-edit" />
           </Button>
-          <Button color="success"   className="float-sm-right">
-          
-             <Link
-                to={{
-              pathname: "/app/projects/Subjectdetail",
-              subjects:item
-                      }}
-                      >Detail</Link>
-
-          
+          <Button color="success" className="float-sm-right">
+            <Link
+              to={{
+                pathname: "/app/projects/Subjectdetail",
+                subjects: item,
+              }}
+            >
+              Detail
+            </Link>
           </Button>
-         
         </div>
 
         <div>
@@ -139,21 +123,21 @@ const Category = ({ item, ...props }) => {
                       placeholder="Title"
                       value={title}
                       onChange={(e) => {
-                        setTitle(e.target.value);
+                        setTitle(e.target.value)
                       }}
                     />
-                      <Label>Description</Label>
+                    <Label>Description</Label>
                     <Input
                       type="text"
                       name="description"
                       placeholder="Description"
                       value={description}
                       onChange={(e) => {
-                        setDescription(e.target.value);
+                        setDescription(e.target.value)
                       }}
                     />
                   </FormGroup>
-                 
+
                   <Button color="secondary" size="s">
                     Update
                   </Button>
@@ -164,16 +148,18 @@ const Category = ({ item, ...props }) => {
         </div>
       </Card>
     </Colxx>
-  );
-};
+  )
+}
 
-const mapStateToProps = (state, ownProps) => ({ subjects: state.subjects});
+const mapStateToProps = (state, ownProps) => ({ subjects: state.subjects })
 
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(subjectActions, dispatch),
-  };
-};
+  }
+}
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Category));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(Category))

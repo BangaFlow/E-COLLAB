@@ -1,21 +1,17 @@
 import React, { Component,Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import Select from "react-select";
 import {
   Button,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Input,
   Label,
   Row,
   FormGroup,
 } from "reactstrap";
 import { Colxx } from "../../components/common/CustomBootstrap";
-
-import CustomSelectInput from "../../components/common/CustomSelectInput";
 import * as subjectActions from "../../redux/actions/subjects.actions";
 import { history } from "../../helpers/history";
 import { AvForm, AvField, AvGroup } from "availity-reactstrap-validation";

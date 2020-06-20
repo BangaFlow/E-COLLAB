@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -18,7 +19,6 @@ import {
   Card,
   CardBody,
   CardText,
-  CardTitle,
   FormText,
 } from "reactstrap";
 
@@ -42,9 +42,8 @@ const GenerateRandomTeamsModal = (props) => {
   };
 
   const handleProjectChange = (selected) => {
-    const p = selected.value;
     projects.forEach((element) => {
-      if (element.id == selected.value) {
+      if (element.id === selected.value) {
         setProject(element);
       }
     });
@@ -55,7 +54,7 @@ const GenerateRandomTeamsModal = (props) => {
   const hasTeams = (project) => {
     let aandou = false;
     teams.map((team) => {
-      if (team.project.id == project.id) {
+      if (team.project.id === project.id) {
         aandou = true;
       }
     });

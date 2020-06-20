@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable */
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as teamsAction from "../../redux/actions/teams.actions";
@@ -27,7 +28,7 @@ const AddNewMember = (props) => {
 
   const handleLearnerChange = (selected) => {
     learners_involved.forEach((element) => {
-      if (element.id == selected.value) {
+      if (element.id === selected.value) {
         setLearner(element);
       }
     });
@@ -37,12 +38,12 @@ const AddNewMember = (props) => {
   const isAlreadyAMember = (learner) => {
     let no = false;
     team.members.forEach((member) => {
-      if (learner.id == member.id) no = true;
+      if (learner.id === member.id) no = true;
     });
     teams.forEach((teamxx) => {
-      if (team.project.id == teamxx.project.id) {        
+      if (team.project.id === teamxx.project.id) {        
         teamxx.members.forEach((member) => {          
-          if (learner.id == member.id) no = true;
+          if (learner.id === member.id) no = true;
         });        
       }
     });

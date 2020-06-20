@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Row, Button,Input } from "reactstrap";
+import { Row, Button } from "reactstrap";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
 import { Link } from 'react-router-dom'
-import IntlMessages from "../../../helpers/IntlMessages";
 
 import * as CategoriesActions from "../../../redux/actions/categories.actions";
 import Category from "../../../components/Projects/CategoryCard";

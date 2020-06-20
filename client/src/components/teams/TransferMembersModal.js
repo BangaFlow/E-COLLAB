@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable */
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as teamsAction from "../../redux/actions/teams.actions";
@@ -18,8 +19,7 @@ import {
 } from "reactstrap";
 
 const TransferMembersModal = (props) => {
-  const { modal, toggle, team, setTeam, memberToTransfer } = props;
-  const { learners_involved } = props.teams.selectedTeam.project;
+  const { modal, toggle, team, memberToTransfer } = props;
   const { teams } = props.state;
   const [newteam, setNewTeam] = useState();
   const [hidden, setHidden] = useState(true);
@@ -27,7 +27,7 @@ const TransferMembersModal = (props) => {
 
   const handleTeamsChange = (selected) => {
     teams.forEach((element) => {
-      if (element.id == selected.value) {
+      if (element.id === selected.value) {
         setNewTeam(element);
       }
     });
@@ -72,8 +72,8 @@ const TransferMembersModal = (props) => {
                   options={teams
                     .filter(
                       (element) =>
-                        element.id != team.id &&
-                        team.project.id == element.project.id
+                        element.id !== team.id &&
+                        team.project.id === element.project.id
                     )
                     .map((item, i) => {
                       return {

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as teamsAction from "../../redux/actions/teams.actions";
-import { Colxx } from "../../components/common/CustomBootstrap";
-import Select from "react-select";
-import swal from "sweetalert";
+/* eslint-disable */
+import React, { useState, useEffect } from "react"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import * as teamsAction from "../../redux/actions/teams.actions"
+import { Colxx } from "../../components/common/CustomBootstrap"
+import Select from "react-select"
+import swal from "sweetalert"
 
 import {
   Button,
@@ -17,65 +18,65 @@ import {
   Label,
   Input,
   FormText,
-} from "reactstrap";
+} from "reactstrap"
 
 const CreateNewTeamModal = (props) => {
-  const { projects, teams } = props.teams;
-  const { modal, toggle } = props;
+  const { projects, teams } = props.teams
+  const { modal, toggle } = props
 
-  const [selectedMembers, setselectedMembers] = useState();
-  const [isLoading, setLoading] = useState(false);
-  const [selectedProject, setSelectedProject] = useState();
-  const [project, setProject] = useState();
-  const [hidden, setHidden] = useState(true);
-  const [disabled, setDisabled] = useState(true);
-  const [members, setMembers] = useState([]);
-  const [newName, setNewName] = useState("");
+  const [selectedMembers, setselectedMembers] = useState()
+  const [isLoading, setLoading] = useState(false)
+  const [selectedProject, setSelectedProject] = useState()
+  const [project, setProject] = useState()
+  const [hidden, setHidden] = useState(true)
+  const [disabled, setDisabled] = useState(true)
+  const [members, setMembers] = useState([])
+  const [newName, setNewName] = useState("")
 
   useEffect(() => {
-    fetchProjects();
-  }, []);
+    fetchProjects()
+  }, [])
 
   const fetchProjects = () => {
     props.actions.fetchProjects().catch((err) => {
-      console.log(err);
-    });
-  };
+      console.log(err)
+    })
+  }
 
   const hasATeam = (id_member, project) => {
-    let aandou = false;
+    let aandou = false
     teams.map((team) => {
-      if (team.project.id == project.id) {
+      if (team.project.id === project.id) {
         team.members.map((member) => {
-          if (member.id == id_member) {
-            aandou = true;
+          if (member.id === id_member) {
+            aandou = true
           }
-        });
+        })
       }
-    });
+    })
 
-    return aandou;
-  };
+    return aandou
+  }
 
   const handleProjectChange = (selectedProject) => {
-    const p = selectedProject.key;
-    setProject(projects[p]);
-    setHidden(false);
-  };
+    const p = selectedProject.key
+    setProject(projects[p])
+    setHidden(false)
+  }
 
   const handleTeamsChange = (selectedMembers) => {
-    setMembers(selectedMembers);
+    setMembers(selectedMembers)
     selectedMembers && selectedMembers.length > 0
       ? setDisabled(false)
-      : setDisabled(true);
-  };
+      : setDisabled(true)
+  }
 
   const CreateTeam = (e) => {
-    e.preventDefault();
-    let newTeamMembers = [];
+    e.preventDefault()
+    let newTeamMembers = []
     members.forEach((member) => {
-      newTeamMembers.push(member.key);
-    });
+      newTeamMembers.push(member.key)
+    })
 
     props.actions
       .createTeam(newName, newTeamMembers, project.id)
@@ -85,13 +86,13 @@ const CreateNewTeamModal = (props) => {
           "Error!",
           "An error has occured while trying to create a new team! please try again..",
           "error"
-        );
-        console.log(err);
-      });
-    setHidden(true);
-    setDisabled(true);
-    toggle();
-  };
+        )
+        console.log(err)
+      })
+    setHidden(true)
+    setDisabled(true)
+    toggle()
+  }
 
   return (
     <Modal isOpen={modal} toggle={toggle}>
@@ -108,7 +109,7 @@ const CreateNewTeamModal = (props) => {
                 isSearchable={true}
                 name="color"
                 options={projects.map((project, i) => {
-                  return { label: project.title, value: project.id, key: i };
+                  return { label: project.title, value: project.id, key: i }
                 })}
                 onChange={handleProjectChange}
                 value={selectedProject}
@@ -126,7 +127,7 @@ const CreateNewTeamModal = (props) => {
                     value={newName}
                     required
                     onChange={(e) => {
-                      setNewName(e.target.value);
+                      setNewName(e.target.value)
                     }}
                   />
                   <FormText color="muted">Please choose wisely</FormText>
@@ -145,7 +146,7 @@ const CreateNewTeamModal = (props) => {
                           label: learner.name,
                           value: learner.id,
                           key: learner.id,
-                        };
+                        }
                       })}
                     className="basic-multi-select"
                     classNamePrefix="select"
@@ -165,15 +166,15 @@ const CreateNewTeamModal = (props) => {
         </ModalFooter>
       </Form>
     </Modal>
-  );
-};
+  )
+}
 
-const mapStateToProps = (state, ownProps) => ({ teams: state.teams });
+const mapStateToProps = (state, ownProps) => ({ teams: state.teams })
 
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(teamsAction, dispatch),
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNewTeamModal);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewTeamModal)

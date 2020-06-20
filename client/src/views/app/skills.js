@@ -10,8 +10,6 @@ import Skill from "../../components/skills/skillCard";
 import SkillForm from "../../components/skills/skillForm";
 import { history } from "../../helpers/history";
 
-import SkillMenu from "../../components/skills/skillMenu";
-
 class Skills extends Component {
   constructor(props, context) {
     super(props, context);

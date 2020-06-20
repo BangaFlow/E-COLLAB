@@ -11,7 +11,6 @@ import {
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
-import IntlMessages from "../../helpers/IntlMessages";
 import {
   setContainerClassnames,
   clickOnMobileMenu,
@@ -21,12 +20,10 @@ import { logout } from '../../redux/actions/user.actions'
 import {
   menuHiddenBreakpoint,
   searchPath,
-  localeOptions,
   isDarkSwitchActive,
 } from "../../constants/defaultValues";
 
 import { MobileMenuIcon, MenuIcon } from "../../components/svg";
-import TopnavEasyAccess from "./Topnav.EasyAccess";
 import TopnavNotifications from "./Topnav.Notifications";
 import TopnavDarkSwitch from "./Topnav.DarkSwitch";
 
@@ -208,7 +205,7 @@ class TopNav extends Component {
   };
 
   render() {
-    const { containerClassnames, menuClickCount, locale } = this.props;
+    const { containerClassnames, menuClickCount } = this.props;
     const { messages } = this.props.intl;
     return (
       <nav className="navbar fixed-top">

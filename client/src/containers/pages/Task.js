@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, Badge, CustomInput } from "reactstrap";
+import { Card, CardBody, CustomInput } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
 import { Colxx } from "../../components/common/CustomBootstrap";

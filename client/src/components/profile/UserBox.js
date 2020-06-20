@@ -118,12 +118,9 @@ const EditProfile = (props) => {
   const [location, setLocation] = useState(profile.location);
   const [about, setAbout] = useState(profile.about);
   const [github, setGithub] = useState(profile.github_username);
-  const [Errors, setErrors] = useState({
-    title: "",
-  });
 
   const handleSubmit = (event, errors) => {
-    if (errors.length == 0) {
+    if (errors.length === 0) {
       const variables = {
         image: "",
         title,

@@ -4,21 +4,17 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Input,
   Label
 } from "reactstrap";
 import "react-datepicker/dist/react-datepicker.css";
-import DatePicker from "react-datepicker";
 import IntlMessages from "../../helpers/IntlMessages";
 import PropTypes from 'prop-types'
 import { connect } from "react-redux";
 import * as eventAction from "../../redux/actions/eventActions"
 import { bindActionCreators } from "redux"
 
-import { AvForm, AvField ,AvRadioGroup,AvRadio } from 'availity-reactstrap-validation';
-
-
+import { AvForm, AvField  } from 'availity-reactstrap-validation';
 
 class AddNewModal extends React.Component  {
   constructor(props) {
