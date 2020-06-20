@@ -26,7 +26,10 @@ type Typeproject {
         , auto_generate_teams: Boolean,
     competence_generate_teams: Boolean,
     learners_choose_teams: Boolean,
-    Choose_date_limit: periode_input):Typeproject
+    Choose_date_limit: periode_input,
+    learners_involved: [String],
+    tutors_involved: [String],
+    ):Typeproject
         
        
     }

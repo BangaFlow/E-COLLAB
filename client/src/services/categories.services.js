@@ -55,6 +55,8 @@ const ADD_PROJECT = gql`
     $auto_generate_teams: Boolean,
     $competence_generate_teams: Boolean,
     $learners_choose_teams: Boolean,
+    $learners_involved: [String],
+    $tutors_involved: [String]
   ) {
     add_project(
     id: $id, title:$title,
@@ -66,6 +68,8 @@ const ADD_PROJECT = gql`
     auto_generate_teams: $auto_generate_teams,
     competence_generate_teams: $competence_generate_teams,
     learners_choose_teams: $learners_choose_teams,
+    learners_involved: $learners_involved,
+    tutors_involved: $tutors_involved
    ) {
       id
       
@@ -89,10 +93,13 @@ async function add_Category(title, description,methodology) {
 async function add_project_to_category(id, title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team,auto_generate_teams,
   competence_generate_teams,
   learners_choose_teams,
+  learners_involved,
+  tutors_involved
    
     ) {
     const variables = { id, title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team,auto_generate_teams,competence_generate_teams,
-      learners_choose_teams,
+      learners_choose_teams,learners_involved,
+      tutors_involved
  };
     var data = await client.mutate({ mutation: ADD_PROJECT, variables }); 
     return data.data.add_project;
