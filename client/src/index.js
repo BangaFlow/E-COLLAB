@@ -6,6 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-table/react-table.css";
 import 'react-image-lightbox/style.css';
 import "video.js/dist/video-js.css";
+import 'antd/dist/antd.css'
 
 
 import { isMultiColorActive, defaultColor,themeColorStorageKey,isDarkSwitchActive } from "./constants/defaultValues";

@@ -25,5 +25,3 @@ const subjectSchema = new mongoose.Schema({
 const Subject = mongoose.model('subject', subjectSchema)
 
 export default Subject
-
-//module.exports = Subject = mongoose.model('subject', subjectSchema);

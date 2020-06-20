@@ -24,15 +24,32 @@ const ViewMain = React.lazy(() =>
 const ViewAuth = React.lazy(() =>
   import(/* webpackChunkName: "views" */ './components/authentication/SignIn')
 );
+const ViewCalendar = React.lazy(() =>
+  import(/* webpackChunkName: "views" */ './components/Calendar/myCalendar')
+);
 const ViewApp = React.lazy(() =>
   import(/* webpackChunkName: "views-app" */ './views/app')
 );
 const ViewError = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/error')
 );
+
 const Details = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/app/projects/details')
 );
+
+const ViewQuizPaly = React.lazy(() =>
+  import(/* webpackChunkName: "views-error" */ './views/app/Quiz/quizPage')
+);
+
+const ViewQuizResult = React.lazy(() =>
+  import(/* webpackChunkName: "views-error" */ './views/app/Quiz/SummaryPage')
+);
+
+const ViewCreateProfile = React.lazy(() =>
+  import(/* webpackChunkName: "views" */ './views/create-profile')
+);
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -60,10 +77,11 @@ class App extends Component {
             <NotificationContainer />
             {isMultiColorActive && <ColorSwitcher />}
             <Suspense fallback={<div className="loading" />}>
-              <Router history={history}>
+              <Router forceRefresh={true} history={history} >
                 <Switch>
                   <PrivateRoute
                     path="/app"
+                    // roles={[Role.Student]}
                     component={ViewApp}
                   />
                   <Route
@@ -75,9 +93,10 @@ class App extends Component {
                   component={ResetPassword}
                   />
                   <Route
-                  path="/change-password"
+                  path="/change-password/:token"
                   component={ChangePassword}
                   />
+
                   <Route
                     path="/error"
                     exact
@@ -88,6 +107,30 @@ class App extends Component {
                     exact
                     render={localStorage.getItem('user') ? props => <ViewMain {...props} /> : props => <ViewAuth {...props} />}
                   />
+                  <Route
+                    path="/create-profile"
+                    exact
+                    render={props => <ViewCreateProfile {...props} />}
+                  />
+                  <Route
+                    path="/calendar"
+                    exact
+                    render={props => <ViewCalendar {...props} />}
+                  />
+
+
+                  <Route
+                    path="/playQuiz"
+                    exact
+                    render={props => <ViewQuizPaly {...props} />}
+                  />
+
+                  <Route
+                    path="/ResultQuiz"
+                    exact
+                    render={props => <ViewQuizResult {...props} />}
+                  />
+
                   <Route
                     path="/"
                     exact
@@ -130,7 +173,5 @@ const mapStateToProps = ({ settings }) => {
 };
 const mapActionsToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(App);
+export default connect(mapStateToProps, mapActionsToProps)(App);
+

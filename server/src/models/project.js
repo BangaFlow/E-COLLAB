@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 import { hash, compare } from 'bcryptjs'
 
-const projectSchema = new mongoose.Schema({
-
+const ProjectSchema = new mongoose.Schema(
+  {
   title: {
     type: String,
   },
@@ -73,13 +73,9 @@ const projectSchema = new mongoose.Schema({
     },
     methodology:{
         type:String
-    },
-     
-    },  
+    }, 
     {
     timestamps: true
-})
+});
 
-const Project = mongoose.model('project', projectSchema)
-
-export default Project
+module.exports = Project = mongoose.model("project", ProjectSchema);

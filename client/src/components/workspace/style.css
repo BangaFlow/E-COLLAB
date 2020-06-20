@@ -1,0 +1,6 @@
+.hoverable {
+    color: #bbb;
+}
+.hoverable :hover {
+    color: #48c29b;
+}

@@ -7,7 +7,6 @@ import { history } from '../../helpers/history'
 export const userActions = {
     register,
     login,
-    logout
 }
 
 function login(email, password) {
@@ -26,7 +25,7 @@ function login(email, password) {
                 },
                 error => {
                     dispatch(failure(error.toString()))
-                    dispatch(alertActions.error(error.toString()))
+                    dispatch(alertActions.error(error.message.replace('GraphQL error:', '').trim()))
                 }
             )
     }
@@ -36,11 +35,11 @@ function login(email, password) {
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
 //TODO: handle signout graphql error 'You must be signed in!'
-function logout() {
+export function logout() {
     signOut()
     localStorage.removeItem('user')
-    history.push('/')
-    return { type: userConstants.LOGOUT }
+    const user = {}
+    return { type: userConstants.LOGOUT, user }
 }
 
 function register(user) {

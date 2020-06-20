@@ -60,7 +60,7 @@ function SingUp() {
                 </div>
                 <div className="col-md-8 offset-md-2">
                     {alert.message &&
-                        <div className={`alert ${alert.type}`}>{alert.message}</div>
+                        <div className={`alert ${alert.type}`}>{alert.message.slice(59,115)}</div>
                     }
                 </div>
                 <div className="card">

@@ -1,60 +1,125 @@
-import {UserInputError} from "apollo-server-errors";
-
-//const _ = require('lodash');
+import { UserInputError } from "apollo-server-errors";
 
 const Profile = require("../models/profile");
 
-
 export default {
-    Query: {
-        getMyProfile: (root, arg, {req}, info) => {
-            return Profile.findOne({user: req.session.userId});
-        },
-        getProfile: (root, {id}, {req}, info) => {
-            return Profile.findOne({user: id});
-        }
+  Query: {
+    getMyProfile: async (root, arg, { req }, info) => {
+      let profile = await Profile.findOne({ user: req.session.userId });
+      return profile;
     },
-    Mutation: {
-        createProfile: async (root, {image, title, location, phone, about, github_username}, {req}, info) => {
-            let newProfile = new Profile();
-            newProfile.user = req.session.userId;
-            newProfile.image = image;
-            newProfile.title = title;
-            newProfile.location = location;
-            newProfile.phone = phone;
-            newProfile.about = about;
-            newProfile.github_username = github_username;
-            return await newProfile.save();
-        },
+    getProfile: async (root, { id }, { req }, info) => {
+      let profile = await Profile.findOne({ user: id });
+      if (profile) {
+        const teams = await Team.find();
+        let user_teams = [];
+        let index = 0;
+        teams.forEach((team) => {
+          if (team.members.indexOf(id) > -1) {
+            user_teams[index] = team;
+            index++;
+          }
+        });
+        teams.forEach((team) => {
+          if (team.tutors.indexOf(id) > -1) {
+            user_teams[index] = team;
+            index++;
+          }
+        });
+        profile.teams = user_teams;
+      }
+      return profile;
+    },
+  },
+  Mutation: {
+    createProfile: async (
+      root,
+      { image, title, location, phone, about, github_username, user_id },
+      { req },
+      info
+    ) => {
+      let newProfile = new Profile();
+      newProfile.user = user_id;
+      newProfile.image = image;
+      newProfile.title = title;
+      newProfile.location = location;
+      newProfile.phone = phone;
+      newProfile.about = about;
+      newProfile.github_username = github_username;
+      if (newProfile) {
+        const teams = await Team.find();
+        let user_teams = [];
+        let index = 0;
+        teams.forEach((team) => {
+          if (team.members.indexOf(user_id) > -1) {
+            user_teams[index] = team;
+            index++;
+          }
+        });
+        teams.forEach((team) => {
+          if (team.tutors.indexOf(user_id) > -1) {
+            user_teams[index] = team;
+            index++;
+          }
+        });
+        newProfile.teams = user_teams;
+      }
 
-        updateMyProfile: async (root, {image, title, location, phone, about, github_username, profile_id}, {req}, info) => {
-            let myProfile = await Profile.findById(profile_id);
-            if (req.session.userId == myProfile.user) {
-                let profile = await Profile.findByIdAndUpdate(profile_id, {
-                    image,
-                    title,
-                    location,
-                    phone,
-                    about,
-                    github_username
-                }, {new: true}, (err, doc) => {
-                    if (err) {
-                        throw new Error("Something wrong when updating data!");
-                    }
-                });
-                return profile;
-            } else {
-                throw new UserInputError(`This is not your profile to update`);
-            }
-        }
+      return await newProfile.save();
     },
-    Profile: {
-        user: async (profile, arg, context, info) => {
-            return (await profile.populate('user').execPopulate()).user
+
+    updateMyProfile: async (
+      root,
+      { image, title, location, phone, about, github_username, profile_id },
+      { req },
+      info
+    ) => {
+      let profile = await Profile.findByIdAndUpdate(
+        profile_id,
+        {
+          image,
+          title,
+          location,
+          phone,
+          about,
+          github_username,
         },
-        skills: async (profile, arg, context, info) => {
-            return (await profile.populate('skill').execPopulate()).skills
+        { new: true },
+        (err, doc) => {
+          if (err) {
+            throw new Error("Something wrong when updating data!");
+          }
         }
+      );
+      if (profile) {
         
-    }
-}
+        const teams = await Team.find();
+        let user_teams = [];
+        let index = 0;
+        teams.forEach((team) => {
+          if (team.members.indexOf(profile.user) > -1) {
+            user_teams[index] = team;
+            index++;
+          }
+        });
+        teams.forEach((team) => {
+          if (team.tutors.indexOf(profile.user) > -1) {
+            user_teams[index] = team;
+            index++;
+          }
+        });
+        profile.teams = user_teams;
+      }
+      console.log("2- ", profile);
+      return profile;
+    },
+  },
+  Profile: {
+    user: async (profile, arg, context, info) => {
+      return (await profile.populate("user").execPopulate()).user;
+    },
+    skills: async (profile, arg, context, info) => {
+      return (await profile.populate("skills.skill").execPopulate()).skills;
+    },
+  },
+};
