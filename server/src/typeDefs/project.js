@@ -7,22 +7,31 @@ scalar Date
     start_choose_date: Date
     end_choose_date: Date
   }
+
+
+
   type Project {
-    id:ID!
-        title:String, 
-        category: String,
-        school_year:String,
-        start_date:String,
-        end_date:String,
-        class_involved:String,      
-        methodology:String,
-        number_of_teams:String,
-        number_of_members:String,
-        number_of_tutors_per_team:String,
-        tutors_involved:[User],
-        learners_involved:[User],
-        subjects:[Subject],
-        isvalid:Boolean
+    id: ID!
+    title:String, 
+    category: String,
+    school_year:String,
+    start_date:Date,
+    end_date:Date,
+    class_involved:String,      
+    methodology:String,
+       
+    tutors_involved:[User],
+    learners_involved:[User],
+    subjects:[Subject],
+    isvalid:Boolean,
+
+    number_of_teams: Int
+    number_of_members: Int
+    number_of_tutors_per_team: Int
+    auto_generate_teams: Boolean
+    competence_generate_teams: Boolean
+    learners_choose_teams: Boolean
+    choose_date_limit: Period
   }
 
 
@@ -32,9 +41,25 @@ scalar Date
     
     }
 
+    input periode_input {
+   start_choose_date: Date
+   end_choose_date: Date 
+}
   extend type Mutation {
-    addproject(title:String, category: String,school_year:String,start_date:String,end_date:String,class_involved:String,methodology:String,number_of_teams:String,number_of_members:String,number_of_tutors_per_team:String ):Project 
-        updateproject(id:String,title:String, category: String,school_year:String,start_date:String,end_date:String,class_involved:String,methodology:String,number_of_teams:String,number_of_members:String,number_of_tutors_per_team:String):Project
+
+    
+    addproject(title:String, category: String,
+    school_year:String,start_date:Date,end_date:Date,
+    class_involved:String,
+    methodology:String,number_of_teams:Int,
+    number_of_members:Int,number_of_tutors_per_team:Int,
+
+    auto_generate_teams: Boolean,
+    competence_generate_teams: Boolean,
+    learners_choose_teams: Boolean,
+    Choose_date_limit: periode_input):Project 
+
+        updateproject(id:String,title:String, category: String,school_year:String,start_date:Date,end_date:Date,class_involved:String,methodology:String,number_of_teams:Int,number_of_members:Int,number_of_tutors_per_team:Int):Project
         deleteproject(id: String):Project
 
    

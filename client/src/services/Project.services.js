@@ -61,9 +61,13 @@ const CREATE_PROJECT = gql`
   mutation addproject($title: String,
     $school_year:String,
     $class_involved:String,
-    $number_of_teams:String,
-    $number_of_members:String,
-    $number_of_tutors_per_team:String)
+    $number_of_teams:Int,
+    $number_of_members:Int,
+    $number_of_tutors_per_team:Int,
+    $auto_generate_teams: Boolean,
+    $competence_generate_teams: Boolean,
+    $learners_choose_teams: Boolean,
+    $Choose_date_limit: periode_input)
      {
     addproject(title: $title,
     school_year:$school_year,

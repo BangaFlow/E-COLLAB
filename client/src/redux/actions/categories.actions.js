@@ -26,10 +26,19 @@ export function addprojecttocategorySuccess(category) {
   return { type: types.ADD_PROJECT_TO_CATEGORY_SUCCESS, category };
 }
 
-export function addproject(id, title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team) {
+
+export function addproject(id, title,school_year,class_involved,
+  number_of_teams,number_of_members,number_of_tutors_per_team,
+  auto_generate_teams,competence_generate_teams,
+  learners_choose_teams,
+    start_choose_date,
+    end_choose_date) {
   return function (dispatch) {
     return typeprojectApi
-      .add_project_to_category(id, title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team)
+      .add_project_to_category(id, title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team,auto_generate_teams,competence_generate_teams,
+        learners_choose_teams,
+          start_choose_date,
+          end_choose_date)
       .then((category) => {          
         dispatch({ type: types.ADD_PROJECT_TO_CATEGORY_SUCCESS, category });
       })

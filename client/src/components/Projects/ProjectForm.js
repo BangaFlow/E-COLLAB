@@ -19,7 +19,9 @@ import CustomSelectInput from "../../components/common/CustomSelectInput";
 import * as projectActions from "../../redux/actions/Projects.actions";
 import * as CategoriesActions from "../../redux/actions/categories.actions";
 import { AvForm, AvField, AvGroup } from "availity-reactstrap-validation";
+import "react-datepicker/dist/react-datepicker.css";
 
+import DatePicker from "react-datepicker";
 class ProjectForm extends Component {
   constructor(props) {
     super(props);
@@ -30,10 +32,21 @@ class ProjectForm extends Component {
     
      number_of_teams:"",
      number_of_members:"",
-     number_of_tutors_per_team:""
+     number_of_tutors_per_team:"",
+     competence_generate_teams:false,
+    learners_choose_teams:false,
+   
+    auto_generate_teams:false,
       
     };
   }
+ str2bool(value) {
+    if (value && typeof value === 'string') {
+      if (value.toLowerCase() === "yes") return true;
+      if (value.toLowerCase() === "no") return false;
+    }
+    return value;
+ }
 
   addNetItem = () => {
     let title = this.state.title;
@@ -41,13 +54,20 @@ class ProjectForm extends Component {
     let class_involved= this.state.class_involved.value;
     //let start_date= this.state.start_date.value;
     //let end_date= this.state.end_date.value;
-    let number_of_teams= this.state.number_of_teams;
-    let number_of_members= this.state.number_of_members;
-    let number_of_tutors_per_team= this.state.number_of_tutors_per_team;
+    let number_of_teams= parseInt(this.state.number_of_teams);
+    let number_of_members= parseInt(this.state.number_of_members);
+    let number_of_tutors_per_team= parseInt(this.state.number_of_tutors_per_team);
     let id=this.props.id;
     console.log(this.props.id);
-    this.props.actions.addproject(id,title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team).catch((err) => {
-      console.log(err);
+    console.log(this.str2bool(this.state.auto_generate_teams.value));
+    let auto_generate_teams=this.str2bool(this.state.auto_generate_teams.value);
+    let competence_generate_teams =this.str2bool(this.state.competence_generate_teams.value);
+    let learners_choose_teams =this.str2bool(this.state.learners_choose_teams.value);
+   
+
+
+
+    this.props.actions.addproject(id,title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team,auto_generate_teams,competence_generate_teams,learners_choose_teams).catch((err) => { console.log(err);
     });
 
     this.props.toggleModal();
@@ -57,7 +77,11 @@ class ProjectForm extends Component {
      class_involved:"",
      number_of_teams:"",
      number_of_members:"",
-     number_of_tutors_per_team:""
+     number_of_tutors_per_team:"",
+     auto_generate_teams:"",
+     competence_generate_teams:"",
+     learners_choose_teams:"",
+
     });
 
     setTimeout(() => { history.push("/app/projects/categories"); }, 1000);
@@ -65,6 +89,8 @@ class ProjectForm extends Component {
 
   render() {
     const classes = ["second year", "third year", "forth year"];
+    const b= ["yes", "no"];
+
     const { modalOpen, toggleModal } = this.props;  
 
     return (
@@ -215,6 +241,66 @@ class ProjectForm extends Component {
                           />
                         </AvGroup>
                     </Colxx>
+
+
+                    <Colxx sm={12}>
+                    <Label className="mt-4">competence_generate_teams</Label>
+          <Select
+            components={{ Input: CustomSelectInput }}
+            className="react-select"
+            classNamePrefix="react-select"
+            name="form-field-name"
+            options={b.map((x, i) => {
+              return { label: x, value: x, key: i };
+            })}
+            value={this.state.competence_generate_teams}
+            onChange={(val) => {              
+              this.setState({ competence_generate_teams: val });
+            }}
+          />
+          </Colxx>
+
+
+            
+
+          <Colxx sm={12}>
+                    <Label className="mt-4">learners_choose_teams</Label>
+          <Select
+            components={{ Input: CustomSelectInput }}
+            className="react-select"
+            classNamePrefix="react-select"
+            name="form-field-name"
+            options={b.map((x, i) => {
+              return { label: x, value: x, key: i };
+            })}
+            value={this.state.learners_choose_teams}
+            onChange={(val) => {              
+              this.setState({ learners_choose_teams: val });
+            }}
+          />
+          </Colxx>
+
+          <Colxx sm={12}>
+                    <Label className="mt-4">auto_generate_teams</Label>
+          <Select
+            components={{ Input: CustomSelectInput }}
+            className="react-select"
+            classNamePrefix="react-select"
+            name="form-field-name"
+            options={b.map((x, i) => {
+              return { label: x, value: x, key: i };
+            })}
+            value={this.state.auto_generate_teams}
+            onChange={(val) => {              
+              this.setState({auto_generate_teams: val });
+            }}
+          />
+          </Colxx>
+
+          
+            
+
+
 
                     </FormGroup>
                    

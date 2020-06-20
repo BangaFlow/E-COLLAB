@@ -41,6 +41,7 @@ export function updateProjectSuccess(project) {
   return { type: types.UPDATE_PROJECT_SUCCESS, project };
 }
 
+
 export function updateProject(id, title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team) {
   return function (dispatch) {
     return projectApi

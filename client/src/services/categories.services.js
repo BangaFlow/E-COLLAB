@@ -49,16 +49,24 @@ const ADD_PROJECT = gql`
   mutation add_project($id: String,$title: String,
     $school_year:String,
     $class_involved:String,
-    $number_of_teams:String,
-    $number_of_members:String,
-    $number_of_tutors_per_team:String) {
+    $number_of_teams:Int,
+    $number_of_members:Int,
+    $number_of_tutors_per_team:Int,
+    $auto_generate_teams: Boolean,
+    $competence_generate_teams: Boolean,
+    $learners_choose_teams: Boolean,
+  ) {
     add_project(
     id: $id, title:$title,
     school_year:$school_year,
     class_involved:$class_involved,
     number_of_teams:$number_of_teams,
     number_of_members:$number_of_members,
-    number_of_tutors_per_team:$number_of_tutors_per_team) {
+    number_of_tutors_per_team:$number_of_tutors_per_team,
+    auto_generate_teams: $auto_generate_teams,
+    competence_generate_teams: $competence_generate_teams,
+    learners_choose_teams: $learners_choose_teams,
+   ) {
       id
       
     }
@@ -78,8 +86,14 @@ async function add_Category(title, description,methodology) {
   var data = await client.mutate({ mutation: CREATE_CATEGORY, variables });
   return data.data.add_type_project;
 }
-async function add_project_to_category(id, title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team) {
-    const variables = { id, title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team };
+async function add_project_to_category(id, title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team,auto_generate_teams,
+  competence_generate_teams,
+  learners_choose_teams,
+   
+    ) {
+    const variables = { id, title,school_year,class_involved,number_of_teams,number_of_members,number_of_tutors_per_team,auto_generate_teams,competence_generate_teams,
+      learners_choose_teams,
+ };
     var data = await client.mutate({ mutation: ADD_PROJECT, variables }); 
     return data.data.add_project;
 }
