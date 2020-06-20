@@ -6,22 +6,22 @@ export default function eventReducer ( event = [] , action ){
 
         case "LOAD_EVENT_SUCCESS" :
 
-        debugger
+        
            return action.event
 
         case "ADD_EVENT_SUCCESS" :
-        debugger
+        
             return [...event, { ...action.event }]
 
         case "UPDATE_USER_EVENT_SUCCESS" :
-            debugger
+            
             return event.map((item) =>
             item.id === action.event.id ? action.event : item
           );
 
         case "LOAD_USER_EVENT_SUCCESS":
 
-            debugger
+            
             return action.event
 
         case "DELETE_USER_EVENT_SUCCESS" :

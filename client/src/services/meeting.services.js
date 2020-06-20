@@ -9,7 +9,7 @@ const GET_MEETINGS = gql`
 `
 
 async function getMeetings() {
-    debugger
+    
     var data = await client.query({ query:  GET_MEETINGS });
   
     console.log(data)

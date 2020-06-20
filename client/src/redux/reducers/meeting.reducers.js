@@ -4,7 +4,6 @@ export default function workShopReducer ( meeting = [] , action ){
 
         case "LOAD_MEETING_SUCCESS" :
 
-        debugger
            return action.meeting
 
 

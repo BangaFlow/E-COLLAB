@@ -162,7 +162,7 @@ UpdateModal.propType = {
 };
 
 function mapStateToProps(state) {
-  debugger
+  
   return {
     event: state.event
   }

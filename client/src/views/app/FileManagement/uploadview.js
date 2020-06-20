@@ -4,23 +4,12 @@ import { history } from "../../../helpers/history";
 
 import {
     Row,
-    Card,
-    CardBody,
-    CardTitle,
     InputGroup,
     InputGroupAddon,
-    Input,
-    InputGroupText,
     Button,
-    DropdownToggle,
-    DropdownItem,
-    DropdownMenu,
     CustomInput,
-    UncontrolledDropdown
   } from "reactstrap";
-import IntlMessages from "../../../helpers/IntlMessages";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
-import Breadcrumb from "../../../containers/navs/Breadcrumb";
 import $ from 'jquery';
 
 export default class uploadview extends Component {

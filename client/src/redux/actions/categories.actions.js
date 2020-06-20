@@ -7,7 +7,6 @@ export function loadtypeProjectsSuccess(categories) {
 
 
 export function loadtypeProjects() {
-  debugger;
   return function (dispatch) {
     return typeprojectApi
       .get_type_Projects()

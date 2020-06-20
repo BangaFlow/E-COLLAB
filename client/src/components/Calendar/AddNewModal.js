@@ -152,7 +152,7 @@ AddNewModal.propType = {
 };
 
 function mapStateToProps(state) {
-  debugger
+  
   return {
     events: state.event
   }

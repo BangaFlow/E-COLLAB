@@ -104,7 +104,7 @@ Quizzes.propType = {
 };
 
 function mapStateToProps(state) {
-  debugger
+  
   return {
     quiz: state.quiz
   }

@@ -6,7 +6,6 @@ export function loadProjectsSuccess(projects) {
 }
 
 export function loadProjects() {
-  debugger;
   return function (dispatch) {
     return projectApi
       .getProjects()

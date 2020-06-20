@@ -14,7 +14,6 @@ import calendar from './calendar';
 import event from './event';
 import meeting from './meeting';
 import soutenance from './soutenance';
-import subject from './subject';
 import team from './team';
 import quiz from './quiz';
 import question from './question';

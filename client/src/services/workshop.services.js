@@ -40,7 +40,7 @@ const ADD_WORKSHOP = gql`
 `
 
 async function getWorkshops() {
-    debugger
+    
     var data = await client.query({ query:  GET_WORKSHOPS });
   
     console.log(data)
@@ -50,12 +50,12 @@ async function getWorkshops() {
 
 
   async function addWorkshop(workShopName, workShop_description ,workShop_Requirments, workShop_Certification, workShop_startTime, workShop_endTime, workShop_goals) {
-    debugger
+    
     const variables = { workShopName, workShop_description ,workShop_Requirments, workShop_Certification, workShop_startTime, workShop_endTime, workShop_goals };
     
     var data = await client.mutate({ mutation: ADD_WORKSHOP, variables });
     console.log(data)
-    debugger
+    
     return data.data.addWorkShop;
   };
   

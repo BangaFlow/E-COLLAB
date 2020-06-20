@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
 import {
-    Collapse,
     Button,
-    Row,
     Card,
     CardText,
     CardSubtitle,
@@ -18,7 +16,6 @@ import {
     CardTitle
 } from "reactstrap";
 import { ceil } from 'mathjs'
-import isEmpty from "../Quiz/isEmpty"
 import ReactTable from "react-table";
 
 import DataTablePagination from "../../../components/DatatablePagination";
@@ -145,7 +142,7 @@ SummaryPage.propType = {
 };
 
 function mapStateToProps(state) {
-    debugger
+    
     return {
         event: state.event
     }

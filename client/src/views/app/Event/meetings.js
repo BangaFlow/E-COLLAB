@@ -208,7 +208,7 @@ Meeting.propType = {
 };
 
 function mapStateToProps(state) {
-  debugger
+  
   return {
     meeting: state.meeting
   }

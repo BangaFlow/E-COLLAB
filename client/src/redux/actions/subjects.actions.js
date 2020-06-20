@@ -6,7 +6,6 @@ export function loadSubjectsSuccess(subjects) {
 }
 
 export function loadSubjects() {
-  debugger;
   return function (dispatch) {
     return subjectApi
       .getSubjects()

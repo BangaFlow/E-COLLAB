@@ -4,10 +4,9 @@ const INIT_STATE = {
   subjects: [],
 };
 export default ( state = INIT_STATE.subjects, action )=>{
-    debugger;
+    
   switch(action.type){
     case types.LOAD_SUBJECTS_SUCCESS :
-      debugger;
          return action.subjects;
          case types.ADD_SUBJECTS_SUCCESS:
             return [...state, { ...action.subject }];

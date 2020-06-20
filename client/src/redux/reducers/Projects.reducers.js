@@ -7,7 +7,7 @@ export default ( state = INIT_STATE.projects, action )=>{
 
   switch(action.type){
       case types.LOAD_PROJECTS_SUCCESS :
-      debugger;
+ 
          return action.projects;
          case types.ADD_NEW_PROJECT_SUCCESS:
           return [...state, { ...action.project }];

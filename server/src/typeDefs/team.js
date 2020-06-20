@@ -1,30 +1,30 @@
 import { gql } from "apollo-server-express";
 
 export default gql`
-  scalar Date
+  # scalar Date
 
-  type Period {
-    start_choose_date: Date
-    end_choose_date: Date
-  }
+  # type Period {
+  #   start_choose_date: Date
+  #   end_choose_date: Date
+  # }
 
-  type Project {
-    id: ID!
-    title: String
-    start_date: Date
-    end_date: Date
-    short_desc: String
-    number_of_teams: Int
-    number_of_members: Int
-    tutors_involved: [User]
-    number_of_tutors_per_team: Int
-    learners_involved: [User]
-    subjects: [Subject]
-    auto_generate_teams: Boolean
-    competence_generate_teams: Boolean
-    learners_choose_teams: Boolean
-    choose_date_limit: Period
-  }
+  # type Project {
+  #   id: ID!
+  #   title: String
+  #   start_date: Date
+  #   end_date: Date
+  #   short_desc: String
+  #   number_of_teams: Int
+  #   number_of_members: Int
+  #   tutors_involved: [User]
+  #   number_of_tutors_per_team: Int
+  #   learners_involved: [User]
+  #   subjects: [Subject]
+  #   auto_generate_teams: Boolean
+  #   competence_generate_teams: Boolean
+  #   learners_choose_teams: Boolean
+  #   choose_date_limit: Period
+  # }
 
   type Team {
     id: ID!

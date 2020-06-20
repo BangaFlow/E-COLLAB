@@ -4,7 +4,7 @@ export default function workShopReducer ( workShop = [] , action ){
 
         case "LOAD_WORKSHOP_SUCCESS" :
 
-        debugger
+        
            return action.workShop
 
         case "ADD_WORKSHOP_SUCCESS" :

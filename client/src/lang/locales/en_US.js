@@ -45,11 +45,6 @@ module.exports = {
   "menu.roles": "Roles",
   "menu.workspace": "My Workspace",
 
-  /* 04.Error Page */
-  "pages.error-title": "Ooops... looks like an error occurred!",
-  "pages.error-code": "Error code",
-  "pages.go-back-home": "GO BACK HOME",
-
   /* skills */
   "menu.skills": "Skills",
 
@@ -95,7 +90,7 @@ module.exports = {
  "menu.Subjects":"Subjects",
  "menu.Subjectdetail":"Subject Details",
  "menu.details":"Details",
- "menu.allprojects":"All projects"
+ "menu.allprojects":"All projects",
 
  /*event */
 "menu.Event":"All Event",

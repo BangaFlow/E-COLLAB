@@ -23,6 +23,7 @@
     "install": "^0.13.0",
     "jquery": "^3.5.1",
     "lodash.at": "^4.6.0",
+    "mathjs": "^7.0.1",
     "moment": "2.22.2",
     "mousetrap": "^1.6.3",
     "rc-slider": "^8.6.1",
@@ -62,9 +63,9 @@
     "redux-saga": "^1.0.2",
     "redux-thunk": "^2.3.0",
     "sortablejs": "^1.6.1",
+    "sweetalert": "^2.1.2",
     "video.js": "^7.6.0",
-    "yup": "^0.27.0",
-    "sweetalert": "^2.1.2"
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",

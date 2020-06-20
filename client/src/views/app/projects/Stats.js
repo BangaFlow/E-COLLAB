@@ -1,12 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { Bar as BarChart } from 'react-chartjs-2';
+import { Bar as BarChart, Chart } from 'react-chartjs-2';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as CategoriesActions from "../../../redux/actions/categories.actions";
 import { Row, Button } from "reactstrap";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
-import Breadcrumb from "../../../containers/navs/Breadcrumb";
-import $ from 'jquery';
 
 
 class Stats extends Component {

@@ -99,7 +99,6 @@ async function add_project_to_category(id, title,school_year,class_involved,numb
 }
 
 async function get_type_Projects() {
-  debugger;
   var data = await client.query({ query: GET_TYPE_PROJECTS });
   return data.data.gettypes_project;
 }

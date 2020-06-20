@@ -109,7 +109,7 @@ AddNewMeeting.propType = {
 };
 
 function mapStateToProps(state) {
-  debugger
+
   return {
     event: state.event
   }

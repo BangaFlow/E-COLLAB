@@ -174,7 +174,7 @@ workshopAdd.propType = {
 };
 
 function mapStateToProps(state) {
-  debugger
+  
   return {
     workShop: state.workShop
   }

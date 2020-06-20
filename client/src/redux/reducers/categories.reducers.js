@@ -4,10 +4,8 @@ const INIT_STATE = {
   categories: [],
 };
 export default ( state = INIT_STATE.categories, action )=>{
-    debugger;
   switch(action.type){
       case types.LOAD_TYPE_PROJECTS_SUCCESS :
-      debugger;
          return action.categories;
          case types.ADD_PROJECT_TO_CATEGORY_SUCCESS:
       return state.map((item) =>

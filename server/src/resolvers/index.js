@@ -27,7 +27,7 @@ export default [
     project,
     subject,
     Typeproject,
-    Step
+    Step,
     calendar,
     workShop,
     event,

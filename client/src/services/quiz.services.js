@@ -134,7 +134,7 @@ const DELETE_QUESTION= gql`
 
 
 async function deleteQuestion(id){
-  debugger
+  
   
   const variables = {id};
   console.log(variables)
@@ -146,7 +146,7 @@ async function deleteQuestion(id){
 
 
 async function deleteQuiz(id){
-  debugger
+  
   
   const variables = {id};
   console.log(variables)
@@ -157,7 +157,7 @@ async function deleteQuiz(id){
 
 
 async function addQuiz(label,time){
-  debugger
+  
   
   const variables = { label,time };
   console.log(variables)
@@ -172,7 +172,7 @@ async function addQuiz(label,time){
 
 
 async function addQuestion(id,question,optionA,optionB,optionC,optionD,note,answer){
-  debugger
+  
   
   const variables = { id,question,optionA,optionB,optionC,optionD,note,answer };
   console.log(variables)
@@ -182,30 +182,30 @@ async function addQuestion(id,question,optionA,optionB,optionC,optionD,note,answ
 
 
 async function updateQuestion(id,question,optionA,optionB,optionC,optionD,note,answer){
-  debugger
+  
   
   const variables = { id,question,optionA,optionB,optionC,optionD,note,answer };
   console.log(variables)
   var data = await client.mutate({ mutation : UPDATE_QUESTION , variables});
-  debugger
+  
   return data.data.updateQuestion;
 };
 
 
 
 async function getALLQuizzes(){
-    debugger
+    
     var data = await client.query({ query: GET_QUIZZES });
     
     return data.data.allQuizzes;
   };
   
   async function getQuizById(id){
-    debugger
+    
     const variables = {id};
     var data = await client.query({ query: GET_QUIZ_BY_ID ,variables ,});
     console.log("data "+data)
-    debugger
+    
     return data.data.quiz;
   };
   

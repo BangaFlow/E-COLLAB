@@ -230,7 +230,7 @@ Event.propType = {
   actions: PropTypes.array.isRequired
 };
 function mapStateToProps(state) {
-  debugger
+  
   return {
     events: state.event
   }

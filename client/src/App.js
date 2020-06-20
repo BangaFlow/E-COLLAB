@@ -38,6 +38,19 @@ const Details = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/app/projects/details')
 );
 
+const Categories = React.lazy(() =>
+  import(/* webpackChunkName: "views-error" */ './views/app/projects/categories')
+);
+
+const Projects = React.lazy(() =>
+  import(/* webpackChunkName: "views-error" */ './views/app/projects/Projects')
+);
+
+const Subjects = React.lazy(() =>
+  import(/* webpackChunkName: "views-error" */ './views/app/projects/Subjects')
+);
+
+
 const ViewQuizPaly = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/app/Quiz/quizPage')
 );

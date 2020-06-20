@@ -40,7 +40,7 @@ const CREATE_EVENT = gql`
 
 
 async function getEvents() {
-  debugger
+  
   var data = await client.query({ query: GET_EVENT });
 
   console.log(data)
@@ -49,11 +49,11 @@ async function getEvents() {
 
 
 async function addEvent(eventName,eventType, description, date,eventOrganizer,place) {
-  debugger
+  
   const variables = { eventName,eventType, description, date,eventOrganizer,place };
   console.log(variables)
   var data = await client.mutate({ mutation: CREATE_EVENT, variables });
-  debugger
+  
   return data.data.addEvent;
 };
 
@@ -109,7 +109,7 @@ const UPDATE_EVENT = gql`
 
 
 async function getUserCalendar(id) {
-  debugger
+  
   const variables = { id };
   var data = await client.mutate({ mutation: GET_USER_CALENDAR, variables });
   console.log(data)
@@ -120,11 +120,11 @@ async function getUserCalendar(id) {
 
 
 async function updateEvent(id,eventName,eventType, description, date,eventOrganizer,place) {
-  debugger
+  
   const variables = {id,eventName,eventType, description, date,eventOrganizer,place };
   var data = await client.mutate({ mutation: UPDATE_EVENT, variables });
   console.log(data)
-  debugger
+  
   return data.data.updateEvent;
 };
 
@@ -132,7 +132,7 @@ async function updateEvent(id,eventName,eventType, description, date,eventOrgani
 
 
 async function deleteEvent(id) {
-  debugger
+  
   const variables = { id };
   var data = await client.mutate({ mutation: DELETE_EVENT, variables });
   console.log(data)

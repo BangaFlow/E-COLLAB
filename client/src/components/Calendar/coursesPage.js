@@ -27,7 +27,6 @@ class coursesPage extends React.Component {
     submitHandler = (e)=> {
         e.preventDefault()
         console.log(this.state.course.title)
-        debugger;
         this.props.actions.createCourse(this.state.course)
 
     }
@@ -69,7 +68,7 @@ coursesPage.propType = {
 
 
 function mapStateToProps (state){
-  debugger
+  
 return{ courses :state.courses
 }
    
