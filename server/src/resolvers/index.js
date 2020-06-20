@@ -11,8 +11,6 @@ import question from './question';
 import quiz from './quiz';
 import task from './task'
 import column from './column'
-import profile from './profile';
-import skill from './skill';
 import team from './team';
 
 export default [

@@ -1,8 +1,6 @@
 import { gql } from 'apollo-server-express'
 
 export default gql`
-   scalar Date
-   
     extend type Query{
      event(id :String ):Event
      allEvents : [Event]

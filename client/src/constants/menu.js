@@ -137,7 +137,7 @@ const Standard = [
     id: "blankpage",
     icon: "iconsminds-bucket",
     label: "menu.app",
-    to: "/app/blank-page"
+    to: "/app/gogo"
   },
 ]
 console.log(currentUser)

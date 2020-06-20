@@ -101,7 +101,7 @@ module.exports = {
 "menu.Quizzes":"All Quizzes",
 "menu.quizzes":"All Quizzes",
 "menu.question":"Questions",
-"menu.questions":"Questions"
+"menu.questions":"Questions",
  /* profile */
 "menu.profile" : "Profile"
 };
