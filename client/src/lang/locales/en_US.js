@@ -85,6 +85,7 @@ module.exports = {
  /*Project*/
 
  "menu.projects":"Projects",
+ "projects":"Projects",
  "menu.categories":"Categories",
  "menu.Projects":"Projects",
  "menu.Subjects":"Subjects",
@@ -107,5 +108,16 @@ module.exports = {
 "menu.question":"Questions",
 "menu.questions":"Questions",
  /* profile */
-"menu.profile" : "Profile"
+"menu.profile" : "Profile",
+"File Management":"File Management",
+"Event":"Event",
+"Categories":"Categories",
+"Projects":"Projects",
+"Subjects":"Subjects",
+"Events":"Events",
+"Workshops":"Workshops",
+"Meetings":"Meetings",
+"Workshops ":"Workshops ",
+"Mettings ":"Mettings ",
+
 };

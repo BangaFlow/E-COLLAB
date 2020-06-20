@@ -17,7 +17,7 @@ const GET_TEAMS = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -47,7 +47,7 @@ const GET_TEAMS = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }
@@ -71,7 +71,7 @@ const CHANGE_TEAM_NAME = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -101,7 +101,7 @@ const CHANGE_TEAM_NAME = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }
@@ -125,7 +125,7 @@ const CHANGE_SUBJECT = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -155,7 +155,7 @@ const CHANGE_SUBJECT = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }
@@ -192,7 +192,7 @@ const GET_PROJECTS = gql`
       }
       subjects {
         id
-        name
+        title
       }
     }
   }
@@ -215,7 +215,7 @@ const CREATE_TEAM = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -245,7 +245,7 @@ const CREATE_TEAM = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }
@@ -269,7 +269,7 @@ const AUTO_GENERATE_TEAMS = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -299,7 +299,7 @@ const AUTO_GENERATE_TEAMS = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }
@@ -323,7 +323,7 @@ const ADD_TUTOR = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -353,7 +353,7 @@ const ADD_TUTOR = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }
@@ -381,7 +381,7 @@ const CHANGE_TUTOR = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -411,7 +411,7 @@ const CHANGE_TUTOR = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }
@@ -439,7 +439,7 @@ const TRANSFER_MEMBER = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -469,7 +469,7 @@ const TRANSFER_MEMBER = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }
@@ -503,7 +503,7 @@ const SWAP_MEMBERS = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -533,7 +533,7 @@ const SWAP_MEMBERS = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }
@@ -557,7 +557,7 @@ const ADD_MEMBER = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -587,7 +587,7 @@ const ADD_MEMBER = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }
@@ -611,7 +611,7 @@ const REMOVE_MEMBER = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -641,7 +641,7 @@ const REMOVE_MEMBER = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }
@@ -665,7 +665,7 @@ const REMOVE_TUTOR = gql`
       }
       subject {
         id
-        name
+        title
       }
       project {
         id
@@ -695,7 +695,7 @@ const REMOVE_TUTOR = gql`
         }
         subjects {
           id
-          name
+          title
         }
       }
     }

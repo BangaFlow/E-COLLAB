@@ -52,7 +52,7 @@ const CREATE_PROFILE = gql`
         name
         subject {
           id
-          name
+          title
         }
         members {
           id
@@ -128,7 +128,7 @@ const UPDATE_PROFILE = gql`
         name
         subject {
           id
-          name
+          title
         }
         members {
           id
@@ -188,7 +188,7 @@ const FETCH_PROFILE_BY_USER_ID = gql`
         name
         subject {
           id
-          name
+          title
         }
         members {
           id

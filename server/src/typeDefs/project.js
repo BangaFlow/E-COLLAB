@@ -1,29 +1,27 @@
-import { gql } from 'apollo-server-express'
+import { gql } from "apollo-server-express";
 
 export default gql`
-scalar Date
+  scalar Date
 
- type Period {
+  type Period {
     start_choose_date: Date
     end_choose_date: Date
   }
 
-
-
   type Project {
     id: ID!
-    title:String, 
-    category: String,
-    school_year:String,
-    start_date:Date,
-    end_date:Date,
-    class_involved:String,      
-    methodology:String,
-       
-    tutors_involved:[User],
-    learners_involved:[User],
-    subjects:[Subject],
-    isvalid:Boolean,
+    title: String
+    category: String
+    school_year: String
+    start_date: Date
+    end_date: Date
+    class_involved: String
+    methodology: String
+    short_desc: String
+    tutors_involved: [User]
+    learners_involved: [User]
+    subjects: [Subject]
+    isvalid: Boolean
 
     number_of_teams: Int
     number_of_members: Int
@@ -34,45 +32,61 @@ scalar Date
     choose_date_limit: Period
   }
 
+  extend type Query {
+    getproject(id: String): Project
+    getprojects: [Project]
+  }
 
-    extend type Query{
-     getproject(id:String):Project
-     getprojects:[Project]
-    
-    }
-
-    input periode_input {
-   start_choose_date: Date
-   end_choose_date: Date 
-}
+  input periode_input {
+    start_choose_date: Date
+    end_choose_date: Date
+  }
   extend type Mutation {
+    addproject(
+      title: String
+      category: String
+      school_year: String
+      start_date: Date
+      end_date: Date
+      class_involved: String
+      methodology: String
+      number_of_teams: Int
+      number_of_members: Int
+      number_of_tutors_per_team: Int
 
-    
-    addproject(title:String, category: String,
-    school_year:String,start_date:Date,end_date:Date,
-    class_involved:String,
-    methodology:String,number_of_teams:Int,
-    number_of_members:Int,number_of_tutors_per_team:Int,
+      auto_generate_teams: Boolean
+      competence_generate_teams: Boolean
+      learners_choose_teams: Boolean
+      Choose_date_limit: periode_input
+    ): Project
 
-    auto_generate_teams: Boolean,
-    competence_generate_teams: Boolean,
-    learners_choose_teams: Boolean,
-    Choose_date_limit: periode_input):Project 
+    updateproject(
+      id: String
+      title: String
+      category: String
+      school_year: String
+      start_date: Date
+      end_date: Date
+      class_involved: String
+      methodology: String
+      number_of_teams: Int
+      number_of_members: Int
+      number_of_tutors_per_team: Int
+    ): Project
+    deleteproject(id: String): Project
 
-        updateproject(id:String,title:String, category: String,school_year:String,start_date:Date,end_date:Date,class_involved:String,methodology:String,number_of_teams:Int,number_of_members:Int,number_of_tutors_per_team:Int):Project
-        deleteproject(id: String):Project
+    add_tutors_to_project(id: String, id_tutor: String): Project
+    add_learners_to_project(id: String): Project
 
-   
-    add_tutors_to_project(id:String,id_tutor:String):Project
-    add_learners_to_project(id:String):Project
-
-    add_subjects_to_project(id:String,title:String, description:String):Project
-
-        
-    }
+    add_subjects_to_project(
+      id: String
+      title: String
+      description: String
+    ): Project
+  }
 `;
 
- /*
+/*
     validateproject(id: String):Project
  
  tutors_involved(params:tutors_involvedInput):[User]!
@@ -93,7 +107,7 @@ scalar Date
     }
     add_s_to_p(id:String,title:String, description:String):Project
     */
-    /*
+/*
         tutors_involved:[User],
         learners_involved:[User],
         subjects:[Subject]

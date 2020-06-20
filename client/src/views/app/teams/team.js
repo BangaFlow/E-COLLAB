@@ -168,7 +168,7 @@ const Team = (props) => {
                       {team.subject ? (
                         <>
                           <b> Name: </b>
-                          <p>{team.subject.name}</p>
+                          <p>{team.subject.title}</p>
                           <div
                             className="badge badge-info float-right mr-1"
                             onClick={() => toggleSubjectModal()}

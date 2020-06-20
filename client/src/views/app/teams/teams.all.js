@@ -79,13 +79,13 @@ function AllTeams(props) {
               <tbody>
                 {teams &&
                   teams.slice(0, Limit).map((team, id) => (
-                    <tr>
+                    <tr key={id}>
                       <th scope="row">{id + 1}</th>
                       <td>{team.name}</td>
                       <td>{team.project.title}</td>
                       <td>
                         {team.subject ? (
-                          team.subject.name
+                          team.subject.title
                         ) : (
                           <i className="text-danger">
                             Not selected yet, please assign one

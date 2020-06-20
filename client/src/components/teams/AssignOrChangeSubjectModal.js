@@ -66,7 +66,7 @@ const AssignOrChangeSubjectModal = (props) => {
             <FormGroup>
               <Label for="teamname">Please choose the subject</Label>
               {team.subject && (
-                <FormText>Current Subject : {team.subject.name}</FormText>
+                <FormText>Current Subject : {team.subject.title}</FormText>
               )}
               <FormGroup>
                 <Select
@@ -77,7 +77,7 @@ const AssignOrChangeSubjectModal = (props) => {
                   name="color"
                   options={subjects.map((subject, i) => {
                     return {
-                      label: subject.name,
+                      label: subject.title,
                       value: subject.id,
                       key: i,
                     };
