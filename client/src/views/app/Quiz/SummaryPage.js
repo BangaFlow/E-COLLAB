@@ -5,7 +5,7 @@ import { Colxx } from "../../../components/common/CustomBootstrap"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { Progress } from "reactstrap"
-import * as eventAction from "../../../redux/actions/eventActions"
+import * as quizAction from "../../../redux/actions/quiz.actions"
 import { bindActionCreators } from "redux"
 
 import GradientWithRadialProgressCard from "../../../components/cards/GradientWithRadialProgressCard"
@@ -35,6 +35,26 @@ export class SummaryPage extends Component {
 
   handleQuit = () => {
     window.confirm("Are you sure you want to quite?")
+    let user =JSON.parse(localStorage.getItem('user'))
+    let score =ceil((this.props.location.state.score * 100) / this.props.location.state.totalScore)
+    let skill= this.props.location.state.skill
+    console.log("the score"+score)
+    let grade= ceil((score/100) *20 )
+    console.log(user.id)
+    console.log("le grade"+grade)
+      if(grade>10){
+
+        this.props.actions.assignSkill(user.id,skill,grade).catch((e) => {
+          alert(e)
+        })
+      }
+      
+
+
+
+
+
+
     this.props.history.push("/app/Quiz/quizzes")
   }
 
@@ -105,12 +125,14 @@ SummaryPage.propType = {
 }
 
 function mapStateToProps(state) {
+
   return {
-    event: state.event,
+    quiz: state.quiz
   }
 }
 
 function mapDispatchtoProps(dispatch) {
-  return { actions: bindActionCreators(eventAction, dispatch) }
+
+  return { actions: bindActionCreators(quizAction, dispatch) }
 }
 export default connect(mapStateToProps, mapDispatchtoProps)(SummaryPage)

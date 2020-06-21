@@ -1,22 +1,22 @@
 const currentUser = JSON.parse(localStorage.getItem('user'))
 const Admin = [
-  {
-    id: "gogo",
-    icon: "iconsminds-library",
-    label: "menu.gogo",
-    to: "/app/gogo",
-    subs: [
-      {
-        icon: "simple-icon-paper-plane",
-        label: "menu.start",
-        to: "/app/gogo/start"
-      }  ,{
-        icon: "simple-icon-paper-plane",
-        label: "menu.start",
-        to: "/app/gogo/Projects"
-      }     
-    ]
-  },
+  // {
+  //   id: "gogo",
+  //   icon: "iconsminds-library",
+  //   label: "menu.gogo",
+  //   to: "/app/gogo",
+  //   subs: [
+  //     {
+  //       icon: "simple-icon-paper-plane",
+  //       label: "menu.start",
+  //       to: "/app/gogo/start"
+  //     }  ,{
+  //       icon: "simple-icon-paper-plane",
+  //       label: "menu.start",
+  //       to: "/app/gogo/Projects"
+  //     }     
+  //   ]
+  // },
   {
     id: "projects",
     icon: "iconsminds-library",
@@ -86,19 +86,19 @@ const Admin = [
 
     ]
   },
-  {
-    id: "secondmenu",
-    icon: "iconsminds-three-arrow-fork",
-    label: "menu.second-menu",
-    to: "/app/second-menu",
-    subs: [
-      {
-        icon: "simple-icon-paper-plane",
-        label: "menu.second",
-        to: "/app/second-menu/second"
-      }
-    ]
-  },
+  // {
+  //   id: "secondmenu",
+  //   icon: "iconsminds-three-arrow-fork",
+  //   label: "menu.second-menu",
+  //   to: "/app/second-menu",
+  //   subs: [
+  //     {
+  //       icon: "simple-icon-paper-plane",
+  //       label: "menu.second",
+  //       to: "/app/second-menu/second"
+  //     }
+  //   ]
+  // },
   {
 
     id: "skills_page",
@@ -124,13 +124,13 @@ const Admin = [
     label: "menu.Calendar",
     to: "/app/myClendar"
   },
-  {
-    id: "docs",
-    icon: "iconsminds-library",
-    label: "menu.docs",
-    to: "https://gogo-react-docs.coloredstrategies.com/",
-    newWindow:true
-  },
+  // {
+  //   id: "docs",
+  //   icon: "iconsminds-library",
+  //   label: "menu.docs",
+  //   to: "https://gogo-react-docs.coloredstrategies.com/",
+  //   newWindow:true
+  // },
   {
     id: "users",
     icon: "iconsminds-bucket",

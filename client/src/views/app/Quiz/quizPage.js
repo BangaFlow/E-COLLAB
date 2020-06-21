@@ -30,6 +30,7 @@ export class QuizPage extends Component {
         seconds: 0,
       },
       totalScore: 0,
+      skill:""
     }
     this.interval = null
   }
@@ -116,13 +117,23 @@ export class QuizPage extends Component {
 
   quizTime = 0
   totalScore = 0
+  skill=""
   componentDidMount() {
+   console.log(this.props.match.params.id)
     this.props.quiz.map((q) => {
       if (q.id === this.props.match.params.id) {
         q.questions.forEach((q) => {
           this.data.push(q)
         })
         this.quizTime = q.time
+        this.skill=q.skill.id
+        this.setState({skill:q.skill.id})
+        console.log("skill"+this.skill)
+        
+      
+
+
+        
       }
     })
     this.data.forEach((q) => {
@@ -133,6 +144,7 @@ export class QuizPage extends Component {
     this.setState({ quizTime: this.totalScore })
     this.setState({ quizTime: this.quizTime })
     this.setState({ questions: this.data })
+    
     console.log(this.data)
     console.log(this.state.quizTime)
 
@@ -248,6 +260,7 @@ export class QuizPage extends Component {
       wrongAnswers: state.wrongAnswers,
       nbNoAnswer: state.questions.length - state.nbOfAnsweredQuestion,
       totalScore: this.totalScore,
+      skill:this.skill
     }
     setTimeout(() => {
       this.props.history.push("/app/result", playStats)

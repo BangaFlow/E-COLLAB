@@ -1,38 +1,50 @@
-import React from "react"
-import { Button, Modal, ModalHeader, ModalBody, Label } from "reactstrap"
-import "react-datepicker/dist/react-datepicker.css"
-import IntlMessages from "../../helpers/IntlMessages"
-import PropTypes from "prop-types"
-import { connect } from "react-redux"
-import * as quizAction from "../../redux/actions/quiz.actions"
-import { bindActionCreators } from "redux"
-import { AvForm, AvField } from "availity-reactstrap-validation"
-
+import React from "react";
+import { Button, Modal, ModalHeader, ModalBody, Label } from "reactstrap";
+import "react-datepicker/dist/react-datepicker.css";
+import IntlMessages from "../../helpers/IntlMessages";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import * as quizAction from "../../redux/actions/quiz.actions";
+import { bindActionCreators } from "redux";
+import { AvForm, AvField } from "availity-reactstrap-validation";
+import getSkillFetch from "../Quiz/fetchSkills";
+import CustomSelectInput from "../../components/common/CustomSelectInput";
+import Select from "react-select";
 class AddModal extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       labl: "",
       time: "",
-    }
+      skills: [],
+      idskill: {},
+    };
+  }
+
+  componentDidMount() {
+    getSkillFetch().then((data) => this.setState({ skills: data.getSkills }));
   }
 
   save = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     this.props.actions
-      .addquiz(this.state.label, parseInt(this.state.time))
+      .addquiz(
+        this.state.label,
+        parseInt(this.state.time),
+        this.state.idskill.key
+      )
       .catch((err) => {
-        console.log(err)
-      })
-    console.log("quia" + this.props.quiz)
+        console.log(err);
+      });
+    console.log("quia" + this.props.quiz);
 
     this.setState({
       label: "",
       time: "",
-    })
+    });
 
-    this.props.toggleModal()
-  }
+    this.props.toggleModal();
+  };
   render() {
     return (
       <Modal
@@ -55,7 +67,7 @@ class AddModal extends React.Component {
               name="label"
               defaultValue={this.state.label}
               onChange={(event) => {
-                this.setState({ label: event.target.value })
+                this.setState({ label: event.target.value });
               }}
               validate={{
                 required: {
@@ -72,7 +84,7 @@ class AddModal extends React.Component {
               min="5"
               defaultValue={this.state.time}
               onChange={(event) => {
-                this.setState({ time: event.target.value })
+                this.setState({ time: event.target.value });
               }}
               validate={{
                 required: {
@@ -81,6 +93,20 @@ class AddModal extends React.Component {
                 },
               }}
             />
+            <Label className="mt-4">Skill</Label>
+            <Select
+              components={{ Input: CustomSelectInput }}
+              className="react-select"
+              classNamePrefix="react-select"
+              name="form-field-name"
+              options={this.state.skills.map((x, i) => {
+                return { label: x.label, value: x.id, key: x.id };
+              })}
+              onChange={(value) => {
+                this.setState({ idskill: value });
+              }}
+            />
+            <br></br>
             <Button color="secondary" outline onClick={this.props.toggleModal}>
               <IntlMessages id="cancel" />
             </Button>
@@ -90,21 +116,21 @@ class AddModal extends React.Component {
           </AvForm>
         </ModalBody>
       </Modal>
-    )
+    );
   }
 }
 AddModal.propType = {
   dispatch: PropTypes.func.isRequired,
   actions: PropTypes.array.isRequired,
-}
+};
 
 function mapStateToProps(state) {
   return {
     quiz: state.quiz,
-  }
+  };
 }
 
 function mapDispatchtoProps(dispatch) {
-  return { actions: bindActionCreators(quizAction, dispatch) }
+  return { actions: bindActionCreators(quizAction, dispatch) };
 }
-export default connect(mapStateToProps, mapDispatchtoProps)(AddModal)
+export default connect(mapStateToProps, mapDispatchtoProps)(AddModal);
