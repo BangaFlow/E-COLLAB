@@ -4,6 +4,7 @@ import Team from "../models/team";
 import Subject from "../models/subject";
 import Project from "../models/project";
 import User from "../models/user";
+import Column from "../models/column"
 
 export default {
   Query: {
@@ -36,10 +37,14 @@ export default {
   },
   Mutation: {
     createTeam: async (_, { name, members, project_id }, context, info) => {
+      let cols = await Column.create({title:'Not Started'},{title:'In Progress'},{title:'Finished'})
+      cols = cols.map(col => col._id)
+      console.log(cols)
       let team = new Team({
         name,
         members,
         project: project_id,
+        workspace: cols
       });
       team = await team.save();
       return team;
@@ -363,6 +368,9 @@ export default {
     project: async (team, arg, context, info) => {
       return (await team.populate("project").execPopulate()).project;
     },
+    workspace: async (team, arg, context, info) => {
+      return (await team.populate("workspace").execPopulate()).workspace;
+    }
   },
   Project: {
     subjects: async (project, arg, context, info) => {

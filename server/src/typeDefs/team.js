@@ -33,6 +33,7 @@ export default gql`
     tutors: [User]
     subject: Subject
     project: Project
+    workspace: [Column]
   }
 
   extend type Query {

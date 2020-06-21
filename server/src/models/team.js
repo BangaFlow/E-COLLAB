@@ -23,7 +23,13 @@ const TeamSchema = new mongoose.Schema({
   project: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "project"
-  }
+  },
+  workspace: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Column'
+    }
+  ]
 });
 
 module.exports = Team = mongoose.model("team", TeamSchema);
