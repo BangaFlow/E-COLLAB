@@ -1,45 +1,49 @@
-import * as types from "../constants/quiz.constants"
-import * as quizApi from "../../services/quiz.services"
+import * as types from "../constants/quiz.constants";
+import * as quizApi from "../../services/quiz.services";
 
 export function loadQuizSuccess(quiz) {
-  return { type: types.LOAD_aLL_QUIZZES_SUCCESS, quiz }
+  return { type: types.LOAD_aLL_QUIZZES_SUCCESS, quiz };
 }
 
 export function updateQuizSuccess(quiz) {
-  return { type: types.UPDATE_QUIZ_QUESTION_SUCCESS, quiz }
+  return { type: types.UPDATE_QUIZ_QUESTION_SUCCESS, quiz };
+}
+
+export function assignQuiz(quiz) {
+  return { type: types.ASSIGN_SKILL, quiz };
 }
 
 export function loadQuizByIdSuccess(quiz) {
-  return { type: types.LOAD_QUIZ_SUCCESS, quiz }
+  return { type: types.LOAD_QUIZ_SUCCESS, quiz };
 }
 
 export function deleteQuestionSuccess(quiz) {
-  return { type: types.DELETE_QUIZ_QUESTION_SUCCESS, quiz }
+  return { type: types.DELETE_QUIZ_QUESTION_SUCCESS, quiz };
 }
 
 export function addQuestionSuccess(quiz) {
-  return { type: types.ADD_QUIZ_QUESTION_SUCCESS, quiz }
+  return { type: types.ADD_QUIZ_QUESTION_SUCCESS, quiz };
 }
 
 export function addQuizSuccess(quiz) {
-  return { type: types.ADD_QUIZ_SUCCESS, quiz }
+  return { type: types.ADD_QUIZ_SUCCESS, quiz };
 }
 
 export function deleteQuizSuccess(quiz) {
-  return { type: types.DELETE_QUIZ_SUCCESS, quiz }
+  return { type: types.DELETE_QUIZ_SUCCESS, quiz };
 }
 
-export function addquiz(label, time) {
+export function addquiz(label, time, id_skill) {
   return function (dispatch) {
     return quizApi
-      .addQuiz(label, time)
+      .addQuiz(label, time, id_skill)
       .then((quiz) => {
-        dispatch(addQuizSuccess(quiz))
+        dispatch(addQuizSuccess(quiz));
       })
       .catch((err) => {
-        throw err
-      })
-  }
+        throw err;
+      });
+  };
 }
 
 export function deletequiz(id) {
@@ -47,12 +51,23 @@ export function deletequiz(id) {
     return quizApi
       .deleteQuiz(id)
       .then((quiz) => {
-        dispatch(deleteQuizSuccess(quiz))
+        dispatch(deleteQuizSuccess(quiz));
       })
       .catch((err) => {
-        throw err
+        throw err;
+      });
+  };
+}
+
+export function assignSkill(id_user, id_skill, grade) {
+  return function (dispatch) {
+    return quizApi
+      .assignSkill(id_user, id_skill, grade)
+      .then((quiz) => {
+        dispatch(assignSkill(quiz));
       })
-  }
+      .catch((err) => {});
+  };
 }
 
 export function deletequestion(id) {
@@ -60,12 +75,12 @@ export function deletequestion(id) {
     return quizApi
       .deleteQuestion(id)
       .then((quiz) => {
-        dispatch(deleteQuestionSuccess(quiz))
+        dispatch(deleteQuestionSuccess(quiz));
       })
       .catch((err) => {
-        throw err
-      })
-  }
+        throw err;
+      });
+  };
 }
 
 export function addquestion(
@@ -91,12 +106,12 @@ export function addquestion(
         answer
       )
       .then((quiz) => {
-        dispatch(addQuestionSuccess(quiz))
+        dispatch(addQuestionSuccess(quiz));
       })
       .catch((err) => {
-        throw err
-      })
-  }
+        throw err;
+      });
+  };
 }
 
 export function updatequestion(
@@ -122,12 +137,12 @@ export function updatequestion(
         answer
       )
       .then((quiz) => {
-        dispatch(updateQuizSuccess(quiz))
+        dispatch(updateQuizSuccess(quiz));
       })
       .catch((err) => {
-        throw err
-      })
-  }
+        throw err;
+      });
+  };
 }
 
 export function getAllQuizzes() {
@@ -135,12 +150,12 @@ export function getAllQuizzes() {
     return quizApi
       .getALLQuizzes()
       .then((quiz) => {
-        dispatch(loadQuizSuccess(quiz))
+        dispatch(loadQuizSuccess(quiz));
       })
       .catch((error) => {
-        throw error()
-      })
-  }
+        throw error();
+      });
+  };
 }
 
 export function getQuizById(id) {
@@ -148,10 +163,10 @@ export function getQuizById(id) {
     return quizApi
       .getQuizById(id)
       .then((quiz) => {
-        dispatch(loadQuizByIdSuccess(quiz))
+        dispatch(loadQuizByIdSuccess(quiz));
       })
       .catch((error) => {
-        throw error()
-      })
-  }
+        throw error();
+      });
+  };
 }

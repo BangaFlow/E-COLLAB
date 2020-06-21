@@ -36,8 +36,6 @@ class AddModal extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-    console.log("quia" + this.props.quiz);
-
     this.setState({
       label: "",
       time: "",
