@@ -4,6 +4,7 @@ export default gql`
     extend type Query{
         column(id: ID!): Column #@auth
         columns: [Column!]!
+        getWorkspace(columns: [String!]!): [Column!]!
     }
 
     extend type Mutation {

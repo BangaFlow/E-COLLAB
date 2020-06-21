@@ -39,7 +39,7 @@ export default {
     createTeam: async (_, { name, members, project_id }, context, info) => {
       let cols = await Column.create({title:'Not Started'},{title:'In Progress'},{title:'Finished'})
       cols = cols.map(col => col._id)
-      console.log(cols)
+      // console.log(cols)
       let team = new Team({
         name,
         members,

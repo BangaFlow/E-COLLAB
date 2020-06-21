@@ -3,7 +3,7 @@ import TextLoop from 'react-text-loop'
 import { Avatar, Card, List, Tag, Typography, Dropdown, Menu, Button,Form, Modal, Radio, Select, Input, Alert, message } from 'antd'
 import { FileTextOutlined, EllipsisOutlined, DeleteOutlined, EditOutlined, ExclamationCircleOutlined, BugFilled, FireFilled, ToolFilled} from '@ant-design/icons'
 import { Draggable } from 'react-beautiful-dnd'
-import getUsersFetch from '../users/getUsers_fetch'
+import { useSelector } from 'react-redux'
 import updateTaskFetch from './updateTask_fetch'
 
 const { Text } = Typography
@@ -40,7 +40,7 @@ function Task({deleteTask, updateParents, task, index}) {
 
     const [visible, setVisible] = useState(false)
     const [form] = Form.useForm()
-    const [users, setUsers] = useState([])
+    const users =  useSelector(state => state.profile.teams[0].members)
     const [alert, setAlert] = useState({visible: false, message: '', type: ''})
     const initialValues = {
       id: task.id,
@@ -50,7 +50,6 @@ function Task({deleteTask, updateParents, task, index}) {
     }
 
     const showModal = async () => {
-      await getUsersFetch().then(data => setUsers(data.users))
       setVisible(true)
     }
     // Handle the moodal footer elements actions

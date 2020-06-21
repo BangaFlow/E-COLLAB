@@ -186,6 +186,20 @@ const FETCH_PROFILE_BY_USER_ID = gql`
       teams {
         id
         name
+        workspace{
+          id
+            title
+            taskIds
+            tasks {
+                id
+                title
+                type
+                doers {
+                    id
+                    name
+                }
+            }
+        }
         subject {
           id
           title

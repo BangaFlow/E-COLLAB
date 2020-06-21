@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import { 
   PageHeader, 
   Tag, 
   List, 
 } from 'antd'
 import { DragDropContext } from 'react-beautiful-dnd'
-import getColumnsFetch from './getColumns_fetch'
+import * as profileActions from '../../redux/actions/profile.actions'
+import getColumnsFetch from './getWorkSpace_fetch'
 import updateOneColumnFetch from './updateColumn_fetch'
 import updateTwoColumnFetch from './updateTwoColumns_fetch'
 import Column from './column'
@@ -38,6 +40,9 @@ function itemRender(route, params, routes, paths) {
 function RoadMap() {
 
     const [data, setData] = useState([])
+    const user = useSelector(state => state.authentication.user)
+    const teams = useSelector(state => state.profile.teams)
+    const dispatch = useDispatch()
     const onDragEnd = result => {
     // TODO: reorder our column
       const { destination, source, draggableId } = result
@@ -115,9 +120,13 @@ function RoadMap() {
     }
 
     // Fetch users at first render & on users list change
-    useEffect(() => {
-      getColumnsFetch().then((data) => setData(data.columns))
-    }, [])
+    useEffect(() => {  
+      if(teams){
+        getColumnsFetch(JSON.stringify(teams[0].workspace.map(col => col.id))).then((data) => setData(data.getWorkspace))
+      } else {
+        dispatch(profileActions.fetchProfile(user.id))
+      }
+    }, [dispatch, user, teams])
 
     return (
       <>
@@ -150,7 +159,7 @@ function RoadMap() {
               <Column key={item.id} toParent={{column: data, changeData:(items) => setData(items)}} column={item} tasks={item.taskIds.map(taskId => item.tasks.find(task => task.id === taskId ))} />
             </List.Item>
           )}
-        />
+        />  
       </DragDropContext>
       </>
     )

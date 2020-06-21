@@ -178,7 +178,7 @@ class TopNav extends Component {
 
   handleLogout = () => {
     this.props.logout()
-    window.location.pathname = '/auth'
+    window.location.pathname = '/'
   };
 
   handleProfile = () => {

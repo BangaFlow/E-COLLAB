@@ -16,6 +16,13 @@ export default {
         columns: (root, arg, { req }, info) => {
             // TODO: auth, projection, pagination
             return Column.find({})
+        },
+        getWorkspace: (root, {columns}, context, info) => {
+            return Column.find({
+                '_id': { $in: columns}
+            }, function(err, docs){
+                 console.log(docs);
+            });
         }
     },
     Mutation: {

@@ -22,10 +22,10 @@ import {
 import './style.css'
 import { Droppable } from 'react-beautiful-dnd'
 import Task from './task'
-import getUsersFetch from '../users/getUsers_fetch'
 import updateTwoColumnFetch from './updateTwoColumns_fetch'
 import createTaskFetch from './createTask_fetch'
 import deleteTaskFetch from './deleteTask_fetch'
+import { useSelector } from 'react-redux'
 
 const { Text } = Typography
 const formItemLayout = {
@@ -61,12 +61,11 @@ function Column({toParent, column, tasks}) {
     const { title } = column
     const [visible, setVisible] = useState(false)
     const [form] = Form.useForm()
-    const [users, setUsers] = useState([])
+    const users =  useSelector(state => state.profile.teams[0].members)
     const [alert, setAlert] = useState({visible: false, message: '', type: ''})
     const newTaskIds = Array.from(column.taskIds)
 
     const showModal = async () => {
-      await getUsersFetch().then(data => setUsers(data.users))
       setVisible(true)
     }
     // Handle the moodal footer elements actions
@@ -129,8 +128,6 @@ function Column({toParent, column, tasks}) {
     }
 
     const updateParents = async (id, newValues) => {
-      let users = []
-      await getUsersFetch().then(data => users = data.users)
       const newTasks = Array.from(column.tasks)
       const taskIndex = newTasks.findIndex(task => task.id === id)
       const newDoers = newValues.doers.map(doerId => users.find(user => doerId === user.id))
