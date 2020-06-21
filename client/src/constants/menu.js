@@ -73,16 +73,16 @@ const Admin = [
         label: "Events",
         to: "/app/Event/events"
       } ,
-      {
-        icon: "simple-icon-star",
-        label: "Workshops ",
-        to: "/app/Event/workshops"
-      } ,
-      {
-        icon: "simple-icon-paper-clip",
-        label: "Mettings ",
-        to: "/app/Event/meetings"
-      } 
+      // {
+      //   icon: "simple-icon-star",
+      //   label: "Workshops ",
+      //   to: "/app/Event/workshops"
+      // } ,
+      // {
+      //   icon: "simple-icon-paper-clip",
+      //   label: "Mettings ",
+      //   to: "/app/Event/meetings"
+      // } 
 
     ]
   },
@@ -118,12 +118,12 @@ const Admin = [
     label: "menu.profile",
     to: "/app/profile/me",
   },
-  {
-    id: "Calendar",
-    icon: "iconsminds-calendar-4",
-    label: "menu.Calendar",
-    to: "/app/myClendar"
-  },
+  // {
+  //   id: "Calendar",
+  //   icon: "iconsminds-calendar-4",
+  //   label: "menu.Calendar",
+  //   to: "/app/myClendar"
+  // },
   // {
   //   id: "docs",
   //   icon: "iconsminds-library",
