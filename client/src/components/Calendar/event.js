@@ -148,9 +148,9 @@ export class Event extends Component {
                       <p className="mb-3">
                         {this.props.event.description}
                       </p>
-                      <Badge color="outline-secondary mb-1 mr-1" className="text-center" pill >
+                      {/* <Badge color="outline-secondary mb-1 mr-1" className="text-center" pill >
                       Participate
-                     </Badge>
+                     </Badge> */}
                       
 
                       
